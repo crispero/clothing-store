@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <button mat-icon-button (click)="onClickHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>Clothes store</span>
+  <mat-button-toggle-group name="fontStyle" appearance="legacy" class="genderLabel">
+    <mat-button-toggle value="bold" [checked]="isManCurrentGenderType()">Женское</mat-button-toggle>
+    <mat-button-toggle value="italic" [checked]="!isManCurrentGenderType()">Мужское</mat-button-toggle>
+  </mat-button-toggle-group>
+  <span class="example-spacer"></span>
+  <button mat-icon-button (click)="onClickUserProfile()">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button mat-icon-button (click)="onClickFavorite()">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button (click)="onClickBasket()">
+    <mat-icon>shopping_basket</mat-icon>
+  </button>
+</mat-toolbar>
+
+
