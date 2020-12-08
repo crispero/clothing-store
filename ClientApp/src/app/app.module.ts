@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './routes/app-routes.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,8 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
 import { FavoriteComponent } from './components/favorite/favorite.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -30,15 +33,18 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
     MatGridListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {  }
