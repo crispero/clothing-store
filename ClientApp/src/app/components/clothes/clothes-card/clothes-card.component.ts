@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ClothesModel } from "../../../models/clothes.model";
 
 @Component({
   selector: 'app-clothes-card',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./clothes-card.component.scss']
 })
 export class ClothesCardComponent implements OnInit {
+  @Input() public clothes: ClothesModel;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  addToFavorite(): void {
+
+  }
+
+  addToBasket(): void {
+
+  }
 }

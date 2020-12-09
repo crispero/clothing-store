@@ -1,10 +1,11 @@
 ﻿import { EntityModel } from "./entity.model";
+import { GenderType } from "../utils/GenderType";
 
-export class ClothesModel extends EntityModel {
-  private _name: string;
-
-  constructor(name: string) {
-    super();
-    this._name = name;
-  }
+export interface ClothesModel extends EntityModel {
+  name: string;
+  price: number;
+  pictureUrl: string;
+  description: string;
+  color: string;
+  gender: GenderType;
 }

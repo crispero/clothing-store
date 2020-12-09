@@ -11,7 +11,15 @@ import { ApplicationUtils } from "../../../utils/ApplicationUtils";
   styleUrls: ['./clothes-list.component.scss']
 })
 export class ClothesListComponent implements OnInit {
-  public clothesList: ClothesModel[] = [];
+  public clothesList: ClothesModel[] = [
+    { id: "1",
+      name: "Футболка",
+      description: "крутая",
+      color: "серый",
+      price: 300,
+      gender: GenderType.Man,
+      pictureUrl: "",
+    }];
   public currentGenderType: Observable<GenderType>;
 
   constructor(

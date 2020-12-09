@@ -11,12 +11,14 @@ import { Observable } from "rxjs";
 })
 export class HeaderComponent implements OnInit {
   public currentGenderType: Observable<GenderType>;
+  public isCurrentWomanType: boolean = true;
 
   constructor(
     private readonly appRoutesService: AppRoutesService,
     private readonly applicationUtils: ApplicationUtils,
   ) {
     this.currentGenderType = this.applicationUtils.currentGenderType;
+    this.currentGenderType.subscribe(value => this.isCurrentWomanType = value === GenderType.Woman);
   }
 
   ngOnInit(): void {
