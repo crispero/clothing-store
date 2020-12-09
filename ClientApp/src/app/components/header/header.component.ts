@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppRoutesService } from "../../routes/app-routes.service";
 import { ApplicationUtils } from "../../utils/ApplicationUtils";
 import { GenderType } from "../../utils/GenderType";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -9,13 +10,17 @@ import { GenderType } from "../../utils/GenderType";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public currentGenderType: Observable<GenderType>;
 
   constructor(
     private readonly appRoutesService: AppRoutesService,
     private readonly applicationUtils: ApplicationUtils,
-  ) { }
+  ) {
+    this.currentGenderType = this.applicationUtils.currentGenderType;
+  }
 
   ngOnInit(): void {
+
   }
 
   onClickHome(): void {
@@ -40,10 +45,6 @@ export class HeaderComponent implements OnInit {
 
   onClickWomanType(): void {
     this.setCurrentGenderType(GenderType.Woman);
-  }
-
-  isManCurrentGenderType(): boolean {
-    return this.applicationUtils.currentGenderType === GenderType.Man;
   }
 
   private setCurrentGenderType(type: GenderType): void {

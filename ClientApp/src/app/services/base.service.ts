@@ -7,7 +7,7 @@ import { Id } from "../models/id";
   providedIn: "root"
 })
 export class BaseService<TEntity extends EntityModel> {
-  private readonly apiUrl: string = "https://localhost:5051/";
+  private readonly apiUrl: string = "https://localhost:5001/";
   protected readonly serviceUrl: string = `${this.apiUrl}${this.resourceName}`;
 
   constructor(
