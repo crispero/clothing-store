@@ -1,2 +1,2 @@
 # clothing-store
-Diagram: https://drive.google.com/file/d/1MjdOoCRS9DH3UG9KQHFiSD6CKE1rb3GZ/view?usp=sharing
+Diagram: https://drive.google.com/file/d/1LftrP1U8ckDGkIB00UyZGksgMRJkRov1/view?usp=sharing
