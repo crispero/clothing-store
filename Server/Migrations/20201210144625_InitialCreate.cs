@@ -44,6 +44,7 @@ namespace Server.Migrations
                     brand_id = table.Column<int>(nullable: false),
                     name = table.Column<string>(maxLength: 255, nullable: true),
                     price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    gender_type = table.Column<byte>(type: "tinyint", nullable: false),
                     picture_url = table.Column<string>(maxLength: 255, nullable: true),
                     description = table.Column<string>(maxLength: 1024, nullable: true),
                     color = table.Column<string>(maxLength: 255, nullable: true)
@@ -71,7 +72,8 @@ namespace Server.Migrations
                     name = table.Column<string>(maxLength: 255, nullable: true),
                     surname = table.Column<string>(maxLength: 255, nullable: true),
                     address = table.Column<string>(maxLength: 255, nullable: true),
-                    picture_url = table.Column<string>(maxLength: 255, nullable: true)
+                    picture_url = table.Column<string>(maxLength: 255, nullable: true),
+                    gender_type = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,7 +196,6 @@ namespace Server.Migrations
                     user_id = table.Column<int>(nullable: false),
                     price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     status = table.Column<byte>(type: "tinyint", nullable: false),
-                    delivery_type = table.Column<byte>(type: "tinyint", nullable: false),
                     delivery_address = table.Column<string>(maxLength: 255, nullable: true),
                     created_date = table.Column<DateTime>(nullable: false)
                 },

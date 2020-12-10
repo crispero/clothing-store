@@ -21,6 +21,9 @@ namespace Server.Models
         [Column("price", TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
         
+        [Column("gender_type", TypeName = "tinyint")]
+        public ushort GenderType { get; set; }
+        
         [Column("picture_url")]
         [StringLength(255)]
         public string PictureUrl { get; set; }

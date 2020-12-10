@@ -40,6 +40,9 @@ namespace Server.Models
         [StringLength(255)]
         public string PictureUrl { get; set; }
         
+        [Column("gender_type", TypeName = "tinyint")]
+        public ushort GenderType { get; set; }
+        
         [ForeignKey(nameof(UserTypeId))]
         public virtual UserType UserType { get; set; }
         

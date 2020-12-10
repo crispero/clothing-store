@@ -19,6 +19,8 @@ import { BasketComponent } from './components/basket/basket.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from "@angular/forms";
+import { ClothesDialogComponent } from './components/clothes/clothes-dialog/clothes-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     ClothesListComponent,
     UserProfileComponent,
     FavoriteComponent,
-    BasketComponent
+    BasketComponent,
+    ClothesDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatGridListModule,
     MatButtonToggleModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

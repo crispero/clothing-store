@@ -20,10 +20,7 @@ namespace Server.Models
         
         [Column("status", TypeName = "tinyint")]
         public ushort Status { get; set; }
-        
-        [Column("delivery_type", TypeName = "tinyint")]
-        public ushort DeliveryType { get; set; }
-        
+
         [Column("delivery_address")]
         [StringLength(255)]
         public string DeliveryAddress { get; set; }

@@ -94,6 +94,10 @@ namespace Server.Migrations
                         .HasColumnType("nvarchar(1024)")
                         .HasMaxLength(1024);
 
+                    b.Property<byte>("GenderType")
+                        .HasColumnName("gender_type")
+                        .HasColumnType("tinyint");
+
                     b.Property<string>("Name")
                         .HasColumnName("name")
                         .HasColumnType("nvarchar(255)")
@@ -219,10 +223,6 @@ namespace Server.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<byte>("DeliveryType")
-                        .HasColumnName("delivery_type")
-                        .HasColumnType("tinyint");
-
                     b.Property<decimal>("Price")
                         .HasColumnName("price")
                         .HasColumnType("decimal(18,4)");
@@ -279,6 +279,10 @@ namespace Server.Migrations
                         .HasColumnName("address")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
+
+                    b.Property<byte>("GenderType")
+                        .HasColumnName("gender_type")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("Login")
                         .IsRequired()

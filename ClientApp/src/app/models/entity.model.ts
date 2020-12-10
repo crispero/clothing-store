@@ -1,3 +1,17 @@
 ﻿import { IWithId } from "./IWithId";
+import { Id } from "./id";
+import { Exclude, Expose } from "class-transformer";
 
-export interface EntityModel extends IWithId {}
+@Exclude()
+export class EntityModel {
+  private _id: Id;
+
+  @Expose()
+  get id(): Id {
+    return this._id;
+  }
+
+  set id(value: string) {
+    this._id = value;
+  }
+}

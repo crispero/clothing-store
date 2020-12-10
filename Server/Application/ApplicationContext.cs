@@ -31,16 +31,16 @@ namespace Server.Application
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Server.Models.Clothes> Clothes { get; set; }
+        public DbSet<Clothes> Clothes { get; set; }
 
-        public DbSet<Server.Models.Comment> Comment { get; set; }
+        public DbSet<Comment> Comment { get; set; }
 
-        public DbSet<Server.Models.Basket> Basket { get; set; }
+        public DbSet<Basket> Basket { get; set; }
 
-        public DbSet<Server.Models.Favorite> Favorite { get; set; }
+        public DbSet<Favorite> Favorite { get; set; }
 
-        public DbSet<Server.Models.Brand> Brand { get; set; }
+        public DbSet<Brand> Brand { get; set; }
 
-        public DbSet<Server.Models.Order> Order { get; set; }
+        public DbSet<Order> Order { get; set; }
     }
 }
