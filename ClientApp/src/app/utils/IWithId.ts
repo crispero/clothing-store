@@ -1,4 +1,4 @@
-﻿import { Id } from "./id";
+﻿import { Id } from "../models/id";
 
 export interface IWithId {
   id: Id;

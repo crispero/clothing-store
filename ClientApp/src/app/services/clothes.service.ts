@@ -1,5 +1,4 @@
 ﻿import { BaseService } from "./base.service";
-import { ClothesModel } from "../models/clothes.model";
 import { HttpClient } from "@angular/common/http";
 import { ApiResourceName } from "./api-resource-name";
 import { Injectable } from "@angular/core";

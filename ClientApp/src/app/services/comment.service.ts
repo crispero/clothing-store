@@ -2,12 +2,12 @@
 import { HttpClient } from "@angular/common/http";
 import { ApiResourceName } from "./api-resource-name";
 import { Injectable } from "@angular/core";
-import { CommentModel } from "../models/comment.model";
+import { ICommentDto } from "../dto/comment.dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentService extends BaseService<CommentModel> {
+export class CommentService extends BaseService<ICommentDto> {
   constructor(
     protected http: HttpClient,
   ) {

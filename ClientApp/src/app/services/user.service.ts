@@ -2,12 +2,12 @@
 import { HttpClient } from "@angular/common/http";
 import { ApiResourceName } from "./api-resource-name";
 import { Injectable } from "@angular/core";
-import { UserModel } from "../models/user.model";
+import { IUserDto } from "../dto/user.dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends BaseService<UserModel> {
+export class UserService extends BaseService<IUserDto> {
   constructor(
     protected http: HttpClient,
   ) {

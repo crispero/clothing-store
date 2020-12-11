@@ -1,5 +1,5 @@
-﻿import { IWithId } from "../models/IWithId";
-import { GenderType } from "../utils/GenderType";
+﻿import { GenderType } from "../utils/GenderType";
+import { IWithId } from "../utils/IWithId";
 
 export interface IClothesDto extends IWithId {
   name: string;

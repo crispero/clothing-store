@@ -1,4 +1,5 @@
-﻿import { EntityModel } from "./entity.model";
-import { UserClothesModel } from "./user-clothes.model";
+﻿import { UserClothesModel } from "./user-clothes.model";
+import { Exclude } from "class-transformer";
 
-export interface FavoriteModel extends UserClothesModel, EntityModel {}
+@Exclude()
+export class FavoriteModel extends UserClothesModel {}

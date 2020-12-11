@@ -1,4 +1,5 @@
 ﻿import { UserClothesModel } from "./user-clothes.model";
-import { EntityModel } from "./entity.model";
+import { Exclude } from "class-transformer";
 
-export interface BasketModel extends UserClothesModel, EntityModel {}
+@Exclude()
+export class BasketModel extends UserClothesModel {}

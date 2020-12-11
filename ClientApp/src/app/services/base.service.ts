@@ -1,7 +1,7 @@
 ﻿import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Id } from "../models/id";
-import { IWithId } from "../models/IWithId";
+import { IWithId } from "../utils/IWithId";
 
 @Injectable({
   providedIn: "root"

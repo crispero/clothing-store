@@ -1,5 +1,4 @@
-﻿import { IWithId } from "./IWithId";
-import { Id } from "./id";
+﻿import { Id } from "./id";
 import { Exclude, Expose } from "class-transformer";
 
 @Exclude()

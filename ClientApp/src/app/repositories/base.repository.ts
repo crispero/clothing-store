@@ -1,8 +1,8 @@
 ﻿import { BaseService } from "../services/base.service";
 import { EntityModel } from "../models/entity.model";
-import { IWithId } from "../models/IWithId";
 import { Id } from "../models/id";
 import { ClientException } from "../utils/ClientException";
+import { IWithId } from "../utils/IWithId";
 
 export abstract class BaseRepository<
   TEntity extends EntityModel,

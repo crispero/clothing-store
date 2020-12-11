@@ -20,5 +20,4 @@ export class ClothesRepository extends BaseRepository<ClothesModel, IClothesDto,
   toEntity(data: IClothesDto): ClothesModel {
     return EntityMapper.toDomainEntity(ClothesModel, data);
   }
-
 }

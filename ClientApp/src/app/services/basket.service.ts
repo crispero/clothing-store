@@ -2,12 +2,12 @@
 import { HttpClient } from "@angular/common/http";
 import { ApiResourceName } from "./api-resource-name";
 import { Injectable } from "@angular/core";
-import { BasketModel } from "../models/basket.model";
+import { IBasketDto } from "../dto/basket.dto";
 
 @Injectable({
   providedIn: 'root'
 })
-export class BasketService extends BaseService<BasketModel> {
+export class BasketService extends BaseService<IBasketDto> {
   constructor(
     protected http: HttpClient,
   ) {
