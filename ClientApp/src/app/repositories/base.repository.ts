@@ -59,7 +59,7 @@ export abstract class BaseRepository<
     }
   }
 
-  public abstract toEntity(data: TDto): TEntity;
+  protected abstract toEntity(data: TDto): TEntity;
 
-  public abstract toEntities(data: TDto[]): TEntity[];
+  protected abstract toEntities(data: TDto[]): TEntity[];
 }

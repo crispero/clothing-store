@@ -1,0 +1,33 @@
+@import "src/app/const-styles";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+
+  .mat-card {
+    max-width: 500px;
+    width: 100%;
+
+    ::ng-deep .mat-card-header-text {
+      margin: 0 !important;
+    }
+
+    .form-element {
+      padding: $xs-indent 0 $s-indent 0;
+      width: 100%;
+    }
+
+    .button {
+      width: 100%;
+    }
+  }
+
+  .link {
+    text-decoration-line: underline;
+    cursor: pointer;
+    margin-top: $s-indent;
+  }
+}

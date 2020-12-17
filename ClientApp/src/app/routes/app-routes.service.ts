@@ -26,4 +26,12 @@ export class AppRoutesService {
   goToBasketPage(): void {
     this.router.navigateByUrl(RoutingPath.Basket);
   }
+
+  goToLoginPage(): void {
+    this.router.navigateByUrl(RoutingPath.Login);
+  }
+
+  goToRegisterPage(): void {
+    this.router.navigateByUrl(RoutingPath.Register);
+  }
 }

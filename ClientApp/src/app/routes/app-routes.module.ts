@@ -5,6 +5,8 @@ import { ClothesListComponent } from "../components/clothes/clothes-list/clothes
 import { UserProfileComponent } from "../components/user/user-profile/user-profile.component";
 import { FavoriteComponent } from "../components/favorite/favorite.component";
 import { BasketComponent } from "../components/basket/basket.component";
+import { RegisterComponent } from "../components/register/register.component";
+import { LoginComponent } from "../components/login/login.component";
 
 const routes: Routes = [
   {
@@ -23,6 +25,14 @@ const routes: Routes = [
     path: RoutingPath.Basket,
     component: BasketComponent,
   },
+  {
+    path: RoutingPath.Register,
+    component: RegisterComponent,
+  },
+  {
+    path: RoutingPath.Login,
+    component: LoginComponent,
+  }
 ];
 
 @NgModule({

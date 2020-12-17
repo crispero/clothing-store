@@ -21,6 +21,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from "@angular/forms";
 import { ClothesDialogComponent } from './components/clothes/clothes-dialog/clothes-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule} from "@angular/material/select";
+import { MatOptionModule} from "@angular/material/core";
+import { RegisterComponent } from './components/register/register.component';
+import { MatInputModule } from "@angular/material/input";
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     UserProfileComponent,
     FavoriteComponent,
     BasketComponent,
-    ClothesDialogComponent
+    ClothesDialogComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonToggleModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
