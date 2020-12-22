@@ -65,13 +65,17 @@ namespace Server
             services.AddTransient<IUserTypeService, UserTypeService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IBrandService, BrandService>();
-
+            services.AddTransient<IBasketService, BasketService>();
+            services.AddTransient<IFavoriteService, FavoriteService>();
+            
             services.AddTransient<EntityMapper, EntityMapper>();
             
             services.AddTransient<IClothesRepository, ClothesRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserTypeRepository, UserTypeRepository>();
             services.AddTransient<IBrandRepository, BrandRepository>();
+            services.AddTransient<IBasketRepository, BasketRepository>();
+            services.AddTransient<IFavoriteRepository, FavoriteRepository>();
             services.AddTransient<JwtTokenGenerator, JwtTokenGenerator>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             

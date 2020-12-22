@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Server.Application;
-using Server.Models;
+using Server.Dto;
+using Server.Services;
 
 namespace Server.Controllers
 {
@@ -14,97 +10,50 @@ namespace Server.Controllers
     [ApiController]
     public class FavoriteController : ControllerBase
     {
-        private readonly ApplicationContext _context;
+        private readonly IFavoriteService _favoriteService;
 
-        public FavoriteController(ApplicationContext context)
+        public FavoriteController(IFavoriteService favoriteService)
         {
-            _context = context;
+            _favoriteService = favoriteService;
         }
 
         // GET: api/Favorite
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorite()
+        public async Task<ActionResult<IEnumerable<FavoriteDto>>> GetFavorite()
         {
-            return await _context.Favorite.ToListAsync();
+            return await _favoriteService.GetAll();
         }
 
         // GET: api/Favorite/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Favorite>> GetFavorite(int id)
+        public async Task<ActionResult<FavoriteDto>> GetFavorite(int id)
         {
-            var favorite = await _context.Favorite.FindAsync(id);
-
-            if (favorite == null)
-            {
-                return NotFound();
-            }
-
-            return favorite;
+            return await _favoriteService.GetById(id);
         }
 
         // PUT: api/Favorite/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFavorite(int id, Favorite favorite)
+        public async Task<ActionResult<FavoriteDto>> PutFavorite(int id, FavoriteDto favoriteDto)
         {
-            if (id != favorite.FavoriteId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(favorite).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FavoriteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await _favoriteService.Update(id, favoriteDto);
         }
 
         // POST: api/Favorite
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Favorite>> PostFavorite(Favorite favorite)
+        public async Task<ActionResult<FavoriteDto>> PostFavorite(FavoriteDto favoriteDto)
         {
-            _context.Favorite.Add(favorite);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFavorite", new { id = favorite.FavoriteId }, favorite);
+            return await _favoriteService.Create(favoriteDto);
         }
 
         // DELETE: api/Favorite/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Favorite>> DeleteFavorite(int id)
+        public async Task<ActionResult<bool>> DeleteFavorite(int id)
         {
-            var favorite = await _context.Favorite.FindAsync(id);
-            if (favorite == null)
-            {
-                return NotFound();
-            }
-
-            _context.Favorite.Remove(favorite);
-            await _context.SaveChangesAsync();
-
-            return favorite;
-        }
-
-        private bool FavoriteExists(int id)
-        {
-            return _context.Favorite.Any(e => e.FavoriteId == id);
+            return await _favoriteService.Delete(id);
         }
     }
 }
