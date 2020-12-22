@@ -5,12 +5,22 @@
     <p>{{clothes.color}}</p>
     <p>{{clothes.price}}</p>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="addToFavorite()">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-button (click)="addToBasket()">
-      <mat-icon>shopping_basket</mat-icon>
-    </button>
+  <mat-card-actions class="buttons">
+    <div class="user-buttons">
+      <button mat-button (click)="addToFavorite()">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-button (click)="addToBasket()">
+        <mat-icon>shopping_basket</mat-icon>
+      </button>
+    </div>
+    <div class="admin-buttons">
+      <button mat-button (click)="onClickDelete()">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-button (click)="onClickEdit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
   </mat-card-actions>
 </mat-card>

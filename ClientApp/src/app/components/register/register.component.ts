@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AuthUtils } from "../../utils/AuthUtils";
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private readonly authUtils: AuthUtils,
   ) { }
 
   ngOnInit(): void {
@@ -22,9 +24,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     const value = this.formGroup.value;
-    console.log(value);
+    await this.authUtils.register(value);
   }
-
 }

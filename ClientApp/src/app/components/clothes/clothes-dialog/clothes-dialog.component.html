@@ -1,12 +1,41 @@
-<div>
-  <mat-dialog-content class="mat-typography">
-    <h3>Develop across all platforms</h3>
-    <p>Learn one way to build applications with Angular and reuse your code and abilities to build
-      apps for any deployment target. For web, mobile web, native mobile and native desktop.
-    </p>
+
+  <mat-dialog-content class="mat-typography" >
+    <form [formGroup]="formGroup" class="dialog-container-form">
+      <mat-form-field class="form-element">
+        <label>
+          <input matInput name="name" formControlName="name" placeholder="Имя" required/>
+        </label>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <label>
+          <input matInput name="description" formControlName="description" placeholder="Описание" required/>
+        </label>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <label>
+          <input matInput name="price" formControlName="price" placeholder="Цена" type="number" required/>
+        </label>
+      </mat-form-field>
+
+      <mat-form-field class="form-element">
+        <label>
+          <input matInput name="color" formControlName="color" placeholder="Цвет" required/>
+        </label>
+      </mat-form-field>
+
+      <mat-form-field class="form-element" appearance="fill">
+        <mat-label>Выберите пол</mat-label>
+        <mat-select >
+          <mat-option value="man">Мужское</mat-option>
+          <mat-option value="woman">Женское</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
   </mat-dialog-content>
+
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close (click)="onCancel()">Cancel</button>
-    <button mat-button [mat-dialog-close]="true" (click)="onApply">Install</button>
+    <button mat-button mat-dialog-close (click)="onCancel()">Отменить</button>
+    <button mat-button [mat-dialog-close]="true" (click)="onApply()">Применить</button>
   </mat-dialog-actions>
-</div>

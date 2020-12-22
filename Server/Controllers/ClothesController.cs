@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Server.Application;
+using Server.DTO;
 using Server.Models;
+using Server.Services;
 
 namespace Server.Controllers
 {
@@ -14,97 +11,50 @@ namespace Server.Controllers
     [ApiController]
     public class ClothesController : ControllerBase
     {
-        private readonly ApplicationContext _context;
+        private readonly IClothesService _clothesService;
 
-        public ClothesController(ApplicationContext context)
+        public ClothesController(IClothesService clothesService)
         {
-            _context = context;
+            _clothesService = clothesService;
         }
 
         // GET: api/Clothes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Clothes>>> GetClothes()
+        public async Task<ActionResult<IEnumerable<ClothesDto>>> GetClothes()
         {
-            return await _context.Clothes.ToListAsync();
+            return await _clothesService.GetAll();
         }
 
         // GET: api/Clothes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Clothes>> GetClothes(int id)
+        public async Task<ActionResult<ClothesDto>> GetClothes(int id)
         {
-            var clothes = await _context.Clothes.FindAsync(id);
-
-            if (clothes == null)
-            {
-                return NotFound();
-            }
-
-            return clothes;
+            return await _clothesService.GetById(id);
         }
 
         // PUT: api/Clothes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClothes(int id, Clothes clothes)
+        public async Task<ActionResult<ClothesDto>> PutClothes(int id, ClothesDto clothes)
         {
-            if (id != clothes.ClothesId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(clothes).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClothesExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await _clothesService.Update(id, clothes);
         }
 
         // POST: api/Clothes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Clothes>> PostClothes(Clothes clothes)
+        public async Task<ActionResult<ClothesDto>> PostClothes(ClothesDto clothes)
         {
-            _context.Clothes.Add(clothes);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetClothes", new { id = clothes.ClothesId }, clothes);
+            return await _clothesService.Create(clothes);
         }
 
         // DELETE: api/Clothes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Clothes>> DeleteClothes(int id)
+        public async Task<ActionResult<bool>> DeleteClothes(int id)
         {
-            var clothes = await _context.Clothes.FindAsync(id);
-            if (clothes == null)
-            {
-                return NotFound();
-            }
-
-            _context.Clothes.Remove(clothes);
-            await _context.SaveChangesAsync();
-
-            return clothes;
-        }
-
-        private bool ClothesExists(int id)
-        {
-            return _context.Clothes.Any(e => e.ClothesId == id);
+            return await _clothesService.Delete(id);
         }
     }
 }

@@ -6,4 +6,6 @@
   Basket = "api/basket",
   Favorite = "api/favorite",
   Brand = "api/brand",
+  Login = "api/auth/login",
+  Register = "api/auth/register",
 }

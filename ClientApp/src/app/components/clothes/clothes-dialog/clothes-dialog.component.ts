@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from "@angular/material/dialog";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ClothesModel } from "../../../models/clothes.model";
+
+export interface IClothesDialogData {
+  title: string;
+  clothes?: ClothesModel,
+}
 
 @Component({
   selector: 'app-clothes-dialog',
@@ -13,13 +19,19 @@ export class ClothesDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ClothesDialogComponent>,
     private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) private dialogData: IClothesDialogData,
   ) { }
 
   ngOnInit(
   ): void {
+    const clothes = this.dialogData.clothes;
+
     this.formGroup = this.formBuilder.group({
-      login: ["", [Validators.required]],
-      password: ["", [Validators.required]],
+      name: [clothes?.name || "", [Validators.required]],
+      description: [clothes?.description || "", [Validators.required]],
+      price: [clothes?.price || "", [Validators.required]],
+      color: [clothes?.color || "", [Validators.required]],
+      genderType: [clothes?.genderType || "", [Validators.required]]
     });
   }
 
@@ -28,6 +40,7 @@ export class ClothesDialogComponent implements OnInit {
   }
 
   onApply(): void {
-    this.dialogRef.close();
+    const value = this.formGroup.value;
+    this.dialogRef.close(value);
   }
 }

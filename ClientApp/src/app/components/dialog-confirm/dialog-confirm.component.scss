@@ -1,0 +1,9 @@
+@import "src/app/const-styles";
+
+.dialog-container {
+  width: $dialog-width;
+
+  .dialog-actions {
+    justify-content: flex-end;
+  }
+}

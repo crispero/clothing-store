@@ -1,8 +1,9 @@
 ﻿import { BaseService } from "./base.service";
 import { HttpClient } from "@angular/common/http";
 import { ApiResourceName } from "./api-resource-name";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { IBasketDto } from "../dto/basket.dto";
+import { SERVICE_URL } from "../app-injection-tokens";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { IBasketDto } from "../dto/basket.dto";
 export class BasketService extends BaseService<IBasketDto> {
   constructor(
     protected http: HttpClient,
+    @Inject(SERVICE_URL) readonly serviceUrl: string,
   ) {
-    super(http, ApiResourceName.Basket);
+    super(http, serviceUrl, ApiResourceName.Basket);
   }
 }

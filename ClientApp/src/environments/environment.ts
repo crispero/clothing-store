@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  serviceUrl: "https://localhost:5001/",
+  jwtAllowedDomains: ["localhost:5001"]
 };
 
 /*

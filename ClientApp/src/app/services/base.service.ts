@@ -2,22 +2,24 @@
 import { HttpClient } from "@angular/common/http";
 import { Id } from "../models/id";
 import { IWithId } from "../utils/IWithId";
+import { SERVICE_URL } from "../app-injection-tokens";
 
 @Injectable({
   providedIn: "root"
 })
 export class BaseService<TDto extends IWithId> {
-  private readonly apiUrl: string = "https://localhost:5001/";
-  protected readonly serviceUrl: string = `${this.apiUrl}${this.resourceName}`;
+  protected readonly apiUrl: string;
 
   constructor(
     protected readonly http: HttpClient,
+    @Inject(SERVICE_URL) protected readonly serviceUrl: string,
     @Inject(String) protected readonly resourceName: string,
   ) {
+    this.apiUrl = `${this.serviceUrl}${this.resourceName}`;
   }
 
   getAll(): Promise<TDto[]> {
-    return this.http.get<TDto[]>(this.serviceUrl).toPromise();
+    return this.http.get<TDto[]>(this.apiUrl).toPromise();
   }
 
   getById(id: Id): Promise<TDto> {
@@ -26,7 +28,7 @@ export class BaseService<TDto extends IWithId> {
   }
 
   create(createDto: Partial<TDto>): Promise<TDto> {
-    return this.http.post<TDto>(this.serviceUrl, createDto).toPromise();
+    return this.http.post<TDto>(this.apiUrl, createDto).toPromise();
   }
 
   update(id: Id, updateDto: Partial<TDto>): Promise<TDto> {
@@ -40,6 +42,6 @@ export class BaseService<TDto extends IWithId> {
   }
 
   protected getServiceUrlWithId(id: Id): string {
-    return `${this.serviceUrl}/${id}`;
+    return `${this.apiUrl}/${id}`;
   }
 }

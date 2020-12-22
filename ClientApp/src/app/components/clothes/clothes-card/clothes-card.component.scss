@@ -1,0 +1,11 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .user-buttons, .admin-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+}
+

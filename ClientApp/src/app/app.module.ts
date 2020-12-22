@@ -26,6 +26,14 @@ import { MatOptionModule} from "@angular/material/core";
 import { RegisterComponent } from './components/register/register.component';
 import { MatInputModule } from "@angular/material/input";
 import { LoginComponent } from './components/login/login.component';
+import { environment } from "../environments/environment";
+import { SERVICE_URL } from "./app-injection-tokens";
+import { JwtModule } from "@auth0/angular-jwt";
+import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
+
+export function tokenGetter(): string {
+  return <string>localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -38,7 +46,8 @@ import { LoginComponent } from './components/login/login.component';
     BasketComponent,
     ClothesDialogComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    DialogConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +65,21 @@ import { LoginComponent } from './components/login/login.component';
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: environment.jwtAllowedDomains
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SERVICE_URL,
+      useValue: environment.serviceUrl
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

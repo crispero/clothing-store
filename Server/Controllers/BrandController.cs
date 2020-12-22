@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Server.Application;
 using Server.Models;
+using Server.Services;
 
 namespace Server.Controllers
 {
@@ -14,64 +10,34 @@ namespace Server.Controllers
     [ApiController]
     public class BrandController : ControllerBase
     {
-        private readonly ApplicationContext _context;
+        private readonly IBrandService _brandService;
 
-        public BrandController(ApplicationContext context)
+        public BrandController(IBrandService brandService)
         {
-            _context = context;
+            _brandService = brandService;
         }
 
         // GET: api/Brand
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Brand>>> GetBrand()
         {
-            return await _context.Brand.ToListAsync();
+            return await _brandService.GetAll();
         }
 
         // GET: api/Brand/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Brand>> GetBrand(int id)
         {
-            var brand = await _context.Brand.FindAsync(id);
-
-            if (brand == null)
-            {
-                return NotFound();
-            }
-
-            return brand;
+            return await _brandService.GetById(id);
         }
 
         // PUT: api/Brand/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBrand(int id, Brand brand)
+        public async Task<ActionResult<Brand>> PutBrand(int id, Brand brand)
         {
-            if (id != brand.BrandId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(brand).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BrandExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return await _brandService.Update(id, brand);
         }
 
         // POST: api/Brand
@@ -80,31 +46,14 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Brand>> PostBrand(Brand brand)
         {
-            _context.Brand.Add(brand);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBrand", new { id = brand.BrandId }, brand);
+            return await _brandService.Create(brand);
         }
 
         // DELETE: api/Brand/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Brand>> DeleteBrand(int id)
+        public async Task<ActionResult<bool>> DeleteBrand(int id)
         {
-            var brand = await _context.Brand.FindAsync(id);
-            if (brand == null)
-            {
-                return NotFound();
-            }
-
-            _context.Brand.Remove(brand);
-            await _context.SaveChangesAsync();
-
-            return brand;
-        }
-
-        private bool BrandExists(int id)
-        {
-            return _context.Brand.Any(e => e.BrandId == id);
+            return await _brandService.Delete(id);
         }
     }
 }

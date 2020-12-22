@@ -38,10 +38,14 @@ export class ClothesListComponent implements OnInit {
    // this.currentGenderType = this.applicationUtils.currentGenderType;
   }
 
-  openClotheDialog(): void {
+  openClothesDialog(): void {
     const dialogRef = this.dialog.open(ClothesDialogComponent, { autoFocus: false });
 
-    dialogRef.afterClosed().subscribe(() => console.log("closed"));
+    dialogRef.afterClosed().subscribe(async (clothesDto: Partial<IClothesDto>) => {
+      if (!!clothesDto) {
+        await this.clothesRepository.create(clothesDto)
+      }
+    });
   }
 
 }
