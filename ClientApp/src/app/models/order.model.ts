@@ -1,15 +1,24 @@
-﻿import { EntityModel } from "./entity.model";
-import { Id } from "./id";
+﻿import { Id } from "./id";
 import { OrderStatus } from "./order-status";
 import { Exclude, Expose } from "class-transformer";
 
 @Exclude()
-export class OrderModel extends EntityModel {
+export class OrderModel {
+  private _orderId: Id;
   private _userId: Id;
   private _price: number;
   private _deliveryAddress: string;
   private _createdDate: number;
   private _status: OrderStatus;
+
+  @Expose()
+  get orderId(): Id {
+    return this._orderId;
+  }
+
+  set orderId(value: Id) {
+    this._orderId = value;
+  }
 
   @Expose()
   get userId(): Id {

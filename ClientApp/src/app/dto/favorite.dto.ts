@@ -1,4 +1,6 @@
-﻿import { IWithId } from "../utils/IWithId";
-import { IUserClothesDto } from "./user-clothes.dto";
+﻿import { IUserClothesDto } from "./user-clothes.dto";
+import { Id } from "../models/id";
 
-export interface IFavoriteDto extends IWithId, IUserClothesDto {}
+export interface IFavoriteDto extends IUserClothesDto {
+  favoriteId: Id;
+}

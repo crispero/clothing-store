@@ -1,12 +1,10 @@
 ﻿import { BaseService } from "../services/base.service";
-import { EntityModel } from "../models/entity.model";
 import { Id } from "../models/id";
-import { ClientException } from "../utils/ClientException";
-import { IWithId } from "../utils/IWithId";
+import { ClientException } from "../utils/client-exception";
 
 export abstract class BaseRepository<
-  TEntity extends EntityModel,
-  TDto extends IWithId,
+  TEntity,
+  TDto,
   TService extends BaseService<TDto>> {
 
   protected service: TService;
@@ -30,6 +28,15 @@ export abstract class BaseRepository<
       return this.toEntity(item);
     } catch (e) {
       throw new ClientException("can't get item with id: " + id);
+    }
+  }
+
+  async getByIds(ids: Id[]): Promise<TEntity[]> {
+    try {
+      const items: TDto[] = await this.service.getByIds(ids);
+      return this.toEntities(items);
+    } catch (e) {
+      throw new ClientException("can't get item with ids: " + ids);
     }
   }
 

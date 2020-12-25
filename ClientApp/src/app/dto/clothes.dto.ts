@@ -1,11 +1,13 @@
-﻿import { GenderType } from "../utils/GenderType";
-import { IWithId } from "../utils/IWithId";
+﻿import { GenderType } from "./gender-type";
+import { Id } from "../models/id";
 
-export interface IClothesDto extends IWithId {
+export interface IClothesDto {
+  clothesId: Id;
   name: string;
   price: number;
   pictureUrl: string;
   description: string;
   color: string;
   genderType: GenderType;
+  brandId: Id;
 }

@@ -1,15 +1,35 @@
-﻿import { EntityModel } from "./entity.model";
-import { GenderType } from "../utils/GenderType";
-import { Exclude, Expose } from "class-transformer";
+﻿import { Exclude, Expose } from "class-transformer";
+import { GenderType } from "../dto/gender-type";
+import { Id } from "./id";
 
 @Exclude()
-export class ClothesModel extends EntityModel {
+export class ClothesModel {
+  private _clothesId: Id;
+  private _brandId: Id;
   private _name: string;
   private _price: number;
   private _pictureUrl: string;
   private _description: string;
   private _color: string;
   private _genderType: GenderType;
+
+  @Expose()
+  get clothesId(): Id {
+    return this._clothesId;
+  }
+
+  set clothesId(value: Id) {
+    this._clothesId = value;
+  }
+
+  @Expose()
+  get brandId(): Id {
+    return this._brandId;
+  }
+
+  set brandId(value: Id) {
+    this._brandId = value;
+  }
 
   @Expose()
   get name(): string {

@@ -1,20 +1,10 @@
-:host {
-  --xs-indent: 8px;
-  --s-indent: 16px;
-  --sm-indent: 24px;
-  --md-indent: 32px;
-  --lg-indent: 40px;
-
-  --sidebar-height: 64px;
-  --max-page-content-width: 940px;
-}
+@import "const-styles";
 
 .root {
   height: 100%;
 
   .main-container {
-    height: calc(100% - var(--sidebar-height) - 2 * var(--s-indent));
-    padding: var(--s-indent);
+    height: calc(100% - #{$sidebar-height} - 2 * #{$s-indent});
+    padding: $s-indent;
   }
-
 }

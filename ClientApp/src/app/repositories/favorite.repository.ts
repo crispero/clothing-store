@@ -1,9 +1,10 @@
 ﻿import { BaseRepository } from "./base.repository";
-import { EntityMapper } from "../utils/EntityMapper";
 import { Injectable } from "@angular/core";
 import { FavoriteModel } from "../models/favorite.model";
 import { IFavoriteDto } from "../dto/favorite.dto";
 import { FavoriteService } from "../services/favorite.service";
+import { Id } from "../models/id";
+import { EntityMapper } from "../utils/entity-mapper";
 
 @Injectable({
   providedIn: "root"
@@ -11,6 +12,11 @@ import { FavoriteService } from "../services/favorite.service";
 export class FavoriteRepository extends BaseRepository<FavoriteModel, IFavoriteDto, FavoriteService> {
   constructor(service: FavoriteService) {
     super(service);
+  }
+
+  async getByUserId(userId: Id): Promise<FavoriteModel[]> {
+    const favorites = await this.service.getByUserId(userId);
+    return this.toEntities(favorites);
   }
 
   toEntities(data: IFavoriteDto[]): FavoriteModel[] {

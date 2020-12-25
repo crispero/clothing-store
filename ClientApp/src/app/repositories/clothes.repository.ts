@@ -1,9 +1,9 @@
 ﻿import { BaseRepository } from "./base.repository";
 import { ClothesModel } from "../models/clothes.model";
-import { EntityMapper } from "../utils/EntityMapper";
 import { IClothesDto } from "../dto/clothes.dto";
 import { ClothesService } from "../services/clothes.service";
 import { Injectable } from "@angular/core";
+import { EntityMapper } from "../utils/entity-mapper";
 
 @Injectable({
   providedIn: "root"

@@ -32,7 +32,12 @@ namespace Server.Repositories.Impl
 
             return brand;
         }
-        
+
+        public Task<List<Brand>> GetByIds(List<int> ids)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<Brand> Update(int id, Brand brand)
         {
             if (id != brand.BrandId)
@@ -77,9 +82,8 @@ namespace Server.Repositories.Impl
             }
 
             _context.Brand.Remove(brand);
-            await _context.SaveChangesAsync();
 
-            return true;
+            return await _context.SaveChangesAsync() > 0;;
         }
 
         private bool BrandExists(int id)

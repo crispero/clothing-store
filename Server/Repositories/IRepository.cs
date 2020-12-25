@@ -7,6 +7,7 @@ namespace Server.Repositories
     {
         Task<List<TEntity>> GetAll();
         Task<TEntity> GetById(int id);
+        Task<List<TEntity>> GetByIds(List<int> ids);
         Task<TEntity> Create(TEntity entity);
         Task<TEntity> Update(int id, TEntity entity);
         Task<bool> Delete(int id);

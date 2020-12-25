@@ -7,9 +7,9 @@ namespace Server.Services
     {
         Task<List<TDto>> GetAll();
         Task<TDto> GetById(int id);
+        Task<List<TDto>> GetByIds(List<int> ids);
         Task<TDto> Create(TDto entity);
         Task<TDto> Update(int id, TDto entity);
         Task<bool> Delete(int id);
     }
-    
 }

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="left-content">
+    <img class="image" src="{{clothes?.pictureUrl || 'https://material.angular.io/assets/img/examples/shiba2.jpg'}}">
+  </div>
+
+  <div class="right-content">
+    <p class="name">{{clothes?.name || ""}}</p>
+    <div>
+      <span class="label">Цена: </span>
+      <span>{{clothes?.price || ""}} руб</span>
+    </div>
+    <div class="brand-info">
+      <p class="label"> Информация о бренде: </p>
+      <app-brand-card [brand]="brand"></app-brand-card>
+    </div>
+    <div class="user-buttons">
+      <button mat-button (click)="addToFavorite()">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-raised-button (click)="addToBasket()" color="primary">
+        Добавить в корзину
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -12,6 +12,7 @@ using Server.Application;
 using Server.Common;
 using Server.Common.Auth;
 using Server.Common.MappingProfile;
+using Server.DTO;
 using Server.Models;
 using Server.Repositories;
 using Server.Repositories.Impl;
@@ -67,15 +68,15 @@ namespace Server
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<IBasketService, BasketService>();
             services.AddTransient<IFavoriteService, FavoriteService>();
-            
-            services.AddTransient<EntityMapper, EntityMapper>();
-            
+            services.AddTransient<ICommentService, CommentService>();
+
             services.AddTransient<IClothesRepository, ClothesRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserTypeRepository, UserTypeRepository>();
             services.AddTransient<IBrandRepository, BrandRepository>();
             services.AddTransient<IBasketRepository, BasketRepository>();
             services.AddTransient<IFavoriteRepository, FavoriteRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<JwtTokenGenerator, JwtTokenGenerator>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             

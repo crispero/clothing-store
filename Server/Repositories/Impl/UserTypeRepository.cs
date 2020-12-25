@@ -27,6 +27,11 @@ namespace Server.Repositories.Impl
             return userTypes;
         }
 
+        public Task<List<UserType>> GetByIds(List<int> ids)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<UserType> Create(UserType entity)
         {
             throw new System.NotImplementedException();

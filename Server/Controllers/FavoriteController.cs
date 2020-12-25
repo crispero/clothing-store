@@ -18,7 +18,6 @@ namespace Server.Controllers
         }
 
         // GET: api/Favorite
-        [HttpGet]
         public async Task<ActionResult<IEnumerable<FavoriteDto>>> GetFavorite()
         {
             return await _favoriteService.GetAll();
@@ -29,6 +28,13 @@ namespace Server.Controllers
         public async Task<ActionResult<FavoriteDto>> GetFavorite(int id)
         {
             return await _favoriteService.GetById(id);
+        }
+        
+        // GET: api/Favorite/user/5
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<List<FavoriteDto>>> GetFavoriteByUserId(int userId)
+        {
+            return await _favoriteService.GetByUserId(userId);
         }
 
         // PUT: api/Favorite/5

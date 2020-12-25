@@ -2,12 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ClothesModel } from "../../../models/clothes.model";
 import { FavoriteRepository } from "../../../repositories/favorite.repository";
 import { BasketRepository } from "../../../repositories/basket.repository";
-import { CurrentUser } from "../../../utils/CurrentUser";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogConfirmComponent, IConfirmDialogData } from "../../dialog-confirm/dialog-confirm.component";
 import { ClothesRepository } from "../../../repositories/clothes.repository";
 import { ClothesDialogComponent, IClothesDialogData } from "../clothes-dialog/clothes-dialog.component";
 import { IClothesDto } from "../../../dto/clothes.dto";
+import { AppRoutesService } from "../../../routes/app-routes.service";
+import { CurrentUser } from "../../../utils/current-user";
 
 @Component({
   selector: 'app-clothes-card',
@@ -21,10 +22,16 @@ export class ClothesCardComponent implements OnInit {
     private readonly clothesRepository: ClothesRepository,
     private readonly favoriteRepository: FavoriteRepository,
     private readonly basketRepository: BasketRepository,
+    private readonly appRoutesService: AppRoutesService,
     private dialog: MatDialog,
+    private readonly currentUser: CurrentUser
   ) { }
 
   ngOnInit(): void {
+  }
+
+  onSelectItem(): void {
+    this.appRoutesService.gotToClothesInfoPage(this.clothes.clothesId);
   }
 
   onClickEdit() {
@@ -32,7 +39,7 @@ export class ClothesCardComponent implements OnInit {
     const dialogRef = this.dialog.open(ClothesDialogComponent, { data: dialogData, autoFocus: false });
     dialogRef.afterClosed().subscribe((clothes: IClothesDto) => {
       if (!!clothes) {
-        this.clothesRepository.update(this.clothes.id, clothes);
+        this.clothesRepository.update(this.clothes.clothesId, clothes);
       }
     })
   }
@@ -42,7 +49,7 @@ export class ClothesCardComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogConfirmComponent, { data: dialogData, autoFocus: false });
     dialogRef.afterClosed().subscribe((isApply: boolean) => {
       if (isApply) {
-        this.clothesRepository.delete(this.clothes.id);
+        this.clothesRepository.delete(this.clothes.clothesId);
       }
     })
   }
@@ -60,11 +67,11 @@ export class ClothesCardComponent implements OnInit {
   }
 
   private getSendData() {
-    const userId = CurrentUser.currentUserId;
+    const userId = this.currentUser.currentUserId;
 
     return {
       userId,
-      clothesId: this.clothes.id,
+      clothesId: this.clothes.clothesId,
     }
   }
 }

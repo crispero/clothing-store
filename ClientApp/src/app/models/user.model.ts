@@ -1,10 +1,10 @@
-﻿import { EntityModel } from "./entity.model";
-import { Id } from "./id";
-import { GenderType } from "../utils/GenderType";
+﻿import { Id } from "./id";
 import { Exclude, Expose } from "class-transformer";
+import { GenderType } from "../dto/gender-type";
 
 @Exclude()
-export class UserModel extends EntityModel {
+export class UserModel {
+  private _userId: Id;
   private _userTypeId: Id;
   private _name: string;
   private _surname: string;
@@ -12,6 +12,15 @@ export class UserModel extends EntityModel {
   private _address: string;
   private _pictureUrl: string;
   private _genderType: GenderType;
+
+  @Expose()
+  get userId(): Id {
+    return this._userId;
+  }
+
+  set userId(value: Id) {
+    this._userId = value;
+  }
 
   @Expose()
   get userTypeId(): Id {

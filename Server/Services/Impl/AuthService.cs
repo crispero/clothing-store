@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Server.Common.Auth;
+using Server.Dto;
 using Server.DTO;
 
 namespace Server.Services.Impl

@@ -30,12 +30,19 @@ namespace Server.Controllers
         {
             return await _basketService.GetById(id);
         }
+        
+        // GET: api/Basket/user/5
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<List<BasketDto>>> GetFavoriteByUserId(int userId)
+        {
+            return await _basketService.GetByUserId(userId);
+        }
 
         // PUT: api/Basket/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<ActionResult<BasketDto>> PutBasket(int id, BasketDto basketDto)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<BasketDto>> PatchBasket(int id, BasketDto basketDto)
         {
             return await _basketService.Update(id, basketDto);
         }

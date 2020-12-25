@@ -1,1 +1,13 @@
-<p>basket works!</p>
+<mat-grid-list
+  [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
+  rowHeight="500px"
+  gutterSize="40px"
+  class="mat-grid-list"
+>
+  <mat-grid-tile *ngFor="let clothes of clothesList">
+    <app-clothes-card
+      [clothes]="clothes"
+    >
+    </app-clothes-card>
+  </mat-grid-tile>
+</mat-grid-list>

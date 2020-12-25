@@ -1,8 +1,8 @@
-﻿import { IWithId } from "../utils/IWithId";
-import { Id } from "../models/id";
+﻿import { Id } from "../models/id";
 import { OrderStatus } from "../models/order-status";
 
-export interface IOrderDto extends IWithId {
+export interface IOrderDto {
+  orderId: Id;
   userId: Id;
   price: number;
   deliveryAddress: string;

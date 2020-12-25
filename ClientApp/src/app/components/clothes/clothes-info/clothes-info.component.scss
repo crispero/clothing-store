@@ -1,0 +1,30 @@
+@import "src/app/const-styles";
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 100%;
+
+  .left-content {
+    margin-right: $md-indent;
+    .image {
+      height: 400px;
+      width: 300px;
+    }
+  }
+
+  .right-content {
+    .brand-info {
+      margin: $s-indent 0;
+    }
+
+    .name {
+      font-size: 20px;
+    }
+
+    .label {
+      font-size: 16px;
+    }
+  }
+}

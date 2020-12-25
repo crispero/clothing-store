@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Server.Common;
+using AutoMapper;
 using Server.Dto;
 using Server.Models;
 using Server.Repositories;
@@ -11,9 +11,9 @@ namespace Server.Services.Impl
     public class BasketService : IBasketService
     {
         private readonly IBasketRepository _basketRepository;
-        private readonly EntityMapper _entityMapper;
+        private readonly IMapper _entityMapper;
 
-        public BasketService(IBasketRepository basketRepository, EntityMapper entityMapper)
+        public BasketService(IBasketRepository basketRepository, IMapper entityMapper)
         {
             _basketRepository = basketRepository;
             _entityMapper = entityMapper;
@@ -22,46 +22,58 @@ namespace Server.Services.Impl
         public async Task<List<BasketDto>> GetAll()
         {
             var baskets = await _basketRepository.GetAll();
-            
-            var basketsDto = new HashSet<BasketDto>();
-
-            foreach (var basket in baskets)
-            {
-                var basketDto = _entityMapper.ToDto<Basket, BasketDto>(basket);
-                basketsDto.Add(basketDto);
-            }
-            
-            return basketsDto.ToList();
+            return GetBasketDtoList(baskets);
         }
 
         public async Task<BasketDto> GetById(int id)
         {
             var basket = await _basketRepository.GetById(id);
             
-            return _entityMapper.ToDto<Basket, BasketDto>(basket);
+            return GetBasketDto(basket);
+        }
+
+        public Task<List<BasketDto>> GetByIds(List<int> ids)
+        {
+            throw new System.NotImplementedException();
         }
 
         public async Task<BasketDto> Create(BasketDto basketDto)
         {
-            var basket = _entityMapper.ToEntity<Basket, BasketDto>(basketDto);
+            var basket = _entityMapper.Map<Basket>(basketDto);
 
             var createdBasket = await _basketRepository.Create(basket);
 
-            return _entityMapper.ToDto<Basket, BasketDto>(createdBasket);
+            return GetBasketDto(createdBasket);
         }
 
         public async Task<BasketDto> Update(int id, BasketDto basketDto)
         {
-            var basket = _entityMapper.ToEntity<Basket, BasketDto>(basketDto);
+            var basket = _entityMapper.Map<Basket>(basketDto);
 
             var updatedBasket = await _basketRepository.Update(id, basket);
 
-            return _entityMapper.ToDto<Basket, BasketDto>(updatedBasket);
+            return GetBasketDto(updatedBasket);
         }
 
         public Task<bool> Delete(int id)
         {
             return _basketRepository.Delete(id);
+        }
+
+        public async Task<List<BasketDto>> GetByUserId(int userId)
+        {
+            var favorites = await _basketRepository.GetByUserId(userId);
+            return GetBasketDtoList(favorites);
+        }
+        
+        private BasketDto GetBasketDto(Basket basket)
+        {
+            return _entityMapper.Map<BasketDto>(basket);
+        }
+
+        private List<BasketDto> GetBasketDtoList(List<Basket> basketList)
+        {
+            return basketList.Select(GetBasketDto).ToList();
         }
     }
 }

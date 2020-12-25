@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Server.Models;
+using Server.Dto;
 
 namespace Server.Common.Auth
 {
@@ -17,7 +17,7 @@ namespace Server.Common.Auth
             _authOptions = authOptions;
         }
 
-        public string GenerateJwtToken(User user, string userType)
+        public string GenerateJwtToken(UserDto user, string userType)
         {
             var authParams = _authOptions.Value;
 

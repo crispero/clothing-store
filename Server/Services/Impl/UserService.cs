@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Server.Dto;
 using Server.DTO;
 using Server.Models;
 using Server.Repositories;
@@ -9,30 +12,43 @@ namespace Server.Services.Impl
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _entityMapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper entityMapper)
         {
             _userRepository = userRepository;
+            _entityMapper = entityMapper;
         }
         
-        public Task<List<User>> GetAll()
+        public async Task<List<UserDto>> GetAll()
         {
-            return _userRepository.GetAll();
+            var users = await _userRepository.GetAll();
+            return GetUserDtoList(users);
         }
 
-        public Task<User> GetById(int id)
+        public async Task<UserDto> GetById(int id)
         {
-            return _userRepository.GetById(id);
+            var user = await _userRepository.GetById(id);
+            return GetUserDto(user);
         }
 
-        public Task<User> Create(User entity)
+        public Task<List<UserDto>> GetByIds(List<int> ids)
         {
-            return _userRepository.Create(entity);
+            throw new System.NotImplementedException();
         }
 
-        public Task<User> Update(int id, User entity)
+        public async Task<UserDto> Create(UserDto userDto)
         {
-            return _userRepository.Update(id, entity);
+            var user = _entityMapper.Map<User>(userDto);
+            var createdUser = await _userRepository.Create(user);
+            return GetUserDto(createdUser);
+        }
+
+        public async Task<UserDto> Update(int id, UserDto userDto)
+        {
+            var user = _entityMapper.Map<User>(userDto);
+            var createdUser = await _userRepository.Update(id, user);
+            return GetUserDto(createdUser);
         }
 
         public Task<bool> Delete(int id)
@@ -40,7 +56,7 @@ namespace Server.Services.Impl
             return _userRepository.Delete(id);
         }
         
-        public async Task<User> Login(LoginDto loginDto)
+        public async Task<UserDto> Login(LoginDto loginDto)
         {
             var user = await _userRepository.GetUserByLogin(loginDto.Login);
 
@@ -51,12 +67,23 @@ namespace Server.Services.Impl
             
             var verifyHashedPassword = _userRepository.VerifyHashedPassword(user, loginDto.Password);
 
-            return user;
+            return GetUserDto(user);
         }
 
-        public Task<User> Register(RegisterDto registerDto)
+        public async Task<UserDto> Register(RegisterDto registerDto)
         {
-            return _userRepository.Register(registerDto);
+            var user = await _userRepository.Register(registerDto);
+            return GetUserDto(user);
+        }
+        
+        private UserDto GetUserDto(User user)
+        {
+            return _entityMapper.Map<UserDto>(user);
+        }
+
+        private List<UserDto> GetUserDtoList(List<User> users)
+        {
+            return users.Select(GetUserDto).ToList();
         }
     }
 }

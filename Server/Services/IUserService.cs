@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
+using Server.Dto;
 using Server.DTO;
 using Server.Models;
 
 namespace Server.Services
 {
-    public interface IUserService : IService<User>
+    public interface IUserService : IService<UserDto>
     {
-        Task<User> Login(LoginDto loginDto);
+        Task<UserDto> Login(LoginDto loginDto);
 
-        Task<User> Register(RegisterDto registerDto);
+        Task<UserDto> Register(RegisterDto registerDto);
     }
 }

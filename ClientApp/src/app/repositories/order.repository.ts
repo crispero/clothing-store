@@ -1,9 +1,9 @@
 ﻿import { BaseRepository } from "./base.repository";
-import { EntityMapper } from "../utils/EntityMapper";
 import { Injectable } from "@angular/core";
 import { OrderModel } from "../models/order.model";
 import { IOrderDto } from "../dto/order.dto";
 import { OrderService } from "../services/order.service";
+import { EntityMapper } from "../utils/entity-mapper";
 
 @Injectable({
   providedIn: "root"

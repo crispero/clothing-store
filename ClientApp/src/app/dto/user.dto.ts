@@ -1,8 +1,8 @@
-﻿import { IWithId } from "../utils/IWithId";
-import { Id } from "../models/id";
-import { GenderType } from "../utils/GenderType";
+﻿import { Id } from "../models/id";
+import { GenderType } from "./gender-type";
 
-export interface IUserDto extends IWithId {
+export interface IUserDto {
+  userId: Id;
   userTypeId: Id;
   login: string;
   name: string;

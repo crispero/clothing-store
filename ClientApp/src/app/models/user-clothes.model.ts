@@ -1,9 +1,8 @@
 ﻿import { Id } from "./id";
 import { Exclude, Expose } from "class-transformer";
-import { EntityModel } from "./entity.model";
 
 @Exclude()
-export class UserClothesModel extends EntityModel {
+export class UserClothesModel {
   private _userId: Id;
   private _clothesId: Id;
 

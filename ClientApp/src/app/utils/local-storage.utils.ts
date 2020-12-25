@@ -1,7 +1,7 @@
-﻿import { LocalStorageKeys } from "./LocalStorageKeys";
-import { Id } from "../models/id";
+﻿import { Id } from "../models/id";
 import { IAuthDto } from "../dto/auth.dto";
 import { Injectable } from "@angular/core";
+import { LocalStorageKeys } from "./local-storage-keys";
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +17,7 @@ export class LocalStorageUtils {
 
   setAuthData(authDto: IAuthDto): void {
     this.setUserId(authDto.userId);
-    this.setAccessToken(authDto.token);
+    this.setAccessToken(authDto.accessToken);
   }
 
   setUserId(userId: Id): void {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Server.Dto;
 using Server.Models;
 using Server.Services;
 
@@ -19,14 +20,14 @@ namespace Server.Controllers
 
         // GET: api/User
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
             return await _userService.GetAll();
         }
 
         // GET: api/User/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserDto>> GetUser(int id)
         {
             return await _userService.GetById(id);
         }
@@ -34,8 +35,8 @@ namespace Server.Controllers
         // PUT: api/User/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<ActionResult<User>> PutUser(int id, User user)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<UserDto>> PatchUser(int id, UserDto user)
         {
             return await _userService.Update(id, user);
         }
@@ -44,7 +45,7 @@ namespace Server.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<UserDto>> PostUser(UserDto user)
         {
             return await _userService.Create(user);
         }

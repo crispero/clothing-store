@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ClothesService } from "../../../services/clothes.service";
 import { ClothesModel } from "../../../models/clothes.model";
 import { Observable } from "rxjs";
-import { GenderType } from "../../../utils/GenderType";
-import { ApplicationUtils } from "../../../utils/ApplicationUtils";
 import { MatDialog } from "@angular/material/dialog";
 import { ClothesDialogComponent } from "../clothes-dialog/clothes-dialog.component";
 import { IClothesDto } from "../../../dto/clothes.dto";
 import { ClothesRepository } from "../../../repositories/clothes.repository";
+import { GenderType } from "../../../dto/gender-type";
+import { ApplicationUtils } from "../../../utils/application.utils";
 
 @Component({
   selector: 'app-clothes-list',

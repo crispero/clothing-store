@@ -18,7 +18,7 @@ import { FavoriteComponent } from './components/favorite/favorite.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ClothesDialogComponent } from './components/clothes/clothes-dialog/clothes-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule} from "@angular/material/select";
@@ -30,6 +30,10 @@ import { environment } from "../environments/environment";
 import { SERVICE_URL } from "./app-injection-tokens";
 import { JwtModule } from "@auth0/angular-jwt";
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
+import { ClothesSizeCountComponent } from './components/clothes/clothes-size-count/clothes-size-count.component';
+import { ClothesInfoComponent } from './components/clothes/clothes-info/clothes-info.component';
+import { BrandCardComponent } from './components/brand/brand-card/brand-card.component';
+import { GridColsDirective } from "./directives/grid-cols-directive";
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -38,6 +42,7 @@ export function tokenGetter(): string {
 @NgModule({
   declarations: [
     AppComponent,
+    GridColsDirective,
     HeaderComponent,
     ClothesCardComponent,
     ClothesListComponent,
@@ -47,7 +52,10 @@ export function tokenGetter(): string {
     ClothesDialogComponent,
     RegisterComponent,
     LoginComponent,
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    ClothesSizeCountComponent,
+    ClothesInfoComponent,
+    BrandCardComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +80,8 @@ export function tokenGetter(): string {
         tokenGetter,
         allowedDomains: environment.jwtAllowedDomains
       }
-    })
+    }),
+    FormsModule
   ],
   providers: [
     {
@@ -82,4 +91,4 @@ export function tokenGetter(): string {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {  }
+export class AppModule {}

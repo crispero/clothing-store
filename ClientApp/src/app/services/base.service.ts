@@ -1,13 +1,12 @@
 ﻿import { Inject, Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Id } from "../models/id";
-import { IWithId } from "../utils/IWithId";
 import { SERVICE_URL } from "../app-injection-tokens";
 
 @Injectable({
   providedIn: "root"
 })
-export class BaseService<TDto extends IWithId> {
+export class BaseService<TDto> {
   protected readonly apiUrl: string;
 
   constructor(
@@ -25,6 +24,10 @@ export class BaseService<TDto extends IWithId> {
   getById(id: Id): Promise<TDto> {
     const url = this.getServiceUrlWithId(id);
     return this.http.get<TDto>(url).toPromise();
+  }
+
+  getByIds(ids: Id[]): Promise<TDto[]> {
+    return this.http.get<TDto[]>(`${this.apiUrl}/ids`, { params: new HttpParams({ fromObject: { ids }}) }).toPromise();
   }
 
   create(createDto: Partial<TDto>): Promise<TDto> {

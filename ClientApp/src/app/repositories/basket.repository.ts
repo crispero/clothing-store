@@ -1,9 +1,10 @@
 ﻿import { BaseRepository } from "./base.repository";
-import { EntityMapper } from "../utils/EntityMapper";
 import { Injectable } from "@angular/core";
 import { BasketModel } from "../models/basket.model";
 import { IBasketDto } from "../dto/basket.dto";
 import { BasketService } from "../services/basket.service";
+import { EntityMapper } from "../utils/entity-mapper";
+import { Id } from "../models/id";
 
 @Injectable({
   providedIn: "root"
@@ -11,6 +12,11 @@ import { BasketService } from "../services/basket.service";
 export class BasketRepository extends BaseRepository<BasketModel, IBasketDto, BasketService> {
   constructor(service: BasketService) {
     super(service);
+  }
+
+  async getByUserId(userId: Id): Promise<BasketModel[]> {
+    const baskets = await this.service.getByUserId(userId);
+    return this.toEntities(baskets);
   }
 
   toEntities(data: IBasketDto[]): BasketModel[] {

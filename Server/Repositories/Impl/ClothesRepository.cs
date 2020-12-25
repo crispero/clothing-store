@@ -35,6 +35,22 @@ namespace Server.Repositories.Impl
             return clothes;
         }
 
+        public async Task<List<Clothes>> GetByIds(List<int> ids)
+        {
+            var clothesList = new HashSet<Clothes>();
+
+            foreach (var id in ids)
+            {
+                var clothes = await GetById(id);
+                if (clothes != null)
+                {
+                    clothesList.Add(clothes);
+                }
+            }
+
+            return clothesList.ToList();
+        }
+
         public async Task<Clothes> Create(Clothes clothes)
         {
             await _context.Clothes.AddAsync(clothes);
@@ -81,7 +97,7 @@ namespace Server.Repositories.Impl
 
             _context.Clothes.Remove(clothes);
 
-            return  await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
         
         private bool ClothesExists(int id)

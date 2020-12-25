@@ -2,5 +2,5 @@
 
 export interface IAuthDto {
   userId: Id;
-  token: string;
+  accessToken: string;
 }

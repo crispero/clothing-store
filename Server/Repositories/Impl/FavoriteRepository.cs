@@ -34,6 +34,11 @@ namespace Server.Repositories.Impl
             return favorite;
         }
 
+        public Task<List<Favorite>> GetByIds(List<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Favorite> Create(Favorite favorite)
         {
             _context.Favorite.Add(favorite);
@@ -79,11 +84,15 @@ namespace Server.Repositories.Impl
             }
 
             _context.Favorite.Remove(favorite);
-            await _context.SaveChangesAsync();
 
-            return true;
+            return await _context.SaveChangesAsync() > 0;;
         }
-        
+
+        public async Task<List<Favorite>> GetByUserId(int userId)
+        {
+            return _context.Favorite.Where(favorite => favorite.UserId.Equals(userId)).ToList();
+        }
+
         private bool FavoriteExists(int id)
         {
             return _context.Favorite.Any(e => e.FavoriteId == id);

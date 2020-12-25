@@ -27,6 +27,10 @@ export class AppRoutesService {
     this.router.navigateByUrl(RoutingPath.Basket);
   }
 
+  gotToClothesInfoPage(id: Id): void {
+    this.router.navigateByUrl(`${RoutingPath.ClothesInfo}/${id}`)
+  }
+
   goToLoginPage(): void {
     this.router.navigateByUrl(RoutingPath.Login);
   }

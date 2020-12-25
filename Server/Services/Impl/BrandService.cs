@@ -24,6 +24,11 @@ namespace Server.Services.Impl
             return _brandRepository.GetById(id);
         }
 
+        public Task<List<Brand>> GetByIds(List<int> ids)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<Brand> Create(Brand entity)
         {
             return _brandRepository.Create(entity);

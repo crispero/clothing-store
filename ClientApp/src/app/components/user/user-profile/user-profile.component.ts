@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CurrentUser } from "../../../utils/CurrentUser";
+import { CurrentUser } from "../../../utils/current-user";
+import { UserRepository } from "../../../repositories/user.repository";
 
 @Component({
   selector: 'app-user-profile',
@@ -12,10 +13,12 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private readonly currentUser: CurrentUser,
+    private readonly userRepository: UserRepository,
   ) { }
 
   ngOnInit(): void {
-    const currentUser = CurrentUser.currentUser;
+    const currentUser = this.currentUser.currentUser;
     this.formGroup = this.formBuilder.group({
       login: [currentUser?.login || ""],
       name: [currentUser?.name || ""],
@@ -27,8 +30,11 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     const value = this.formGroup.value;
     console.log(value);
+    const currentUserId = this.currentUser.currentUserId;
+    const user = await this.userRepository.update(currentUserId, value);
+    this.currentUser.setCurrentUser(user);
   }
 }

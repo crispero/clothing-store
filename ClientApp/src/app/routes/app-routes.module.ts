@@ -7,6 +7,7 @@ import { FavoriteComponent } from "../components/favorite/favorite.component";
 import { BasketComponent } from "../components/basket/basket.component";
 import { RegisterComponent } from "../components/register/register.component";
 import { LoginComponent } from "../components/login/login.component";
+import { ClothesInfoComponent } from "../components/clothes/clothes-info/clothes-info.component";
 
 const routes: Routes = [
   {
@@ -26,12 +27,20 @@ const routes: Routes = [
     component: BasketComponent,
   },
   {
+    path: `${RoutingPath.ClothesInfo}/:id`,
+    component: ClothesInfoComponent,
+  },
+  {
     path: RoutingPath.Register,
     component: RegisterComponent,
   },
   {
     path: RoutingPath.Login,
     component: LoginComponent,
+  },
+  {
+    path: "**",
+    redirectTo: "",
   }
 ];
 

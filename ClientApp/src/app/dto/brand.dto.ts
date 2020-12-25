@@ -1,6 +1,5 @@
-﻿import { IWithId } from "../utils/IWithId";
-
-export interface IBrandDto extends IWithId {
+﻿export interface IBrandDto {
+  brandId: string;
   name: string;
   description: string;
   logoUrl: string;

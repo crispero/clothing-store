@@ -34,9 +34,19 @@ namespace Server.Repositories.Impl
             return basket;
         }
 
+        public Task<List<Basket>> GetByIds(List<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Basket> Create(Basket basket)
         {
-            _context.Basket.Add(basket);
+            if (AlreadyCreated(basket))
+            {
+                
+            }
+            
+            await _context.Basket.AddAsync(basket);
             await _context.SaveChangesAsync();
 
             return basket;
@@ -79,14 +89,25 @@ namespace Server.Repositories.Impl
             }
 
             _context.Basket.Remove(basket);
-            await _context.SaveChangesAsync();
 
-            return true;
+            return await _context.SaveChangesAsync() > 0;;
         }
-        
+
+        public async Task<List<Basket>> GetByUserId(int userId)
+        {
+            return _context.Basket.Where(basket => basket.UserId.Equals(userId)).ToList();
+        }
+
         private bool BasketExists(int id)
         {
             return _context.Basket.Any(e => e.BasketId == id);
+        }
+
+        private bool AlreadyCreated(Basket basket)
+        {
+            var findedBasket =
+                _context.Basket.Where(bas => bas.ClothesId == basket.ClothesId && bas.UserId == basket.UserId);
+            if (findedBasket != null);
         }
     }
 }

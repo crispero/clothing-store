@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AuthUtils } from "../../utils/AuthUtils";
+import { AppRoutesService } from "../../routes/app-routes.service";
+import { AuthUtils } from "../../utils/auth.utils";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private readonly authUtils: AuthUtils,
+    private readonly appRoutesService: AppRoutesService
   ) { }
 
   ngOnInit(): void {
@@ -25,5 +27,9 @@ export class LoginComponent implements OnInit {
   async onSubmit(): Promise<void> {
     const value = this.formGroup.value;
     await this.authUtils.login(value);
+  }
+
+  goToRegisterPage(): void {
+    this.appRoutesService.goToRegisterPage();
   }
 }

@@ -1,11 +1,21 @@
-﻿import { EntityModel } from "./entity.model";
-import { Exclude, Expose } from "class-transformer";
+﻿import { Exclude, Expose } from "class-transformer";
+import { Id } from "./id";
 
 @Exclude()
-export class BrandModel extends EntityModel {
+export class BrandModel {
+  private _brandId: Id;
   private _name: string;
   private _description: string;
   private _logoUrl: string;
+
+  @Expose()
+  get brandId(): Id {
+    return this._brandId;
+  }
+
+  set brandId(value: Id) {
+    this._brandId = value;
+  }
 
   @Expose()
   get name(): string {

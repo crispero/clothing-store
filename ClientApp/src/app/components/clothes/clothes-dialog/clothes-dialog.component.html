@@ -7,6 +7,15 @@
         </label>
       </mat-form-field>
 
+      <mat-form-field class="form-element" appearance="fill">
+        <mat-label>Выберите бренд</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let brand of brandList" [value]="brand" >
+            {{brand.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field class="form-element">
         <label>
           <input matInput name="description" formControlName="description" placeholder="Описание" required/>
@@ -32,6 +41,9 @@
           <mat-option value="woman">Женское</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <app-clothes-size-count
+        ></app-clothes-size-count>
     </form>
   </mat-dialog-content>
 

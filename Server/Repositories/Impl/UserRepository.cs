@@ -33,6 +33,11 @@ namespace Server.Repositories.Impl
             return user;
         }
 
+        public Task<List<User>> GetByIds(List<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<User> Create(User entity)
         {
             throw new System.NotImplementedException();
@@ -40,20 +45,36 @@ namespace Server.Repositories.Impl
 
         public async Task<User> Update(int id, User user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            var oldUser = await GetById(id);
+            
+            oldUser.UserTypeId = user.UserTypeId;
+            oldUser.Login = user.Login;
+            oldUser.Password = IsEquals(user.Password, user.Password)
+                ? user.Password
+                : HashPassword(user, user.Password);
+            oldUser.Name = user.Name;
+            oldUser.Surname = user.Surname;
+            oldUser.PictureUrl = user.PictureUrl;
+
+            _context.Users.Update(oldUser);
             
             await _context.SaveChangesAsync();
 
-            return user;
+            return await GetById(id);
         }
 
         public async Task<bool> Delete(int id)
         {
             var user = await _context.Users.FindAsync(id);
 
+            if (user == null)
+            {
+                
+            }
+
             _context.Users.Remove(user);
 
-            return  await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<User> GetUserByLogin(string login)
@@ -94,6 +115,11 @@ namespace Server.Repositories.Impl
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
+        }
+        
+        private static bool IsEquals(string lhs, string rhs)
+        {
+            return lhs.Equals(rhs);
         }
     }
 }

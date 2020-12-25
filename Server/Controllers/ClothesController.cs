@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Server.DTO;
@@ -23,6 +25,12 @@ namespace Server.Controllers
         public async Task<ActionResult<IEnumerable<ClothesDto>>> GetClothes()
         {
             return await _clothesService.GetAll();
+        }
+        
+        [HttpGet("ids")]
+        public async Task<ActionResult<IEnumerable<ClothesDto>>> GetClothesByIds([FromQuery]int[] ids)
+        {
+            return await _clothesService.GetByIds(ids.ToList());
         }
 
         // GET: api/Clothes/5

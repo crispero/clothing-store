@@ -1,6 +1,6 @@
-﻿import { GenderType } from "./GenderType";
-import { Injectable } from "@angular/core";
+﻿import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
+import { GenderType } from "../dto/gender-type";
 
 @Injectable({
   providedIn: "root"
