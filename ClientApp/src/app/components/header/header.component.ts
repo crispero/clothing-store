@@ -11,6 +11,7 @@ import { AuthUtils } from "../../utils/auth.utils";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public authorized$: Observable<boolean>;
   public currentGenderType: Observable<GenderType>;
   public isCurrentWomanType: boolean = true;
 
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
     private readonly applicationUtils: ApplicationUtils,
     private readonly authUtils: AuthUtils,
   ) {
+    this.authorized$ = authUtils.getAuthorized();
     this.currentGenderType = this.applicationUtils.currentGenderType;
     this.currentGenderType.subscribe(value => this.isCurrentWomanType = value === GenderType.Woman);
   }

@@ -8,6 +8,7 @@ import { AppRoutesService } from "../routes/app-routes.service";
 import { UserRepository } from "../repositories/user.repository";
 import { LocalStorageUtils } from "./local-storage.utils";
 import { CurrentUser } from "./current-user";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: "root"
@@ -21,11 +22,21 @@ export class AuthUtils {
     private readonly appRoutesService: AppRoutesService,
     private readonly userRepository: UserRepository,
     private readonly currentUser: CurrentUser,
+    private jwtHelperService: JwtHelperService,
   ) {
+    if (this.isAuthenticated()) {
+      this.setAuthorized(true);
+    }
   }
 
   getAuthorized(): Observable<boolean> {
     return this.authorizedSubject$.asObservable();
+  }
+
+  isAuthenticated(): boolean {
+    const accessToken = this.localStorageUtils.getAccessToken();
+    if (!accessToken) return false;
+    return !this.jwtHelperService.isTokenExpired(accessToken);
   }
 
   async login(loginDto: ILoginDto): Promise<void> {

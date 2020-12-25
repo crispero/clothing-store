@@ -1,26 +1,26 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button mat-icon-button *ngIf="authorized$ | async">
     <mat-icon>menu</mat-icon>
   </button>
-  <button mat-icon-button (click)="onClickHome()">
+  <button mat-icon-button (click)="onClickHome()" class="home-icon">
     <mat-icon>home</mat-icon>
   </button>
   <span>Clothes store</span>
-  <mat-button-toggle-group name="fontStyle" appearance="legacy" class="genderLabel">
+  <mat-button-toggle-group *ngIf="authorized$ | async" name="fontStyle" appearance="legacy" class="genderLabel">
     <mat-button-toggle value="bold" (click)="onClickWomanType()" [checked]="isCurrentWomanType">Женское</mat-button-toggle>
     <mat-button-toggle value="italic" (click)="onClickManType()" [checked]="!isCurrentWomanType">Мужское</mat-button-toggle>
   </mat-button-toggle-group>
   <span class="example-spacer"></span>
-  <button mat-icon-button (click)="onClickUserProfile()">
+  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickUserProfile()">
     <mat-icon>account_circle</mat-icon>
   </button>
-  <button mat-icon-button (click)="onClickFavorite()">
+  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickFavorite()">
     <mat-icon>favorite</mat-icon>
   </button>
-  <button mat-icon-button (click)="onClickBasket()">
+  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickBasket()">
     <mat-icon>shopping_basket</mat-icon>
   </button>
-  <button mat-icon-button (click)="onClickLogout()">
+  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickLogout()">
     <mat-icon>exit_to_app</mat-icon>
   </button>
 </mat-toolbar>
