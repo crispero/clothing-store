@@ -23,22 +23,14 @@ namespace Server.Services.Impl
         {
             var comments = await _commentRepository.GetAll();
             
-            var commentsDto = new HashSet<CommentDto>();
-
-            foreach (var comment in comments)
-            {
-                var commentDto = _entityMapper.Map<CommentDto>(comment);
-                commentsDto.Add(commentDto);
-            }
-            
-            return commentsDto.ToList();
+            return GetCommentDtoList(comments);
         }
 
         public async Task<CommentDto> GetById(int id)
         {
             var comment = await _commentRepository.GetById(id);
-            
-            return _entityMapper.Map<CommentDto>(comment);
+
+            return GetCommentDto(comment);
         }
 
         public Task<List<CommentDto>> GetByIds(List<int> ids)
@@ -52,7 +44,7 @@ namespace Server.Services.Impl
 
             var createdComment = await _commentRepository.Create(comment);
 
-            return _entityMapper.Map<CommentDto>(createdComment);
+            return GetCommentDto(createdComment);
         }
 
         public async Task<CommentDto> Update(int id, CommentDto commentDto)
@@ -61,12 +53,28 @@ namespace Server.Services.Impl
 
             var updatedComment = await _commentRepository.Update(id, comment);
 
-            return _entityMapper.Map<CommentDto>(updatedComment);
+            return GetCommentDto(updatedComment);
         }
 
         public Task<bool> Delete(int id)
         {
             return _commentRepository.Delete(id);
+        }
+
+        public async Task<List<CommentDto>> GetByClothesId(int clothesId)
+        {
+            var comments = await _commentRepository.GetByClothesId(clothesId);
+            return GetCommentDtoList(comments);
+        }
+        
+        private CommentDto GetCommentDto(Comment comment)
+        {
+            return _entityMapper.Map<CommentDto>(comment);
+        }
+
+        private List<CommentDto> GetCommentDtoList(List<Comment> comments)
+        {
+            return comments.Select(GetCommentDto).ToList();
         }
     }
 }

@@ -30,6 +30,12 @@ namespace Server.Controllers
         {
             return await _commentService.GetById(id);
         }
+        
+        [HttpGet("clothes/{id}")]
+        public async Task<ActionResult<List<CommentDto>>> GetCommentsByClothesId(int clothesId)
+        {
+            return await _commentService.GetByClothesId(clothesId);
+        }
 
         // PUT: api/Comment/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

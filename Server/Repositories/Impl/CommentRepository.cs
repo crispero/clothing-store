@@ -68,7 +68,7 @@ namespace Server.Repositories.Impl
         
         public async Task<Comment> Create(Comment comment)
         {
-            _context.Comment.Add(comment);
+            await _context.Comment.AddAsync(comment);
             await _context.SaveChangesAsync();
 
             return comment;
@@ -85,6 +85,11 @@ namespace Server.Repositories.Impl
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<List<Comment>> GetByClothesId(int clothesId)
+        {
+            return _context.Comment.Where(comment => comment.ClothesId.Equals(clothesId)).ToList();
         }
 
         private bool CommentExists(int id)
