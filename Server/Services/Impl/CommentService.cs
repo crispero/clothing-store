@@ -61,15 +61,17 @@ namespace Server.Services.Impl
             return _commentRepository.Delete(id);
         }
 
-        public async Task<List<CommentDto>> GetByClothesId(int clothesId)
+        public List<CommentDto> GetByClothesId(int clothesId)
         {
-            var comments = await _commentRepository.GetByClothesId(clothesId);
+            var comments = _commentRepository.GetByClothesId(clothesId);
             return GetCommentDtoList(comments);
         }
         
         private CommentDto GetCommentDto(Comment comment)
         {
-            return _entityMapper.Map<CommentDto>(comment);
+            var commentDto = _entityMapper.Map<CommentDto>(comment);
+            commentDto.CreatedDate = comment.CreatedDate.ToString("dd.MM.yyyy HH:mm:ss");;
+            return commentDto;
         }
 
         private List<CommentDto> GetCommentDtoList(List<Comment> comments)

@@ -73,6 +73,7 @@ namespace Server.Repositories.Impl
 
             return comment;
         }
+        
         public async Task<bool> Delete(int id)
         {
             var comment = await _context.Comment.FindAsync(id);
@@ -87,7 +88,7 @@ namespace Server.Repositories.Impl
             return true;
         }
 
-        public async Task<List<Comment>> GetByClothesId(int clothesId)
+        public List<Comment> GetByClothesId(int clothesId)
         {
             return _context.Comment.Where(comment => comment.ClothesId.Equals(clothesId)).ToList();
         }

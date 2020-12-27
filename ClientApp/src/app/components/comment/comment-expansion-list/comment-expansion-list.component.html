@@ -1,0 +1,15 @@
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Отзывы
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-icon (click)="openCommentDialog()">add</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list" *ngFor="let comment of comments">
+      <app-comment-card [comment]="comment"> </app-comment-card>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>

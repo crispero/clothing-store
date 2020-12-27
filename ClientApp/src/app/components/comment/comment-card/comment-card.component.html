@@ -1,0 +1,20 @@
+<mat-list-item class="container">
+  <div class="main-info">
+    <div class="icon">
+      <mat-icon mat-list-icon>face</mat-icon>
+    </div>
+    <div class="info">
+      <div mat-line>{{comment.text}}</div>
+      <div mat-line>{{comment.createdDate}}</div>
+      <div mat-line>{{owner?.name}}</div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button mat-button (click)="onClickDelete()" color="accent">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-button (click)="onClickEdit()" color="warn">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</mat-list-item>

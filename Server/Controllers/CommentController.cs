@@ -31,10 +31,10 @@ namespace Server.Controllers
             return await _commentService.GetById(id);
         }
         
-        [HttpGet("clothes/{id}")]
-        public async Task<ActionResult<List<CommentDto>>> GetCommentsByClothesId(int clothesId)
+        [HttpGet("clothes/{clothesId}")]
+        public ActionResult<List<CommentDto>> GetCommentsByClothesId(int clothesId)
         {
-            return await _commentService.GetByClothesId(clothesId);
+            return _commentService.GetByClothesId(clothesId);
         }
 
         // PUT: api/Comment/5

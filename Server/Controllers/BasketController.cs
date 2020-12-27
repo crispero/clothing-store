@@ -33,9 +33,9 @@ namespace Server.Controllers
         
         // GET: api/Basket/user/5
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<List<BasketDto>>> GetFavoriteByUserId(int userId)
+        public ActionResult<List<BasketDto>> GetFavoriteByUserId(int userId)
         {
-            return await _basketService.GetByUserId(userId);
+            return _basketService.GetByUserId(userId);
         }
 
         // PUT: api/Basket/5

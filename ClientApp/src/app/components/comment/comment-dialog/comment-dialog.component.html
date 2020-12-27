@@ -1,0 +1,17 @@
+<div>
+  <h2 mat-dialog-title>{{title}}</h2>
+  <mat-dialog-content class="mat-typography" >
+    <form [formGroup]="formGroup" class="dialog-container-form">
+      <mat-form-field class="form-element">
+        <label>
+          <input matInput name="text" formControlName="text" placeholder="Комментарий" required/>
+        </label>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="onCancel()">Отменить</button>
+    <button mat-button [mat-dialog-close]="true" (click)="onApply()">Применить</button>
+  </mat-dialog-actions>
+</div>

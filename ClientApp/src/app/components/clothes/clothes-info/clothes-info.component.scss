@@ -2,29 +2,38 @@
 
 .container {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
   height: 100%;
 
-  .left-content {
-    margin-right: $md-indent;
-    .image {
-      height: 400px;
-      width: 300px;
+  .main-info {
+    display: flex;
+    flex-direction: row;
+
+    .left-content {
+      margin-right: $md-indent;
+      .image {
+        height: 400px;
+        width: 300px;
+      }
+    }
+
+    .right-content {
+      .brand-info {
+        margin: $s-indent 0;
+      }
+
+      .name {
+        font-size: 20px;
+      }
+
+      .label {
+        font-size: 16px;
+      }
     }
   }
 
-  .right-content {
-    .brand-info {
-      margin: $s-indent 0;
-    }
-
-    .name {
-      font-size: 20px;
-    }
-
-    .label {
-      font-size: 16px;
-    }
+  .comments-block {
+    width: 60%;
   }
 }

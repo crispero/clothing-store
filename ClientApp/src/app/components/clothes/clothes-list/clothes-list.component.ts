@@ -42,7 +42,8 @@ export class ClothesListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async (clothesDto: Partial<IClothesDto>) => {
       if (!!clothesDto) {
-        await this.clothesRepository.create(clothesDto)
+        const newClothes = await this.clothesRepository.create(clothesDto);
+        this.clothesList.push(newClothes);
       }
     });
   }

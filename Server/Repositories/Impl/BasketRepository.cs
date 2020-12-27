@@ -93,7 +93,7 @@ namespace Server.Repositories.Impl
             return await _context.SaveChangesAsync() > 0;;
         }
 
-        public async Task<List<Basket>> GetByUserId(int userId)
+        public List<Basket> GetByUserId(int userId)
         {
             return _context.Basket.Where(basket => basket.UserId.Equals(userId)).ToList();
         }
@@ -107,7 +107,13 @@ namespace Server.Repositories.Impl
         {
             var findedBasket =
                 _context.Basket.Where(bas => bas.ClothesId == basket.ClothesId && bas.UserId == basket.UserId);
-            if (findedBasket != null);
+            
+            if (findedBasket != null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

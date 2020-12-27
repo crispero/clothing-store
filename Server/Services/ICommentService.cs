@@ -6,6 +6,6 @@ namespace Server.Services
 {
     public interface ICommentService : IService<CommentDto>
     {
-        Task<List<CommentDto>> GetByClothesId(int clothesId);
+        List<CommentDto> GetByClothesId(int clothesId);
     }
 }

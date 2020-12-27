@@ -34,6 +34,11 @@ import { ClothesSizeCountComponent } from './components/clothes/clothes-size-cou
 import { ClothesInfoComponent } from './components/clothes/clothes-info/clothes-info.component';
 import { BrandCardComponent } from './components/brand/brand-card/brand-card.component';
 import { GridColsDirective } from "./directives/grid-cols-directive";
+import { CommentCardComponent } from './components/comment/comment-card/comment-card.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CommentExpansionListComponent } from './components/comment/comment-expansion-list/comment-expansion-list.component';
+import { CommentDialogComponent } from './components/comment/comment-dialog/comment-dialog.component';
+import { MatListModule } from '@angular/material/list';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -55,7 +60,10 @@ export function tokenGetter(): string {
     DialogConfirmComponent,
     ClothesSizeCountComponent,
     ClothesInfoComponent,
-    BrandCardComponent
+    BrandCardComponent,
+    CommentCardComponent,
+    CommentExpansionListComponent,
+    CommentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +89,9 @@ export function tokenGetter(): string {
         allowedDomains: environment.jwtAllowedDomains
       }
     }),
-    FormsModule
+    FormsModule,
+    MatExpansionModule,
+    MatListModule
   ],
   providers: [
     {

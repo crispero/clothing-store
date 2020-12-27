@@ -6,7 +6,7 @@ import { Id } from "./id";
 export class CommentModel extends UserClothesModel {
   private _commentId: Id;
   private _text: string;
-  private _createdDate: number;
+  private _createdDate: string;
 
   @Expose()
   get commentId(): Id {
@@ -27,11 +27,11 @@ export class CommentModel extends UserClothesModel {
   }
 
   @Expose()
-  get createdDate(): number {
+  get createdDate(): string {
     return this._createdDate;
   }
 
-  set createDate(value: number) {
+  set createDate(value: string) {
     this._createdDate = value;
   }
 }

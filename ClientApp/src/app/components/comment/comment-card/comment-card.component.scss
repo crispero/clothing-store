@@ -1,0 +1,22 @@
+@import "src/app/const-styles";
+
+.container {
+  .mat-list-item-content {
+    width: 100%;
+  }
+
+  .main-info {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+
+    .icon {
+      margin-right: $s-indent;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

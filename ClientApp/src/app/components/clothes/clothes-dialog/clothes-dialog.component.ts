@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ClothesModel } from "../../../models/clothes.model";
@@ -16,9 +16,12 @@ export interface IClothesDialogData {
   styleUrls: ['./clothes-dialog.component.scss']
 })
 export class ClothesDialogComponent implements OnInit {
+  public title: string;
   public formGroup: FormGroup;
   public brandList: BrandModel[] = [];
   public currentBrand: BrandModel | null;
+
+  @Output() public changeEventData = new EventEmitter<ClothesModel>();
 
   constructor(
     private brandRepository: BrandRepository,
@@ -43,6 +46,8 @@ export class ClothesDialogComponent implements OnInit {
       color: [clothes?.color || "", [Validators.required]],
       genderType: [clothes?.genderType || "", [Validators.required]]
     });
+
+    this.title = this.dialogData.title;
   }
 
   onCancel(): void {

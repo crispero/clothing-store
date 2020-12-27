@@ -6,6 +6,6 @@ namespace Server.Repositories
 {
     public interface IBasketRepository : IRepository<Basket>
     {
-        Task<List<Basket>> GetByUserId(int userId);
+        List<Basket> GetByUserId(int userId);
     }
 }

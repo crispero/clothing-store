@@ -16,6 +16,7 @@ namespace Server.Dto
         [Required]
         public string Text { get; set; }
         
-        public DateTime CreatedDate { get; set; }
+        [Required]
+        public string CreatedDate { get; set; }
     }
 }

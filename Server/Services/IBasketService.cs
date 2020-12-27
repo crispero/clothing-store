@@ -6,6 +6,6 @@ namespace Server.Services
 {
     public interface IBasketService : IService<BasketDto>
     {
-        Task<List<BasketDto>> GetByUserId(int userId);
+        List<BasketDto> GetByUserId(int userId);
     }
 }

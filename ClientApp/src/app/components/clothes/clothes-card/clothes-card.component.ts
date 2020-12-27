@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClothesModel } from "../../../models/clothes.model";
 import { FavoriteRepository } from "../../../repositories/favorite.repository";
 import { BasketRepository } from "../../../repositories/basket.repository";
@@ -17,6 +17,8 @@ import { CurrentUser } from "../../../utils/current-user";
 })
 export class ClothesCardComponent implements OnInit {
   @Input() public clothes: ClothesModel;
+
+  @Output() public changeEventData = new EventEmitter<ClothesModel>();
 
   constructor(
     private readonly clothesRepository: ClothesRepository,

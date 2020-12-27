@@ -60,9 +60,9 @@ namespace Server.Services.Impl
             return _basketRepository.Delete(id);
         }
 
-        public async Task<List<BasketDto>> GetByUserId(int userId)
+        public List<BasketDto> GetByUserId(int userId)
         {
-            var favorites = await _basketRepository.GetByUserId(userId);
+            var favorites = _basketRepository.GetByUserId(userId);
             return GetBasketDtoList(favorites);
         }
         

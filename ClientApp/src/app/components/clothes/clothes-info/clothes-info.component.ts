@@ -8,6 +8,8 @@ import { BrandModel } from "../../../models/brand.model";
 import { FavoriteRepository } from "../../../repositories/favorite.repository";
 import { BasketRepository } from "../../../repositories/basket.repository";
 import { CurrentUser } from "../../../utils/current-user";
+import { CommentRepository } from "../../../repositories/comment.repository";
+import { CommentModel } from "../../../models/comment.model";
 
 @Component({
   selector: 'app-clothes-info',
@@ -17,6 +19,7 @@ import { CurrentUser } from "../../../utils/current-user";
 export class ClothesInfoComponent implements OnInit {
   public clothes: ClothesModel;
   public brand: BrandModel;
+  public comments: CommentModel[];
   private clothesId: Id;
 
   constructor(
@@ -25,7 +28,7 @@ export class ClothesInfoComponent implements OnInit {
     private readonly clothesRepository: ClothesRepository,
     private readonly brandRepository: BrandRepository,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly currentUser: CurrentUser
+    private readonly currentUser: CurrentUser,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -33,9 +36,7 @@ export class ClothesInfoComponent implements OnInit {
 
     if (this.clothesId) {
       this.clothes = await this.clothesRepository.getById(this.clothesId);
-      console.log(this.clothes);
       this.brand = await this.brandRepository.getById(this.clothes.brandId);
-      console.log(this.brand);
     }
   }
 
