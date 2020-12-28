@@ -5,5 +5,6 @@
   Basket = "basket",
   Login = "login",
   Register = "register",
-  ClothesInfo = "clothes-info"
+  ClothesInfo = "clothes-info",
+  Order = "order"
 }

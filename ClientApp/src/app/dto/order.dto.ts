@@ -6,6 +6,6 @@ export interface IOrderDto {
   userId: Id;
   price: number;
   deliveryAddress: string;
-  createdDate: number;
+  createdDate: string;
   status: OrderStatus;
 }

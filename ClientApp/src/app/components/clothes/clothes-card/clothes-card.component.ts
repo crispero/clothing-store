@@ -33,7 +33,7 @@ export class ClothesCardComponent implements OnInit {
   }
 
   onSelectItem(): void {
-    this.appRoutesService.gotToClothesInfoPage(this.clothes.clothesId);
+    this.appRoutesService.goToClothesInfoPage(this.clothes.clothesId);
   }
 
   onClickEdit() {

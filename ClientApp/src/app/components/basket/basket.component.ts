@@ -4,6 +4,10 @@ import { BasketRepository } from "../../repositories/basket.repository";
 import { ClothesRepository } from "../../repositories/clothes.repository";
 import { CurrentUser } from "../../utils/current-user";
 import { BasketModel } from "../../models/basket.model";
+import { OrderRepository } from "../../repositories/order.repository";
+import { IOrderDto } from "../../dto/order.dto";
+import { MatDialog } from "@angular/material/dialog";
+import { OrderDialogComponent } from "../order/order-dialog/order-dialog.component";
 
 @Component({
   selector: 'app-basket',
@@ -17,7 +21,9 @@ export class BasketComponent implements OnInit {
   constructor(
     private readonly basketRepository: BasketRepository,
     private readonly clothesRepository: ClothesRepository,
-    private readonly currentUser: CurrentUser
+    private readonly currentUser: CurrentUser,
+    private readonly orderRepository: OrderRepository,
+    private dialog: MatDialog
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -32,5 +38,17 @@ export class BasketComponent implements OnInit {
 
   private getClothesIds(baskets: BasketModel[]) {
     return baskets.map(basket => basket.clothesId);
+  }
+
+  openOrderDialog(): void {
+    const dialogRef = this.dialog.open(OrderDialogComponent,
+      { data: {title: "Оформление заказа"}, autoFocus: false });
+
+    dialogRef.afterClosed().subscribe(async (order: Partial<IOrderDto>) => {
+      if (!!order) {
+        await this.orderRepository.create(order);
+        this.baskets = [];
+      }
+    });
   }
 }

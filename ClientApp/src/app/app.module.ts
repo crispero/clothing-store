@@ -39,6 +39,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { CommentExpansionListComponent } from './components/comment/comment-expansion-list/comment-expansion-list.component';
 import { CommentDialogComponent } from './components/comment/comment-dialog/comment-dialog.component';
 import { MatListModule } from '@angular/material/list';
+import { OrderListComponent } from './components/order/order-list/order-list.component';
+import { OrderCardComponent } from './components/order/order-card/order-card.component';
+import { OrderDialogComponent } from './components/order/order-dialog/order-dialog.component';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -63,7 +66,10 @@ export function tokenGetter(): string {
     BrandCardComponent,
     CommentCardComponent,
     CommentExpansionListComponent,
-    CommentDialogComponent
+    CommentDialogComponent,
+    OrderListComponent,
+    OrderCardComponent,
+    OrderDialogComponent
   ],
   imports: [
     BrowserModule,

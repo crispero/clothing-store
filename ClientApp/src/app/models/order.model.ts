@@ -8,7 +8,7 @@ export class OrderModel {
   private _userId: Id;
   private _price: number;
   private _deliveryAddress: string;
-  private _createdDate: number;
+  private _createdDate: string;
   private _status: OrderStatus;
 
   @Expose()
@@ -48,11 +48,11 @@ export class OrderModel {
   }
 
   @Expose()
-  get createdDate(): number {
+  get createdDate(): string {
     return this._createdDate;
   }
 
-  set createdDate(value: number) {
+  set createdDate(value: string) {
     this._createdDate = value;
   }
 

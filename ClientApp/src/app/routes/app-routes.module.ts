@@ -9,32 +9,38 @@ import { RegisterComponent } from "../components/register/register.component";
 import { LoginComponent } from "../components/login/login.component";
 import { ClothesInfoComponent } from "../components/clothes/clothes-info/clothes-info.component";
 import { AuthGuardService } from "../guard/auth-guard.service";
+import { OrderListComponent } from "../components/order/order-list/order-list.component";
 
 const routes: Routes = [
   {
     path: RoutingPath.ClothesList,
     component: ClothesListComponent,
-    canActivate: [AuthGuardService],
+  //  canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.UserProfile,
     component: UserProfileComponent,
-    canActivate: [AuthGuardService],
+   // canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.Favorite,
     component: FavoriteComponent,
-    canActivate: [AuthGuardService],
+  //  canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.Basket,
     component: BasketComponent,
-    canActivate: [AuthGuardService],
+  //  canActivate: [AuthGuardService],
   },
   {
     path: `${RoutingPath.ClothesInfo}/:id`,
     component: ClothesInfoComponent,
-    canActivate: [AuthGuardService],
+   // canActivate: [AuthGuardService],
+  },
+  {
+    path: RoutingPath.Order,
+    component: OrderListComponent,
+    // camActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.Register,

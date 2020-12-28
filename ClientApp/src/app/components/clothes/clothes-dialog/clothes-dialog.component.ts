@@ -56,7 +56,6 @@ export class ClothesDialogComponent implements OnInit {
 
   onApply(): void {
     const value = this.formGroup.value;
-    console.log(value);
     this.dialogRef.close(value);
   }
 }

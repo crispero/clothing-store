@@ -1,0 +1,28 @@
+<div>
+  <h2 mat-dialog-title>{{title}}</h2>
+  <mat-dialog-content class="mat-typography" >
+    <form [formGroup]="formGroup" class="dialog-container-form">
+      <mat-form-field class="form-element">
+        <label>
+          <input matInput name="price" formControlName="price" placeholder="Сумма" required/>
+        </label>
+      </mat-form-field>
+
+      <mat-form-field class="form-element" appearance="fill">
+        <mat-label>Выберите пол</mat-label>
+        <mat-select >
+          <mat-option value="man">Мужское</mat-option>
+          <mat-option value="woman">Женское</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <app-clothes-size-count
+      ></app-clothes-size-count>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="onCancel()">Отмена</button>
+    <button mat-button [mat-dialog-close]="true" (click)="onApply()">Заказать</button>
+  </mat-dialog-actions>
+</div>
