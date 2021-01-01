@@ -1,5 +1,10 @@
-<button mat-button (click)="openClothesDialog()">Open dialog</button>
-<app-search (onChangeSearchValue)="onChangeSearchValue($event)"></app-search>
+<div class="header">
+  <app-search (onChangeSearchValue)="onChangeSearchValue($event)"></app-search>
+  <div>
+    <button mat-raised-button *ngIf="!isAdmin" (click)="openClothesDialog()" color="primary">Добавить одежду</button>
+    <button class="filter-button" mat-raised-button (click)="openFilterDialog()" color="primary">Фильтры</button>
+  </div>
+</div>
 <mat-grid-list
   [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
   rowHeight="500px"

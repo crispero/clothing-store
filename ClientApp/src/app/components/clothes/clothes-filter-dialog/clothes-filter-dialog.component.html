@@ -2,11 +2,21 @@
   <h2 mat-dialog-title>{{title}}</h2>
   <mat-dialog-content class="mat-typography">
     <form [formGroup]="formGroup" class="dialog-container-form">
-      <mat-form-field class="form-element" appearance="fill">
-        <mat-label>Выберите пол</mat-label>
-        <mat-select>
-          <mat-option value="0">Мужское</mat-option>
-          <mat-option value="1">Женское</mat-option>
+      <mat-form-field appearance="fill">
+        <mat-label>Пол</mat-label>
+        <mat-select formControlName="genderType">
+          <mat-option *ngFor="let genderType of genderTypeList" [value]="genderType.genderType">
+            {{genderType.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Размер</mat-label>
+        <mat-select formControlName="size">
+          <mat-option *ngFor="let size of sizeList" [value]="size.size">
+            {{size.title}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </form>

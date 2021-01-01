@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ClothesModel } from "../../../models/clothes.model";
 import { BrandModel } from "../../../models/brand.model";
 import { BrandRepository } from "../../../repositories/brand.repository";
+import { GENDER_TYPE_LIST } from "../../../dto/gender-type";
+import { CLOTHES_SIZE_LIST } from "../../../dto/clothes-size";
 
 export interface IClothesDialogData {
   title: string;
@@ -16,6 +18,8 @@ export interface IClothesDialogData {
   styleUrls: ['./clothes-dialog.component.scss']
 })
 export class ClothesDialogComponent implements OnInit {
+  public genderTypeList = GENDER_TYPE_LIST;
+  public sizeList = CLOTHES_SIZE_LIST;
   public title: string;
   public formGroup: FormGroup;
   public brandList: BrandModel[] = [];
@@ -32,20 +36,26 @@ export class ClothesDialogComponent implements OnInit {
 
   async ngOnInit(
   ): Promise<void> {
-    const clothes = this.dialogData?.clothes;
+    try {
+      const clothes = this.dialogData?.clothes;
 
-    this.brandList = await this.brandRepository.getAll();
+      this.brandList = await this.brandRepository.getAll();
 
-    this.currentBrand = clothes?.brandId ? await this.brandRepository.getById(clothes.brandId) : null;
+      this.currentBrand = clothes?.brandId ? await this.brandRepository.getById(clothes.brandId) : null;
 
-    this.formGroup = this.formBuilder.group({
-      name: [clothes?.name || "", [Validators.required]],
-      brandName: [this.currentBrand?.name || "", [Validators.required]],
-      description: [clothes?.description || "", [Validators.required]],
-      price: [clothes?.price || "", [Validators.required]],
-      color: [clothes?.color || "", [Validators.required]],
-      genderType: [clothes?.genderType || "", [Validators.required]]
-    });
+      this.formGroup = this.formBuilder.group({
+        name: [clothes?.name || "", [Validators.required]],
+        brandName: [this.currentBrand?.name || "", [Validators.required]],
+        description: [clothes?.description || "", [Validators.required]],
+        price: [clothes?.price || "", [Validators.required]],
+        color: [clothes?.color || "", [Validators.required]],
+        genderType: [clothes?.genderType || "", [Validators.required]],
+        size: [clothes?.size || "", [Validators.required]]
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
 
     this.title = this.dialogData.title;
   }

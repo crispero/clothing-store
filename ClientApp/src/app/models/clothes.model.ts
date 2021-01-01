@@ -1,6 +1,7 @@
 ﻿import { Exclude, Expose } from "class-transformer";
 import { GenderType } from "../dto/gender-type";
 import { Id } from "./id";
+import { ClothesSize } from "../dto/clothes-size";
 
 @Exclude()
 export class ClothesModel {
@@ -12,6 +13,7 @@ export class ClothesModel {
   private _description: string;
   private _color: string;
   private _genderType: GenderType;
+  private _size: ClothesSize;
 
   @Expose()
   get clothesId(): Id {
@@ -83,5 +85,14 @@ export class ClothesModel {
 
   set color(value: string) {
     this._color = value;
+  }
+
+  @Expose()
+  get size(): ClothesSize {
+    return this._size;
+  }
+
+  set size(value: ClothesSize) {
+    this._size = value;
   }
 }

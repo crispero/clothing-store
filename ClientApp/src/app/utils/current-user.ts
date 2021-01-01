@@ -2,6 +2,7 @@
 import { Id } from "../models/id";
 import { Injectable } from "@angular/core";
 import { LocalStorageUtils } from "./local-storage.utils";
+import { UserType } from "./user-type.utils";
 
 @Injectable({
   providedIn: "root"
@@ -22,7 +23,11 @@ export class CurrentUser {
     return this._currentUser?.userId || this.localStorageUtils.getUserId() || "";
   }
 
-  setCurrentUser(user: UserModel) {
+  setCurrentUser(user: UserModel): void {
     this._currentUser = user;
+  }
+
+  isAdmin(): boolean {
+    return this._currentUser?.userTypeId === UserType.Admin.toString();
   }
 }

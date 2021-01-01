@@ -1,0 +1,12 @@
+@import "src/app/const-styles";
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+
+  .filter-button {
+    margin-left: $s-indent;
+  }
+}
