@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Server.Dto;
 using Server.DTO;
 using Server.Models;
 using Server.Services;
@@ -56,6 +57,12 @@ namespace Server.Controllers
         public async Task<ActionResult<ClothesDto>> PostClothes(ClothesDto clothes)
         {
             return await _clothesService.Create(clothes);
+        }
+
+        [HttpPost("params")]
+        public async Task<ActionResult<List<ClothesDto>>> GetClothesWithFilters(ClothesFilterDto options)
+        {
+            return await _clothesService.GetClothesWithFilters(options);
         }
 
         // DELETE: api/Clothes/5

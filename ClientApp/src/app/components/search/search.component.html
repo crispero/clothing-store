@@ -1,0 +1,10 @@
+<mat-form-field class="search-container">
+  <mat-label>Поиск</mat-label>
+  <button mat-button matPrefix mat-icon-button>
+    <mat-icon>search</mat-icon>
+  </button>
+  <input matInput type="text" [(ngModel)]="value" (change)="onSearchChange()">
+  <button mat-button *ngIf="value" matSuffix mat-icon-button (click)="onSearchClear()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

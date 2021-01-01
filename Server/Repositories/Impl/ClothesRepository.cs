@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
+using Server.Dto;
 using Server.Models;
 
 namespace Server.Repositories.Impl
@@ -99,7 +100,21 @@ namespace Server.Repositories.Impl
 
             return await _context.SaveChangesAsync() > 0;
         }
-        
+
+        public async Task<List<Clothes>> GetClothesWithFilters(ClothesFilterDto options)
+        {
+            var name = options.Name;
+            var genderType = options.GenderType;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                return _context.Clothes.Where(
+                    clothes => clothes.Name.ToLower().Contains(name) && clothes.GenderType.Equals(genderType)).ToList();
+            }
+
+            return _context.Clothes.Where(clothes => clothes.GenderType.Equals(genderType)).ToList();
+        }
+
         private bool ClothesExists(int id)
         {
             return _context.Clothes.Any(e => e.ClothesId == id);

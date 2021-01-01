@@ -45,12 +45,8 @@ export class HeaderComponent implements OnInit {
     this.appRoutesService.goToBasketPage();
   }
 
-  onClickManType(): void {
-    this.setCurrentGenderType(GenderType.Man);
-  }
-
-  onClickWomanType(): void {
-    this.setCurrentGenderType(GenderType.Woman);
+  onClickOrder(): void {
+    this.appRoutesService.goToOrderPage();
   }
 
   onClickLogout(): void {

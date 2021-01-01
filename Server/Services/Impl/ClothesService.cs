@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Server.Dto;
 using Server.DTO;
 using Server.Models;
 using Server.Repositories;
@@ -57,6 +58,12 @@ namespace Server.Services.Impl
         public Task<bool> Delete(int id)
         {
             return _clothesRepository.Delete(id);
+        }
+
+        public async Task<List<ClothesDto>> GetClothesWithFilters(ClothesFilterDto options)
+        {
+            var clothes = await _clothesRepository.GetClothesWithFilters(options);
+            return GetClothesDtoList(clothes);
         }
 
         private ClothesDto GetClothesDto(Clothes clothes)

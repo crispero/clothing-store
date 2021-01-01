@@ -6,23 +6,24 @@
     <mat-icon>home</mat-icon>
   </button>
   <span>Clothes store</span>
-  <mat-button-toggle-group *ngIf="authorized$ | async" name="fontStyle" appearance="legacy" class="genderLabel">
-    <mat-button-toggle value="bold" (click)="onClickWomanType()" [checked]="isCurrentWomanType">Женское</mat-button-toggle>
-    <mat-button-toggle value="italic" (click)="onClickManType()" [checked]="!isCurrentWomanType">Мужское</mat-button-toggle>
-  </mat-button-toggle-group>
   <span class="example-spacer"></span>
-  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickUserProfile()">
-    <mat-icon>account_circle</mat-icon>
-  </button>
-  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickFavorite()">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickBasket()">
-    <mat-icon>shopping_basket</mat-icon>
-  </button>
-  <button *ngIf="authorized$ | async" mat-icon-button (click)="onClickLogout()">
-    <mat-icon>exit_to_app</mat-icon>
-  </button>
+  <div *ngIf="authorized$ | async">
+    <button mat-icon-button (click)="onClickUserProfile()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onClickOrder()">
+      <mat-icon>bookmark_border</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onClickFavorite()">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onClickBasket()">
+      <mat-icon>shopping_basket</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onClickLogout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 
 

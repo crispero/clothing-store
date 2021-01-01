@@ -15,20 +15,19 @@ import { ApplicationUtils } from "../../../utils/application.utils";
 })
 export class ClothesListComponent implements OnInit {
   public clothesList: ClothesModel[] = [];
-  public currentGenderType: Observable<GenderType>;
+  public currentGenderType: GenderType;
 
   constructor(
     private clothesRepository: ClothesRepository,
     private readonly applicationUtils: ApplicationUtils,
     private dialog: MatDialog
   ) {
-    this.currentGenderType = this.applicationUtils.currentGenderType;
-    this.currentGenderType.subscribe(value => console.log(value === GenderType.Woman));
+    this.applicationUtils.currentGenderType.subscribe(value => { this.currentGenderType = value; console.log(this.currentGenderType) });
   }
 
   async ngOnInit(): Promise<void> {
     try {
-      this.clothesList = await this.clothesRepository.getAll();
+      this.clothesList = await this.clothesRepository.getClothesWithParams({ genderType: this.currentGenderType });
       console.log(this.clothesList);
     } catch (e) {
       console.log(e);
@@ -48,4 +47,7 @@ export class ClothesListComponent implements OnInit {
     });
   }
 
+  async onChangeSearchValue(value: string): Promise<void> {
+    this.clothesList = await this.clothesRepository.getClothesWithParams({ name: value, genderType: this.currentGenderType });
+  }
 }

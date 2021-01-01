@@ -42,6 +42,8 @@ import { MatListModule } from '@angular/material/list';
 import { OrderListComponent } from './components/order/order-list/order-list.component';
 import { OrderCardComponent } from './components/order/order-card/order-card.component';
 import { OrderDialogComponent } from './components/order/order-dialog/order-dialog.component';
+import { SearchComponent } from './components/search/search.component';
+import { ClothesFilterDialogComponent } from './components/clothes/clothes-filter-dialog/clothes-filter-dialog.component';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -69,7 +71,9 @@ export function tokenGetter(): string {
     CommentDialogComponent,
     OrderListComponent,
     OrderCardComponent,
-    OrderDialogComponent
+    OrderDialogComponent,
+    SearchComponent,
+    ClothesFilterDialogComponent
   ],
   imports: [
     BrowserModule,
