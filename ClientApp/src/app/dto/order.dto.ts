@@ -8,4 +8,5 @@ export interface IOrderDto {
   deliveryAddress: string;
   createdDate: string;
   status: OrderStatus;
+  clothesIds: Id[];
 }

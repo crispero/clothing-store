@@ -6,22 +6,22 @@
     <p>{{clothes.price}}</p>
   </mat-card-content>
   <mat-card-actions class="buttons">
-    <div class="admin-buttons">
-      <button mat-button (click)="onClickDelete()" color="accent">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-button (click)="onClickEdit()" color="accent">
+    <div *ngIf="isAdmin" class="admin-buttons">
+      <button mat-icon-button (click)="onClickEdit()" color="accent">
         <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onClickDelete()" color="warn">
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
     <div class="user-buttons">
-      <button mat-button (click)="addToFavorite()" color="accent">
+      <button mat-icon-button (click)="addToFavorite()" color="accent">
         <mat-icon>favorite</mat-icon>
       </button>
-      <button mat-button (click)="addToBasket()" color="primary">
+      <button mat-icon-button (click)="addToBasket()" color="primary">
         <mat-icon>shopping_basket</mat-icon>
       </button>
-      <button mat-button (click)="onSelectItem()" color="accent">
+      <button mat-icon-button (click)="onSelectItem()" color="accent">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>

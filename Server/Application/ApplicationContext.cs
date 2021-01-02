@@ -42,5 +42,7 @@ namespace Server.Application
         public DbSet<Brand> Brand { get; set; }
 
         public DbSet<Order> Order { get; set; }
+        
+        public DbSet<OrderXClothes> OrderXClothes { get; set; }
     }
 }

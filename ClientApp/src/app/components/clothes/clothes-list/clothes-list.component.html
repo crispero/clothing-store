@@ -1,7 +1,7 @@
 <div class="header">
   <app-search (onChangeSearchValue)="onChangeSearchValue($event)"></app-search>
   <div>
-    <button mat-raised-button *ngIf="!isAdmin" (click)="openClothesDialog()" color="primary">Добавить одежду</button>
+    <button mat-raised-button *ngIf="isAdmin" (click)="openClothesDialog()" color="primary">Добавить одежду</button>
     <button class="filter-button" mat-raised-button (click)="openFilterDialog()" color="primary">Фильтры</button>
   </div>
 </div>
@@ -17,6 +17,9 @@
     >
     </app-clothes-card>
   </mat-grid-tile>
+  <div *ngIf="clothesList.length === 0">
+    <p>Список пуст</p>
+  </div>
 </mat-grid-list>
 
 

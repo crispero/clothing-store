@@ -4,10 +4,13 @@
   gutterSize="40px"
   class="mat-grid-list"
 >
-    <mat-grid-tile *ngFor="let clothes of clothesList">
-      <app-clothes-card
-        [clothes]="clothes"
-      >
-      </app-clothes-card>
-    </mat-grid-tile>
+  <mat-grid-tile *ngFor="let clothes of clothesList">
+    <app-clothes-card
+      [clothes]="clothes"
+    >
+    </app-clothes-card>
+  </mat-grid-tile>
+  <div *ngIf="clothesList?.length === 0">
+    <p>Список пуст</p>
+  </div>
 </mat-grid-list>

@@ -10,6 +10,7 @@ import { LoginComponent } from "../components/login/login.component";
 import { ClothesInfoComponent } from "../components/clothes/clothes-info/clothes-info.component";
 import { AuthGuardService } from "../guard/auth-guard.service";
 import { OrderListComponent } from "../components/order/order-list/order-list.component";
+import { BrandListComponent } from "../components/brand/brand-list/brand-list.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,11 @@ const routes: Routes = [
   {
     path: RoutingPath.Order,
     component: OrderListComponent,
+    // camActivate: [AuthGuardService],
+  },
+  {
+    path: RoutingPath.Brand,
+    component: BrandListComponent,
     // camActivate: [AuthGuardService],
   },
   {

@@ -1,6 +1,6 @@
 <div>
   <h2 mat-dialog-title>{{title}}</h2>
-  <mat-dialog-content class="mat-typography" >
+  <mat-dialog-content class="mat-typography">
     <form [formGroup]="formGroup" class="dialog-container-form">
       <mat-form-field class="form-element">
         <label>
@@ -10,7 +10,7 @@
 
       <mat-form-field class="form-element" appearance="fill">
         <mat-label>Бренд</mat-label>
-        <mat-select>
+        <mat-select formControlName="brandName">
           <mat-option *ngFor="let brand of brandList" [value]="brand.brandId">
             {{brand.name}}
           </mat-option>
@@ -58,6 +58,6 @@
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close (click)="onCancel()">Отменить</button>
-    <button mat-button [mat-dialog-close]="true" (click)="onApply()">Применить</button>
+    <button mat-button [mat-dialog-close]="true" (click)="onApply()" [disabled]="!formGroup.valid">Применить</button>
   </mat-dialog-actions>
 </div>

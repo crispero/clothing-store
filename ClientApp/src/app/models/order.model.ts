@@ -10,6 +10,7 @@ export class OrderModel {
   private _deliveryAddress: string;
   private _createdDate: string;
   private _status: OrderStatus;
+  private _clothesIds: Id[];
 
   @Expose()
   get orderId(): Id {
@@ -63,5 +64,14 @@ export class OrderModel {
 
   set status(value: OrderStatus) {
     this._status = value;
+  }
+
+  @Expose()
+  get clothesIds(): Id[] {
+    return this._clothesIds;
+  }
+
+  set clothesIds(value: Id[]) {
+    this._clothesIds = value;
   }
 }

@@ -15,7 +15,6 @@ import { OrderDialogComponent } from "../order/order-dialog/order-dialog.compone
   styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnInit {
-  private baskets: BasketModel[];
   public clothesList: ClothesModel[];
 
   constructor(
@@ -46,8 +45,9 @@ export class BasketComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async (order: Partial<IOrderDto>) => {
       if (!!order) {
+        order.clothesIds = this.clothesList.map(clothes => clothes.clothesId);
         await this.orderRepository.create(order);
-        this.baskets = [];
+        this.clothesList = [];
       }
     });
   }

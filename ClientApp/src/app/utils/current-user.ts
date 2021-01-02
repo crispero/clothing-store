@@ -28,6 +28,6 @@ export class CurrentUser {
   }
 
   isAdmin(): boolean {
-    return this._currentUser?.userTypeId === UserType.Admin.toString();
+    return this._currentUser?.userTypeId.toString() === UserType.Admin.toString();
   }
 }

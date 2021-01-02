@@ -1,0 +1,18 @@
+<div class="header">
+  <button mat-raised-button (click)="openBrandDialog()" color="primary">Добавить бренд</button>
+</div>
+<mat-grid-list
+  [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
+  rowHeight="200px"
+  gutterSize="40px"
+  class="mat-grid-list"
+>
+  <mat-grid-tile *ngFor="let brand of brands">
+    <app-brand-card
+      [brand]="brand"
+      (onEditBrand)="onEditBrand($event)"
+      (onDeleteBrand)="onDeleteBrand($event)"
+    >
+    </app-brand-card>
+  </mat-grid-tile>
+</mat-grid-list>

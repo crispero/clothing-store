@@ -6,5 +6,6 @@
   Login = "login",
   Register = "register",
   ClothesInfo = "clothes-info",
-  Order = "order"
+  Order = "order",
+  Brand = "brand"
 }

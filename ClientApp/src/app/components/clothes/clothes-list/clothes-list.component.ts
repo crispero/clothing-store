@@ -22,21 +22,18 @@ import { CurrentUser } from "../../../utils/current-user";
 export class ClothesListComponent implements OnInit {
   public isAdmin: boolean = false;
   public clothesList: ClothesModel[] = [];
-  public currentGenderType: GenderType;
 
   constructor(
     private clothesRepository: ClothesRepository,
     private readonly applicationUtils: ApplicationUtils,
     private dialog: MatDialog,
     private readonly currentUser: CurrentUser
-  ) {
-    this.applicationUtils.currentGenderType.subscribe(value => { this.currentGenderType = value; console.log(this.currentGenderType) });
-  }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     try {
       this.isAdmin = this.currentUser.isAdmin();
-      this.clothesList = await this.clothesRepository.getClothesWithParams({ genderType: this.currentGenderType });
+      this.clothesList = await this.clothesRepository.getAll();
       console.log(this.clothesList);
     } catch (e) {
       console.log(e);
@@ -70,6 +67,6 @@ export class ClothesListComponent implements OnInit {
   }
 
   async onChangeSearchValue(value: string): Promise<void> {
-    this.clothesList = await this.clothesRepository.getClothesWithParams({ name: value, genderType: this.currentGenderType });
+    this.clothesList = await this.clothesRepository.getClothesWithParams({ name: value });
   }
 }

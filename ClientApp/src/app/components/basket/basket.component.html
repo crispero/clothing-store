@@ -13,5 +13,8 @@
     >
     </app-clothes-card>
   </mat-grid-tile>
+  <div *ngIf="clothesList?.length === 0">
+    <p>Список пуст</p>
+  </div>
 </mat-grid-list>
 

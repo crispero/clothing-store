@@ -26,6 +26,12 @@ namespace Server.Common.MappingProfile
             
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+
+            CreateMap<Order, OrderDto>();
+            CreateMap<OrderDto, Order>();
+            
+            CreateMap<OrderXClothes, OrderXClothesDto>();
+            CreateMap<OrderXClothesDto, OrderXClothes>();
         }
     }
 }

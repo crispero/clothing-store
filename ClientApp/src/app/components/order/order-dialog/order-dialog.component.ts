@@ -27,7 +27,7 @@ export class OrderDialogComponent implements OnInit {
     const { order, title} = this.dialogData;
 
     this.formGroup = this.formBuilder.group({
-      deliviryAddress: [order?.deliveryAddress || "", [Validators.required]],
+      deliveryAddress: [order?.deliveryAddress || "", [Validators.required]],
       price: [order?.price || "", [Validators.required]],
     });
 
@@ -42,5 +42,4 @@ export class OrderDialogComponent implements OnInit {
     const value = this.formGroup.value;
     this.dialogRef.close(value);
   }
-
 }

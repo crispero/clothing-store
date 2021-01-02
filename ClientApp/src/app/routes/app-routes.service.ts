@@ -35,6 +35,10 @@ export class AppRoutesService {
     this.router.navigateByUrl(RoutingPath.Order);
   }
 
+  goToBrandPage(): void {
+    this.router.navigateByUrl(RoutingPath.Brand);
+  }
+
   goToLoginPage(): void {
     this.router.navigateByUrl(RoutingPath.Login);
   }

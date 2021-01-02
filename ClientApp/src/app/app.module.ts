@@ -30,7 +30,6 @@ import { environment } from "../environments/environment";
 import { SERVICE_URL } from "./app-injection-tokens";
 import { JwtModule } from "@auth0/angular-jwt";
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
-import { ClothesSizeCountComponent } from './components/clothes/clothes-size-count/clothes-size-count.component';
 import { ClothesInfoComponent } from './components/clothes/clothes-info/clothes-info.component';
 import { BrandCardComponent } from './components/brand/brand-card/brand-card.component';
 import { GridColsDirective } from "./directives/grid-cols-directive";
@@ -44,6 +43,8 @@ import { OrderCardComponent } from './components/order/order-card/order-card.com
 import { OrderDialogComponent } from './components/order/order-dialog/order-dialog.component';
 import { SearchComponent } from './components/search/search.component';
 import { ClothesFilterDialogComponent } from './components/clothes/clothes-filter-dialog/clothes-filter-dialog.component';
+import { BrandListComponent } from './components/brand/brand-list/brand-list.component';
+import { BrandDialogComponent } from './components/brand/brand-dialog/brand-dialog.component';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -63,7 +64,6 @@ export function tokenGetter(): string {
     RegisterComponent,
     LoginComponent,
     DialogConfirmComponent,
-    ClothesSizeCountComponent,
     ClothesInfoComponent,
     BrandCardComponent,
     CommentCardComponent,
@@ -73,7 +73,9 @@ export function tokenGetter(): string {
     OrderCardComponent,
     OrderDialogComponent,
     SearchComponent,
-    ClothesFilterDialogComponent
+    ClothesFilterDialogComponent,
+    BrandListComponent,
+    BrandDialogComponent
   ],
   imports: [
     BrowserModule,

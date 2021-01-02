@@ -17,6 +17,7 @@ import { CurrentUser } from "../../../utils/current-user";
 })
 export class ClothesCardComponent implements OnInit {
   @Input() public clothes: ClothesModel;
+  public isAdmin: boolean;
 
   @Output() public changeEventData = new EventEmitter<ClothesModel>();
 
@@ -30,6 +31,7 @@ export class ClothesCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.currentUser.isAdmin();
   }
 
   onSelectItem(): void {

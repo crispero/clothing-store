@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppRoutesService } from "../../routes/app-routes.service";
 import { Observable } from "rxjs";
-import { GenderType } from "../../dto/gender-type";
-import { ApplicationUtils } from "../../utils/application.utils";
 import { AuthUtils } from "../../utils/auth.utils";
+import { CurrentUser } from "../../utils/current-user";
 
 @Component({
   selector: 'app-header',
@@ -12,21 +11,18 @@ import { AuthUtils } from "../../utils/auth.utils";
 })
 export class HeaderComponent implements OnInit {
   public authorized$: Observable<boolean>;
-  public currentGenderType: Observable<GenderType>;
-  public isCurrentWomanType: boolean = true;
+  public isAdmin: boolean;
 
   constructor(
     private readonly appRoutesService: AppRoutesService,
-    private readonly applicationUtils: ApplicationUtils,
     private readonly authUtils: AuthUtils,
+    private readonly currentUser: CurrentUser
   ) {
     this.authorized$ = authUtils.getAuthorized();
-    this.currentGenderType = this.applicationUtils.currentGenderType;
-    this.currentGenderType.subscribe(value => this.isCurrentWomanType = value === GenderType.Woman);
   }
 
   ngOnInit(): void {
-
+    this.isAdmin = this.currentUser.isAdmin();
   }
 
   onClickHome(): void {
@@ -49,11 +45,11 @@ export class HeaderComponent implements OnInit {
     this.appRoutesService.goToOrderPage();
   }
 
-  onClickLogout(): void {
-    this.authUtils.logout();
+  onClickBrand(): void {
+    this.appRoutesService.goToBrandPage();
   }
 
-  private setCurrentGenderType(type: GenderType): void {
-    this.applicationUtils.setCurrentGenderType(type);
+  onClickLogout(): void {
+    this.authUtils.logout();
   }
 }
