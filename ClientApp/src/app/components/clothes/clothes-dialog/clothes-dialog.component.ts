@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ClothesModel } from "../../../models/clothes.model";
 import { BrandModel } from "../../../models/brand.model";
 import { BrandRepository } from "../../../repositories/brand.repository";
 import { GENDER_TYPE_LIST } from "../../../dto/gender-type";
 import { CLOTHES_SIZE_LIST } from "../../../dto/clothes-size";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 export interface IClothesDialogData {
   title: string;
@@ -36,12 +36,12 @@ export class ClothesDialogComponent implements OnInit {
 
   async ngOnInit(
   ): Promise<void> {
+    const { title, clothes } = this.dialogData;
+
     try {
-      const clothes = this.dialogData?.clothes;
+     // this.brandList = await this.brandRepository.getAll();
 
-      this.brandList = await this.brandRepository.getAll();
-
-      this.currentBrand = clothes?.brandId ? await this.brandRepository.getById(clothes.brandId) : null;
+    //  this.currentBrand = clothes?.brandId ? await this.brandRepository.getById(clothes.brandId) : null;
 
       this.formGroup = this.formBuilder.group({
         name: [clothes?.name || "", [Validators.required]],
@@ -56,8 +56,7 @@ export class ClothesDialogComponent implements OnInit {
       console.log(e);
     }
 
-
-    this.title = this.dialogData.title;
+    this.title = title;
   }
 
   onCancel(): void {

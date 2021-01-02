@@ -49,6 +49,10 @@ export class HeaderComponent implements OnInit {
     this.appRoutesService.goToBrandPage();
   }
 
+  onClickUserList(): void {
+    this.appRoutesService.goToUserListPage();
+  }
+
   onClickLogout(): void {
     this.authUtils.logout();
   }

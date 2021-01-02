@@ -39,6 +39,10 @@ export class AppRoutesService {
     this.router.navigateByUrl(RoutingPath.Brand);
   }
 
+  goToUserListPage(): void {
+    this.router.navigateByUrl(RoutingPath.UserList);
+  }
+
   goToLoginPage(): void {
     this.router.navigateByUrl(RoutingPath.Login);
   }

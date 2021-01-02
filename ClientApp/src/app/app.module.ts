@@ -45,6 +45,8 @@ import { SearchComponent } from './components/search/search.component';
 import { ClothesFilterDialogComponent } from './components/clothes/clothes-filter-dialog/clothes-filter-dialog.component';
 import { BrandListComponent } from './components/brand/brand-list/brand-list.component';
 import { BrandDialogComponent } from './components/brand/brand-dialog/brand-dialog.component';
+import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserCardComponent } from './components/user/user-card/user-card.component';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -75,7 +77,9 @@ export function tokenGetter(): string {
     SearchComponent,
     ClothesFilterDialogComponent,
     BrandListComponent,
-    BrandDialogComponent
+    BrandDialogComponent,
+    UserListComponent,
+    UserCardComponent
   ],
   imports: [
     BrowserModule,

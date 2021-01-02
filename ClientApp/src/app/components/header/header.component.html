@@ -8,8 +8,11 @@
   <span>Clothes store</span>
   <span class="example-spacer"></span>
   <div *ngIf="authorized$ | async">
+    <button mat-icon-button (click)="onClickUserList()">
+      <mat-icon>supervisor_account</mat-icon>
+    </button>
     <button mat-icon-button (click)="onClickBrand()">
-      <mat-icon> branding_watermark</mat-icon>
+      <mat-icon>branding_watermark</mat-icon>
     </button>
     <button mat-icon-button (click)="onClickUserProfile()">
       <mat-icon>account_circle</mat-icon>

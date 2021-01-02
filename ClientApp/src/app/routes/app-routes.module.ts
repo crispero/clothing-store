@@ -11,6 +11,7 @@ import { ClothesInfoComponent } from "../components/clothes/clothes-info/clothes
 import { AuthGuardService } from "../guard/auth-guard.service";
 import { OrderListComponent } from "../components/order/order-list/order-list.component";
 import { BrandListComponent } from "../components/brand/brand-list/brand-list.component";
+import { UserListComponent } from "../components/user/user-list/user-list.component";
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
     path: RoutingPath.Brand,
     component: BrandListComponent,
     // camActivate: [AuthGuardService],
+  },
+  {
+    path: RoutingPath.UserList,
+    component: UserListComponent,
+    // canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.Register,
