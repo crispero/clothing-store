@@ -1,9 +1,10 @@
 <mat-card class="example-card">
   <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
   <mat-card-content>
-    <p>{{clothes.description}}</p>
-    <p>{{clothes.color}}</p>
-    <p>{{clothes.price}}</p>
+    <p>Цвет: {{clothes?.color || "-"}}</p>
+    <p>Цена: {{clothes.price}} руб</p>
+    <p>Размер: {{this.size?.title}}</p>
+    <p>Пол: {{this.genderType?.title}}</p>
   </mat-card-content>
   <mat-card-actions class="buttons">
     <div *ngIf="isAdmin" class="admin-buttons">

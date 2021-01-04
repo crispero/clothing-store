@@ -47,6 +47,7 @@ import { BrandListComponent } from './components/brand/brand-list/brand-list.com
 import { BrandDialogComponent } from './components/brand/brand-dialog/brand-dialog.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserCardComponent } from './components/user/user-card/user-card.component';
+import { MatChipsModule } from "@angular/material/chips";
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -98,6 +99,7 @@ export function tokenGetter(): string {
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
+    MatChipsModule,
 
     JwtModule.forRoot({
       config: {

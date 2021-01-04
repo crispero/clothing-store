@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
+using Server.Common.Exception;
 using Server.Models;
 
 namespace Server.Repositories.Impl
@@ -27,7 +28,7 @@ namespace Server.Repositories.Impl
 
             if (comment == null)
             {
-                
+                throw new CommentNotFound();
             }
 
             return comment;
@@ -38,30 +39,15 @@ namespace Server.Repositories.Impl
             throw new System.NotImplementedException();
         }
 
-        public async Task<Comment> Update(int id, Comment comment)
+        public async Task<Comment> Update(int id, Comment entity)
         {
-            if (id != comment.CommentId)
-            {
-                
-            }
+            var comment = await GetById(id);
 
-            _context.Entry(comment).State = EntityState.Modified;
+            comment.Text = entity.Text;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _context.Comment.Update(comment);
+
+            await _context.SaveChangesAsync();
 
             return comment;
         }
@@ -76,11 +62,7 @@ namespace Server.Repositories.Impl
         
         public async Task<bool> Delete(int id)
         {
-            var comment = await _context.Comment.FindAsync(id);
-            if (comment == null)
-            {
-                
-            }
+            var comment = await GetById(id);
 
             _context.Comment.Remove(comment);
             await _context.SaveChangesAsync();

@@ -4,7 +4,7 @@
       <mat-icon>polymer</mat-icon>
     </div>
     <mat-card-title>{{brand?.name || ""}}</mat-card-title>
-    <mat-card-subtitle>{{brand?.description || ""}}</mat-card-subtitle>
+    <mat-card-subtitle class="description">{{brand?.description || ""}}</mat-card-subtitle>
     <div *ngIf="isAdmin" class="actions">
       <button mat-icon-button (click)="onClickEdit()" color="accent">
         <mat-icon>edit</mat-icon>

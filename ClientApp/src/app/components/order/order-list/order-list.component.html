@@ -10,4 +10,8 @@
     >
     </app-order-card>
   </mat-grid-tile>
+  <div *ngIf="orders?.length === 0" class="empty-container">
+    <p>Список заказов пуст</p>
+  </div>
 </mat-grid-list>
+

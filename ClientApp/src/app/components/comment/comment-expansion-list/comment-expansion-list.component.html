@@ -1,15 +1,21 @@
-<mat-accordion class="example-headers-align" multi>
+<mat-accordion multi>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Отзывы
       </mat-panel-title>
-      <mat-panel-description>
-        <mat-icon (click)="openCommentDialog()">add</mat-icon>
-      </mat-panel-description>
     </mat-expansion-panel-header>
+    <div class="add-button">
+      <button mat-raised-button color="primary" (click)="openCommentDialog()" >Добавить отзыв</button>
+    </div>
     <mat-list role="list" *ngFor="let comment of comments">
-      <app-comment-card [comment]="comment"> </app-comment-card>
+      <app-comment-card
+        [comment]="comment"
+        (onUpdateComment)="onUpdateComment($event)"
+        (onDeleteComment)="onDeleteComment($event)"
+      >
+      </app-comment-card>
     </mat-list>
+    <div *ngIf="comments?.length === 0" class="empty-container">Нет отзывов</div>
   </mat-expansion-panel>
 </mat-accordion>

@@ -10,7 +10,7 @@ using Server.Application;
 namespace Server.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201210144625_InitialCreate")]
+    [Migration("20210104142214_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,38 +114,15 @@ namespace Server.Migrations
                         .HasColumnName("price")
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<byte>("Size")
+                        .HasColumnName("size")
+                        .HasColumnType("tinyint");
+
                     b.HasKey("ClothesId");
 
                     b.HasIndex("BrandId");
 
                     b.ToTable("clothes");
-                });
-
-            modelBuilder.Entity("Server.Models.ClothesCounter", b =>
-                {
-                    b.Property<int>("ClothesCounterId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("clothes_counter_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ClothesId")
-                        .HasColumnName("clothes_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnName("count")
-                        .HasColumnType("int");
-
-                    b.Property<byte>("Size")
-                        .HasColumnName("size")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("ClothesCounterId");
-
-                    b.HasIndex("ClothesId");
-
-                    b.ToTable("clothes_counter");
                 });
 
             modelBuilder.Entity("Server.Models.Comment", b =>
@@ -362,15 +339,6 @@ namespace Server.Migrations
                     b.HasOne("Server.Models.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Server.Models.ClothesCounter", b =>
-                {
-                    b.HasOne("Server.Models.Clothes", "Clothes")
-                        .WithMany()
-                        .HasForeignKey("ClothesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

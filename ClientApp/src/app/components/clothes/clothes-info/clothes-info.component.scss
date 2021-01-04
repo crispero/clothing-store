@@ -19,6 +19,10 @@
     }
 
     .right-content {
+      .item {
+        margin-bottom: $xs-indent;
+      }
+
       .brand-info {
         margin: $s-indent 0;
       }
@@ -33,7 +37,19 @@
     }
   }
 
-  .comments-block {
-    width: 60%;
+  .bottom-block {
+    margin-top: $s-indent;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .comments-block, .description {
+      width: 50%;
+    }
+
+    .description {
+      margin-right: $s-indent;
+    }
   }
+
 }

@@ -24,6 +24,9 @@ namespace Server.Models
         [Column("gender_type", TypeName = "tinyint")]
         public ushort GenderType { get; set; }
         
+        [Column("size", TypeName = "tinyint")]
+        public ushort Size { get; set; }
+        
         [Column("picture_url")]
         [StringLength(255)]
         public string PictureUrl { get; set; }

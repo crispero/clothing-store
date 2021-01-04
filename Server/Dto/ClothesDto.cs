@@ -16,6 +16,10 @@ namespace Server.DTO
         public string PictureUrl { get; set; }
         
         public string Color { get; set; }
+
+        public ushort GenderType { get; set; }
+        
+        public ushort Size { get; set; }
         
         [Required]
         public int BrandId { get; set; }

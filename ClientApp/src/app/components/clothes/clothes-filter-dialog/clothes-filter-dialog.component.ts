@@ -45,5 +45,4 @@ export class ClothesFilterDialogComponent implements OnInit {
     console.log(value);
     this.dialogRef.close(value);
   }
-
 }

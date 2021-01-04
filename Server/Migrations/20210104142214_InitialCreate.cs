@@ -45,6 +45,7 @@ namespace Server.Migrations
                     name = table.Column<string>(maxLength: 255, nullable: true),
                     price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     gender_type = table.Column<byte>(type: "tinyint", nullable: false),
+                    size = table.Column<byte>(type: "tinyint", nullable: false),
                     picture_url = table.Column<string>(maxLength: 255, nullable: true),
                     description = table.Column<string>(maxLength: 1024, nullable: true),
                     color = table.Column<string>(maxLength: 255, nullable: true)
@@ -83,27 +84,6 @@ namespace Server.Migrations
                         column: x => x.user_type_id,
                         principalTable: "user_type",
                         principalColumn: "user_type_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "clothes_counter",
-                columns: table => new
-                {
-                    clothes_counter_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    clothes_id = table.Column<int>(nullable: false),
-                    size = table.Column<byte>(type: "tinyint", nullable: false),
-                    count = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_clothes_counter", x => x.clothes_counter_id);
-                    table.ForeignKey(
-                        name: "FK_clothes_counter_clothes_clothes_id",
-                        column: x => x.clothes_id,
-                        principalTable: "clothes",
-                        principalColumn: "clothes_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -252,11 +232,6 @@ namespace Server.Migrations
                 column: "brand_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_clothes_counter_clothes_id",
-                table: "clothes_counter",
-                column: "clothes_id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_comment_clothes_id",
                 table: "comment",
                 column: "clothes_id");
@@ -301,9 +276,6 @@ namespace Server.Migrations
         {
             migrationBuilder.DropTable(
                 name: "basket");
-
-            migrationBuilder.DropTable(
-                name: "clothes_counter");
 
             migrationBuilder.DropTable(
                 name: "comment");

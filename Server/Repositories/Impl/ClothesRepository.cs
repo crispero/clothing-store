@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
+using Server.Common.Exception;
 using Server.Dto;
 using Server.Models;
 
@@ -30,7 +31,7 @@ namespace Server.Repositories.Impl
 
             if (clothes == null)
             {
-              
+                throw new ClothesNotFound();
             }
 
             return clothes;
@@ -60,30 +61,20 @@ namespace Server.Repositories.Impl
             return clothes;
         }
         
-        public async Task<Clothes> Update(int id, Clothes clothes)
+        public async Task<Clothes> Update(int id, Clothes entity)
         {
-            if (id != clothes.ClothesId)
-            {
-                
-            }
+            var clothes = await GetById(id);
 
-            _context.Entry(clothes).State = EntityState.Modified;
+            clothes.Name = entity.Name;
+            clothes.BrandId = entity.BrandId;
+            clothes.Description = entity.Description;
+            clothes.Size = entity.Size;
+            clothes.GenderType = entity.GenderType;
+            clothes.Color = entity.Color;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClothesExists(id))
-                {
-                    
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _context.Clothes.Update(clothes);
+
+            await _context.SaveChangesAsync();
 
             return clothes;
         }
@@ -93,7 +84,7 @@ namespace Server.Repositories.Impl
             var clothes = await _context.Clothes.FindAsync(id);
             if (clothes == null)
             {
-                
+                throw new ClothesNotFound();
             }
 
             _context.Clothes.Remove(clothes);

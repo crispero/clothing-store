@@ -10,7 +10,7 @@
 
       <mat-form-field class="form-element" appearance="fill">
         <mat-label>Бренд</mat-label>
-        <mat-select formControlName="brandName">
+        <mat-select formControlName="brandId">
           <mat-option *ngFor="let brand of brandList" [value]="brand.brandId">
             {{brand.name}}
           </mat-option>

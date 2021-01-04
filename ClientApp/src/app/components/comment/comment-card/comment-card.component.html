@@ -1,20 +1,22 @@
-<mat-list-item class="container">
+<div class="container">
   <div class="main-info">
     <div class="icon">
       <mat-icon mat-list-icon>face</mat-icon>
     </div>
     <div class="info">
-      <div mat-line>{{comment.text}}</div>
-      <div mat-line>{{comment.createdDate}}</div>
-      <div mat-line>{{owner?.name}}</div>
+      <div class="info-header">
+        <div mat-line>{{owner?.name}} {{owner?.surname}}</div>
+        <div mat-line>{{comment.createdDate}}</div>
+      </div>
+      <div class="comment">{{comment.text}}</div>
+    </div>
+    <div class="buttons">
+      <button mat-icon-button (click)="onClickEdit()" color="accent">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onClickDelete()" color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
   </div>
-  <div class="buttons">
-    <button mat-button (click)="onClickDelete()" color="accent">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button mat-button (click)="onClickEdit()" color="warn">
-      <mat-icon>edit</mat-icon>
-    </button>
-  </div>
-</mat-list-item>
+</div>

@@ -1,6 +1,6 @@
 <mat-grid-list
   [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
-  rowHeight="500px"
+  rowHeight="200px"
   gutterSize="40px"
   class="mat-grid-list"
 >
@@ -10,7 +10,7 @@
     >
     </app-user-card>
   </mat-grid-tile>
-  <div *ngIf="users.length === 0" class="empty-container">
+  <div *ngIf="users?.length === 0" class="empty-container">
     <p>Список пользователей пуст</p>
   </div>
 </mat-grid-list>

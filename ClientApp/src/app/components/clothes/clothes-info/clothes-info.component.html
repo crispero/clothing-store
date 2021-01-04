@@ -7,9 +7,21 @@
 
     <div class="right-content">
       <p class="name">{{clothes?.name || ""}}</p>
-      <div>
+      <div class="item">
         <span class="label">Цена: </span>
         <span>{{clothes?.price || ""}} руб</span>
+      </div>
+      <div class="item">
+        <span class="label">Цвет: </span>
+        <span>{{clothes?.color || ""}}</span>
+      </div>
+      <div class="item">
+        <span class="label">Пол: </span>
+        <span>{{genderType?.title || ""}}</span>
+      </div>
+      <div class="item">
+        <span class="label">Размер: </span>
+        <span>{{size?.title || ""}}</span>
       </div>
       <div class="brand-info">
         <p class="label"> Информация о бренде: </p>
@@ -26,10 +38,26 @@
     </div>
   </div>
 
-  <div class="comments-block">
-    <app-comment-expansion-list
-      [clothes]="clothes"
-    >
-    </app-comment-expansion-list>
+  <div class="bottom-block">
+    <mat-accordion multi class="description">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Описание
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <p>{{clothes?.description || ""}}</p>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="comments-block">
+      <app-comment-expansion-list
+        [clothes]="clothes"
+      >
+      </app-comment-expansion-list>
+    </div>
   </div>
+
 </div>

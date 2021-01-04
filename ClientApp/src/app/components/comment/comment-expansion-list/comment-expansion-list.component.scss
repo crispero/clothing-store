@@ -1,0 +1,14 @@
+@import "src/app/const-styles";
+
+.add-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.empty-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: $s-indent 0;
+}

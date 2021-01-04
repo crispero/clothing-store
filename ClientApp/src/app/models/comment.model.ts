@@ -31,7 +31,7 @@ export class CommentModel extends UserClothesModel {
     return this._createdDate;
   }
 
-  set createDate(value: string) {
+  set createdDate(value: string) {
     this._createdDate = value;
   }
 }

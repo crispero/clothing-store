@@ -48,4 +48,26 @@ export class CommentExpansionListComponent implements OnInit {
       }
     });
   }
+
+  async onDeleteComment(id: Id): Promise<void> {
+    const isDeleted = await this.commentRepository.delete(id);
+    isDeleted && this.deleteOrChangeComment(id);
+  }
+
+  async onUpdateComment(commentDto: Partial<ICommentDto>): Promise<void> {
+    const updatedComment = await this.commentRepository.update(commentDto.commentId!, commentDto);
+    this.deleteOrChangeComment(commentDto.commentId!, updatedComment);
+  }
+
+  private deleteOrChangeComment(id: Id, comment?: CommentModel): void {
+    const index = this.comments.findIndex(comment => comment.commentId === id);
+
+    if (index === -1) return;
+
+    if (comment) {
+      this.comments.splice(index, 1, comment);
+    } else {
+      this.comments.splice(index, 1);
+    }
+  }
 }

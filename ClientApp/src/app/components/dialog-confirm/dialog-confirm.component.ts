@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 export interface IConfirmDialogData {
   title: string;
-  description: string;
+  description?: string;
 }
 
 @Component({

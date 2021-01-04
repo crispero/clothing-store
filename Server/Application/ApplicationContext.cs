@@ -20,7 +20,6 @@ namespace Server.Application
             modelBuilder.Entity<User>().HasKey(user => new { user.UserId });
             modelBuilder.Entity<Clothes>().HasKey(clothes => new { clothes.ClothesId });
             modelBuilder.Entity<Basket>().HasKey(basket => new { basket.BasketId });
-            modelBuilder.Entity<ClothesCounter>().HasKey(clotheCounter => new { clotheCounter.ClothesCounterId });
             modelBuilder.Entity<Favorite>().HasKey(favorite => new { favorite.FavoriteId });
             modelBuilder.Entity<Order>().HasKey(order => new { order.OrderId });
             modelBuilder.Entity<OrderXClothes>().HasKey(orderXClothes => new { orderXClothes.OrderXClothesId });

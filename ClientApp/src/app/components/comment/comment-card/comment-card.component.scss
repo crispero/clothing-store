@@ -8,7 +8,6 @@
   .main-info {
     display: flex;
     flex-direction: row;
-    flex: 1;
 
     .icon {
       margin-right: $s-indent;
@@ -17,6 +16,22 @@
     .info {
       display: flex;
       flex-direction: column;
+      flex: 1;
+
+      .info-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .comment {
+        word-break: break-word;
+      }
     }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
   }
 }

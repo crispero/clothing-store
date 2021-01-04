@@ -5,6 +5,14 @@
     <button class="filter-button" mat-raised-button (click)="openFilterDialog()" color="primary">Фильтры</button>
   </div>
 </div>
+<div>
+  <mat-chip-list>
+    <mat-chip *ngFor="let filter of filterList" (removed)="deleteFromFilters(filter)">
+      {{filter?.title}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</div>
 <mat-grid-list
   [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
   rowHeight="500px"
@@ -14,10 +22,13 @@
   <mat-grid-tile *ngFor="let clothes of clothesList">
     <app-clothes-card
       [clothes]="clothes"
+      [brands]="brands"
+      (onDeleteClothes)="onDeleteClothes($event)"
+      (onUpdateClothes)="onUpdateClothes($event)"
     >
     </app-clothes-card>
   </mat-grid-tile>
-  <div *ngIf="clothesList.length === 0" class="empty-container">
+  <div *ngIf="clothesList?.length === 0" class="empty-container">
     <p>Список одежды пуст</p>
   </div>
 </mat-grid-list>
