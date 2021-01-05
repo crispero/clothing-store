@@ -1,7 +1,11 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title> {{user.name}} {{user.surname}} </mat-card-title>
-    <mat-card-subtitle> {{user.login}} </mat-card-subtitle>
+<mat-card>
+  <mat-card-header class="header">
+    <div>
+      <mat-card-title> {{user.name}} {{user.surname}} </mat-card-title>
+      <mat-card-subtitle> {{user.login}} </mat-card-subtitle>
+    </div>
+    <button *ngIf="isAdmin()" mat-raised-button color="primary">Назначить пользователем</button>
+    <button *ngIf="!isAdmin()" mat-raised-button color="primary">Назначить администратором</button>
   </mat-card-header>
   <mat-card-content>
     <p>{{user.address}}</p>
