@@ -3,6 +3,8 @@ import { AppRoutesService } from "../../routes/app-routes.service";
 import { Observable } from "rxjs";
 import { AuthUtils } from "../../utils/auth.utils";
 import { CurrentUser } from "../../utils/current-user";
+import { DialogConfirmComponent, IConfirmDialogData } from "../dialog-confirm/dialog-confirm.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private readonly appRoutesService: AppRoutesService,
     private readonly authUtils: AuthUtils,
-    private readonly currentUser: CurrentUser
+    private readonly currentUser: CurrentUser,
+    private dialog: MatDialog,
   ) {
     this.authorized$ = authUtils.getAuthorized();
   }
@@ -54,6 +57,12 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickLogout(): void {
-    this.authUtils.logout();
+    const dialogData: IConfirmDialogData = { title: "Вы действительно хотите выйти?" }
+    const dialogRef = this.dialog.open(DialogConfirmComponent, { data: dialogData, autoFocus: false });
+    dialogRef.afterClosed().subscribe((isApply: boolean) => {
+      if (isApply) {
+        this.authUtils.logout();
+      }
+    })
   }
 }

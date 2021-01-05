@@ -5,7 +5,7 @@
     <button class="filter-button" mat-raised-button (click)="openFilterDialog()" color="primary">Фильтры</button>
   </div>
 </div>
-<div>
+<div class="filters">
   <mat-chip-list>
     <mat-chip *ngFor="let filter of filterList" (removed)="deleteFromFilters(filter)">
       {{filter?.title}}
@@ -15,7 +15,7 @@
 </div>
 <mat-grid-list
   [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
-  rowHeight="500px"
+  rowHeight="600px"
   gutterSize="40px"
   class="mat-grid-list"
 >

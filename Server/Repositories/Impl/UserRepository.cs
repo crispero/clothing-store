@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
+using Server.Common.Exception;
 using Server.DTO;
 using Server.Models;
 
@@ -29,6 +30,11 @@ namespace Server.Repositories.Impl
         public async Task<User> GetById(int id)
         {
             var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                throw new UserNotFound();
+            }
             
             return user;
         }
@@ -47,30 +53,37 @@ namespace Server.Repositories.Impl
         {
             var oldUser = await GetById(id);
             
+            if (!IsEquals(oldUser.Login, user.Login) && IsUserExists(user.Login))
+            {
+                throw new UserExists();
+            }
+            
             oldUser.UserTypeId = user.UserTypeId;
             oldUser.Login = user.Login;
-            oldUser.Password = IsEquals(user.Password, user.Password)
-                ? user.Password
-                : HashPassword(user, user.Password);
+
+            if (user.Password != null)
+            {
+                oldUser.Password = IsEquals(user.Password, user.Password)
+                    ? user.Password
+                    : HashPassword(user, user.Password);
+            }
+            
             oldUser.Name = user.Name;
             oldUser.Surname = user.Surname;
             oldUser.PictureUrl = user.PictureUrl;
+            oldUser.GenderType = user.GenderType;
+            oldUser.Address = user.Address;
 
             _context.Users.Update(oldUser);
             
             await _context.SaveChangesAsync();
 
-            return await GetById(id);
+            return oldUser;
         }
 
         public async Task<bool> Delete(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                
-            }
+            var user = await GetById(id);
 
             _context.Users.Remove(user);
 
@@ -112,9 +125,9 @@ namespace Server.Repositories.Impl
             return _passwordHasher.HashPassword(user, password);
         }
         
-        private bool UserExists(int id)
+        private bool IsUserExists(string login)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.Users.Any(e => e.Login == login);
         }
         
         private static bool IsEquals(string lhs, string rhs)

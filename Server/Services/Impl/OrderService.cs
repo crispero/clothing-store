@@ -13,13 +13,19 @@ namespace Server.Services.Impl
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderClothesService _orderClothesService;
+        private readonly IBasketService _basketService;
         private readonly IMapper _entityMapper;
 
-        public OrderService(IOrderRepository orderRepository, IMapper entityMapper, IOrderClothesService orderClothesService)
+        public OrderService(
+            IOrderRepository orderRepository,
+            IMapper entityMapper,
+            IOrderClothesService orderClothesService,
+            IBasketService basketService)
         {
             _orderRepository = orderRepository;
             _orderClothesService = orderClothesService;
             _entityMapper = entityMapper;
+            _basketService = basketService;
         }
         
         public async Task<List<OrderDto>> GetAll()
@@ -41,11 +47,13 @@ namespace Server.Services.Impl
 
         public async Task<OrderDto> Create(OrderDto orderDto)
         {
-            await CreateOrderXClothes(orderDto);
-            
             var order = _entityMapper.Map<Order>(orderDto);
 
             var createdOrder = await _orderRepository.Create(order);
+            
+            await CreateOrderXClothes(createdOrder.OrderId, orderDto.ClothesIds);
+
+            await RemoveFromBasket(createdOrder);
 
             return await GetOrderDto(createdOrder);
         }
@@ -101,17 +109,27 @@ namespace Server.Services.Impl
             return orderDtos.ToList();
         }
 
-        private async Task CreateOrderXClothes(OrderDto orderDto)
+        private async Task CreateOrderXClothes(int orderId, List<int> clothesIds)
         {
-            foreach (var clothesId in orderDto.ClothesIds)
+            foreach (var clothesId in clothesIds)
             {
                 var orderXClothes = new OrderXClothesDto
                 {
-                    OrderId = orderDto.OrderId,
+                    OrderId = orderId,
                     ClothesId = clothesId
                 };
 
                 await _orderClothesService.Create(orderXClothes);
+            }
+        }
+
+        private async Task RemoveFromBasket(Order order)
+        {
+            var baskets = _basketService.GetByUserId(order.UserId);
+
+            foreach (var basket in baskets)
+            {
+                await _basketService.Delete(basket.BasketId);
             }
         }
     }

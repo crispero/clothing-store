@@ -4,7 +4,6 @@ import { FavoriteRepository } from "../../../repositories/favorite.repository";
 import { BasketRepository } from "../../../repositories/basket.repository";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogConfirmComponent, IConfirmDialogData } from "../../dialog-confirm/dialog-confirm.component";
-import { ClothesRepository } from "../../../repositories/clothes.repository";
 import { ClothesDialogComponent, IClothesDialogData } from "../clothes-dialog/clothes-dialog.component";
 import { IClothesDto } from "../../../dto/clothes.dto";
 import { AppRoutesService } from "../../../routes/app-routes.service";
@@ -22,12 +21,20 @@ import { Id } from "../../../models/id";
 export class ClothesCardComponent implements OnInit {
   @Input() public clothes: ClothesModel;
   @Input() public brands: BrandModel[];
+  @Input() public showFavoriteButton: boolean = true;
+  @Input() public showBasketButton: boolean = true;
+  @Input() public showInfoButton: boolean = true;
+  @Input() public showEditButton: boolean = true;
+  @Input() public showDeleteButton: boolean = true;
+  @Input() public showCloseButton: boolean = false;
+
   public isAdmin: boolean;
   public genderType: IGenderType | undefined;
   public size: IClothesSize | undefined;
 
   @Output() public onUpdateClothes = new EventEmitter<Partial<IClothesDto>>();
   @Output() public onDeleteClothes = new EventEmitter<Id>();
+  @Output() public onClickCloseButton = new EventEmitter();
 
   constructor(
     private readonly favoriteRepository: FavoriteRepository,
@@ -59,7 +66,7 @@ export class ClothesCardComponent implements OnInit {
   }
 
   onClickDelete() {
-    const dialogData: IConfirmDialogData = { title: "Вы действительно хотите удалить одежду?", description: ""};
+    const dialogData: IConfirmDialogData = { title: "Вы действительно хотите удалить одежду?" };
     const dialogRef = this.dialog.open(DialogConfirmComponent, { data: dialogData, autoFocus: false });
     dialogRef.afterClosed().subscribe((isApply: boolean) => {
       if (isApply) {
@@ -78,6 +85,10 @@ export class ClothesCardComponent implements OnInit {
     const sendData = this.getSendData();
 
     this.basketRepository.create(sendData);
+  }
+
+  onClickClose(): void {
+    this.onClickCloseButton.emit();
   }
 
   private getSendData() {

@@ -1,11 +1,13 @@
-<mat-card>
+<mat-card class="container">
   <mat-card-header>
     <div mat-card-avatar class="avatar">
       <mat-icon>polymer</mat-icon>
     </div>
     <mat-card-title>{{brand?.name || ""}}</mat-card-title>
-    <mat-card-subtitle class="description">{{brand?.description || ""}}</mat-card-subtitle>
-    <div *ngIf="isAdmin" class="actions">
+    <mat-card-subtitle class="description">
+        {{brand?.description || ""}}
+    </mat-card-subtitle>
+    <div *ngIf="isAdmin && showButtons" class="actions">
       <button mat-icon-button (click)="onClickEdit()" color="accent">
         <mat-icon>edit</mat-icon>
       </button>

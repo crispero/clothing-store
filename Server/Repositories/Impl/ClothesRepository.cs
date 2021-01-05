@@ -94,16 +94,27 @@ namespace Server.Repositories.Impl
 
         public async Task<List<Clothes>> GetClothesWithFilters(ClothesFilterDto options)
         {
+            var clothesList = await GetAll();
             var name = options.Name;
             var genderType = options.GenderType;
+            var size = options.Size;
 
             if (!string.IsNullOrEmpty(name))
             {
-                return _context.Clothes.Where(
-                    clothes => clothes.Name.ToLower().Contains(name) && clothes.GenderType.Equals(genderType)).ToList();
+                clothesList = clothesList.Where(clothes => clothes.Name.ToLower().Contains(name)).ToList();
             }
 
-            return _context.Clothes.Where(clothes => clothes.GenderType.Equals(genderType)).ToList();
+            if (genderType != 0)
+            {
+                clothesList = clothesList.Where(clothes => clothes.GenderType.Equals(genderType)).ToList();
+            }
+
+            if (size != 0)
+            {
+                clothesList = clothesList.Where(clothes => clothes.Size.Equals(size)).ToList();
+            }
+
+            return clothesList;
         }
 
         private bool ClothesExists(int id)

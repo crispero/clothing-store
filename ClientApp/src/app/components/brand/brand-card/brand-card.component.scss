@@ -1,9 +1,20 @@
-.avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.container {
+  height: 100%;
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .description {
+    overflow: auto;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
-.description {
-  overflow: auto;
-}
+

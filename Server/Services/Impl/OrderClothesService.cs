@@ -32,18 +32,20 @@ namespace Server.Services.Impl
         public async Task<List<OrderXClothesDto>> GetByIds(List<int> ids)
         {
             var orderXClotheses = await _orderClothesRepository.GetByIds(ids);
-            return getOrderXClothesDtos(orderXClotheses);
+            return GetOrderXClothesDtos(orderXClotheses);
         }
 
         public async Task<List<OrderXClothesDto>> GetByOrderId(int orderId)
         {
             var orderXClotheses = await _orderClothesRepository.GetByOrderId(orderId);
-            return getOrderXClothesDtos(orderXClotheses);
+            return GetOrderXClothesDtos(orderXClotheses);
         }
 
-        public Task<OrderXClothesDto> Create(OrderXClothesDto entity)
+        public async Task<OrderXClothesDto> Create(OrderXClothesDto entity)
         {
-            throw new System.NotImplementedException();
+            var orderXClothes = _entityMapper.Map<OrderXClothes>(entity);
+            var createdOrderXClothes = await _orderClothesRepository.Create(orderXClothes);
+            return GetOrderXClothesDto(createdOrderXClothes);
         }
 
         public Task<OrderXClothesDto> Update(int id, OrderXClothesDto entity)
@@ -53,17 +55,17 @@ namespace Server.Services.Impl
 
         public Task<bool> Delete(int id)
         {
-            throw new System.NotImplementedException();
+            return _orderClothesRepository.Delete(id);
         }
         
-        private OrderXClothesDto getOrderXClothesDto(OrderXClothes orderXClothes)
+        private OrderXClothesDto GetOrderXClothesDto(OrderXClothes orderXClothes)
         {
             return _entityMapper.Map<OrderXClothesDto>(orderXClothes);
         }
 
-        private List<OrderXClothesDto> getOrderXClothesDtos(List<OrderXClothes> orderXClotheses)
+        private List<OrderXClothesDto> GetOrderXClothesDtos(List<OrderXClothes> orderXClotheses)
         {
-            return orderXClotheses.Select(getOrderXClothesDto).ToList();
+            return orderXClotheses.Select(GetOrderXClothesDto).ToList();
         }
     }
 }

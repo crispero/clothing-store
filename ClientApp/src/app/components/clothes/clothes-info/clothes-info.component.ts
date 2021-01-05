@@ -12,6 +12,7 @@ import { CommentRepository } from "../../../repositories/comment.repository";
 import { CommentModel } from "../../../models/comment.model";
 import { GENDER_TYPE_LIST, IGenderType } from "../../../dto/gender-type";
 import { CLOTHES_SIZE_LIST, IClothesSize } from "../../../dto/clothes-size";
+import { AppRoutesService } from "../../../routes/app-routes.service";
 
 @Component({
   selector: 'app-clothes-info',
@@ -33,6 +34,7 @@ export class ClothesInfoComponent implements OnInit {
     private readonly brandRepository: BrandRepository,
     private readonly activatedRoute: ActivatedRoute,
     private readonly currentUser: CurrentUser,
+    private readonly appRoutesService: AppRoutesService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -52,10 +54,12 @@ export class ClothesInfoComponent implements OnInit {
     this.favoriteRepository.create(sendData);
   }
 
-  addToBasket(): void {
+  async addToBasket(): Promise<void> {
     const sendData = this.getSendData();
 
-    this.basketRepository.create(sendData);
+    await this.basketRepository.create(sendData);
+
+    this.appRoutesService.goToBasketPage();
   }
 
   private getSendData() {

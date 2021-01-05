@@ -5,5 +5,7 @@
         public string Name { get; set; }
         
         public ushort GenderType { get; set; }
+        
+        public ushort Size { get; set; }
     }
 }

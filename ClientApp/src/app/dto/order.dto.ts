@@ -1,5 +1,5 @@
 ﻿import { Id } from "../models/id";
-import { OrderStatus } from "../models/order-status";
+import { OrderStatus } from "./order-status";
 
 export interface IOrderDto {
   orderId: Id;

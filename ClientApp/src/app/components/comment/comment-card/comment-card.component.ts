@@ -9,6 +9,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ClothesDialogComponent, IClothesDialogData } from "../../clothes/clothes-dialog/clothes-dialog.component";
 import { IClothesDto } from "../../../dto/clothes.dto";
 import { CommentDialogComponent, ICommentDialogData } from "../comment-dialog/comment-dialog.component";
+import { CurrentUser } from "../../../utils/current-user";
 
 @Component({
   selector: 'app-comment-card',
@@ -17,6 +18,7 @@ import { CommentDialogComponent, ICommentDialogData } from "../comment-dialog/co
 })
 export class CommentCardComponent implements OnInit {
   public owner: UserModel;
+  public isMyComment: boolean;
   @Input() comment: CommentModel;
 
   @Output() public onUpdateComment = new EventEmitter<Partial<ICommentDto>>();
@@ -24,12 +26,13 @@ export class CommentCardComponent implements OnInit {
 
   constructor(
     private readonly userRepository: UserRepository,
+    private readonly currentUser: CurrentUser,
     private dialog: MatDialog,
   ) { }
 
   async ngOnInit(): Promise<void> {
-    console.log(this.comment);
     this.owner = await this.userRepository.getById(this.comment.userId);
+    this.isMyComment = this.currentUser.currentUserId == this.owner.userId;
   }
 
   onClickDelete(): void {

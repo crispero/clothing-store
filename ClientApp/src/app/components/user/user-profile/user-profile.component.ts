@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CurrentUser } from "../../../utils/current-user";
 import { UserRepository } from "../../../repositories/user.repository";
+import { GENDER_TYPE_LIST, IGenderType } from "../../../dto/gender-type";
 
 @Component({
   selector: 'app-user-profile',
@@ -10,6 +11,7 @@ import { UserRepository } from "../../../repositories/user.repository";
 })
 export class UserProfileComponent implements OnInit {
   public formGroup: FormGroup;
+  public genderTypeList: IGenderType[] = GENDER_TYPE_LIST;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -17,8 +19,13 @@ export class UserProfileComponent implements OnInit {
     private readonly userRepository: UserRepository,
   ) { }
 
-  ngOnInit(): void {
-    const currentUser = this.currentUser.currentUser;
+  async ngOnInit(): Promise<void> {
+    let currentUser = this.currentUser.currentUser;
+
+    if (!currentUser) {
+      currentUser = await this.userRepository.getById(this.currentUser.currentUserId)
+    }
+
     this.formGroup = this.formBuilder.group({
       login: [currentUser?.login || ""],
       name: [currentUser?.name || ""],
@@ -26,7 +33,8 @@ export class UserProfileComponent implements OnInit {
       address: [currentUser?.address || ""],
       genderType: [currentUser?.genderType || ""],
       pictureUrl: [currentUser?.pictureUrl || ""],
-      password: [""]
+      password: [""],
+      userTypeId: [currentUser?.userTypeId || ""]
     });
   }
 

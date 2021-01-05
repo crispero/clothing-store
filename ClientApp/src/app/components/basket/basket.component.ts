@@ -39,16 +39,35 @@ export class BasketComponent implements OnInit {
     return baskets.map(basket => basket.clothesId);
   }
 
+  deleteFromBasket(): void {
+
+  }
+
   openOrderDialog(): void {
+    const price = this.getSumPrice();
+    const address = this.currentUser.currentUser?.address || "";
+
     const dialogRef = this.dialog.open(OrderDialogComponent,
-      { data: {title: "Оформление заказа"}, autoFocus: false });
+      { data: {title: "Оформление заказа", order: { price, address }}, autoFocus: false });
 
     dialogRef.afterClosed().subscribe(async (order: Partial<IOrderDto>) => {
       if (!!order) {
         order.clothesIds = this.clothesList.map(clothes => clothes.clothesId);
+        order.createdDate = new Date().toISOString();
+        order.userId = this.currentUser.currentUserId;
         await this.orderRepository.create(order);
         this.clothesList = [];
       }
     });
+  }
+
+  private getSumPrice(): number {
+    let sumPrice = 0;
+
+    for (const clothes of this.clothesList) {
+      sumPrice += clothes.price
+    }
+
+    return sumPrice;
   }
 }

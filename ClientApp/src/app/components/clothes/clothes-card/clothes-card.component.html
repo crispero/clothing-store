@@ -1,4 +1,10 @@
-<mat-card class="example-card">
+<mat-card>
+  <mat-card-header class="header">
+    <mat-card-title>{{clothes?.name || ""}}</mat-card-title>
+    <button mat-icon-button *ngIf="showCloseButton" (close)="onClickClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
   <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
   <mat-card-content>
     <p>Цвет: {{clothes?.color || "-"}}</p>
@@ -8,21 +14,21 @@
   </mat-card-content>
   <mat-card-actions class="buttons">
     <div *ngIf="isAdmin" class="admin-buttons">
-      <button mat-icon-button (click)="onClickEdit()" color="accent">
+      <button *ngIf="showEditButton" mat-icon-button (click)="onClickEdit()" color="accent">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button (click)="onClickDelete()" color="warn">
+      <button *ngIf="showDeleteButton" mat-icon-button (click)="onClickDelete()" color="warn">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
     <div class="user-buttons">
-      <button mat-icon-button (click)="addToFavorite()" color="accent">
+      <button *ngIf="showFavoriteButton" mat-icon-button (click)="addToFavorite()" color="accent">
         <mat-icon>favorite</mat-icon>
       </button>
-      <button mat-icon-button (click)="addToBasket()" color="primary">
+      <button *ngIf="showBasketButton" mat-icon-button (click)="addToBasket()" color="primary">
         <mat-icon>shopping_basket</mat-icon>
       </button>
-      <button mat-icon-button (click)="onSelectItem()" color="accent">
+      <button *ngIf="showInfoButton" mat-icon-button (click)="onSelectItem()" color="accent">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>

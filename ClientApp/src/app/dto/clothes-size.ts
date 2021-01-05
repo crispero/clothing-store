@@ -1,5 +1,5 @@
 ﻿export enum ClothesSize {
-  XS,
+  XS = 1,
   S,
   M,
   L,

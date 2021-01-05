@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
+using Server.Common.Exception;
 using Server.Models;
 
 namespace Server.Repositories.Impl
@@ -28,7 +29,7 @@ namespace Server.Repositories.Impl
 
             if (favorite == null)
             {
-                
+                throw new FavoriteNotFound();
             }
 
             return favorite;
@@ -41,7 +42,12 @@ namespace Server.Repositories.Impl
 
         public async Task<Favorite> Create(Favorite favorite)
         {
-            _context.Favorite.Add(favorite);
+            if (AlreadyCreated(favorite))
+            {
+                throw new FavoriteAlreadyExist();
+            }
+            
+            await _context.Favorite.AddAsync(favorite);
             await _context.SaveChangesAsync();
 
             return favorite;
@@ -49,53 +55,34 @@ namespace Server.Repositories.Impl
         
         public async Task<Favorite> Update(int id, Favorite favorite)
         {
-            if (id != favorite.FavoriteId)
-            {
-                
-            }
-
-            _context.Entry(favorite).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FavoriteExists(id))
-                {
-                    
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var oldFavorite = await GetById(id);
+            
+            _context.Favorite.Update(oldFavorite);
+            await _context.SaveChangesAsync();
 
             return favorite;
         }
 
         public async Task<Boolean> Delete(int id)
         {
-            var favorite = await _context.Favorite.FindAsync(id);
-            if (favorite == null)
-            {
-                
-            }
-
+            var favorite = await GetById(id);
+            
             _context.Favorite.Remove(favorite);
 
             return await _context.SaveChangesAsync() > 0;;
         }
 
-        public async Task<List<Favorite>> GetByUserId(int userId)
+        public List<Favorite> GetByUserId(int userId)
         {
             return _context.Favorite.Where(favorite => favorite.UserId.Equals(userId)).ToList();
         }
-
-        private bool FavoriteExists(int id)
+        
+        private bool AlreadyCreated(Favorite favorite)
         {
-            return _context.Favorite.Any(e => e.FavoriteId == id);
+            var findedFavorite =
+                _context.Favorite.FirstOrDefault(fav => fav.ClothesId == favorite.ClothesId && fav.UserId == favorite.UserId);
+            
+            return findedFavorite != null;
         }
     }
 }

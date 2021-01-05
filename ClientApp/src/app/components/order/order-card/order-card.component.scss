@@ -1,0 +1,12 @@
+@import "src/app/const-styles";
+
+.header {
+  height: 100%;
+  padding: $s-indent;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+  }
+}
+

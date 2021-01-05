@@ -48,6 +48,7 @@ import { BrandDialogComponent } from './components/brand/brand-dialog/brand-dial
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserCardComponent } from './components/user/user-card/user-card.component';
 import { MatChipsModule } from "@angular/material/chips";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -100,6 +101,7 @@ export function tokenGetter(): string {
     MatSelectModule,
     MatOptionModule,
     MatChipsModule,
+    MatCheckboxModule,
 
     JwtModule.forRoot({
       config: {

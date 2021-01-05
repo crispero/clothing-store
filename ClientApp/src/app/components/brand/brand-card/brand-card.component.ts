@@ -14,6 +14,7 @@ import { CurrentUser } from "../../../utils/current-user";
 })
 export class BrandCardComponent implements OnInit {
   @Input() brand: BrandModel;
+  @Input() showButtons: boolean;
 
   public isAdmin: boolean;
 
@@ -41,7 +42,7 @@ export class BrandCardComponent implements OnInit {
   }
 
   onClickDelete(): void {
-    const dialogData: IConfirmDialogData = { title: "Вы действительно хотите удалить бренд?", description: ""}
+    const dialogData: IConfirmDialogData = { title: "Вы действительно хотите удалить бренд?" }
     const dialogRef = this.dialog.open(DialogConfirmComponent, { data: dialogData, autoFocus: false });
     dialogRef.afterClosed().subscribe((isApply: boolean) => {
       if (isApply) {

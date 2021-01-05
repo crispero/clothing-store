@@ -10,7 +10,7 @@
       </div>
       <div class="comment">{{comment.text}}</div>
     </div>
-    <div class="buttons">
+    <div class="buttons" *ngIf="isMyComment">
       <button mat-icon-button (click)="onClickEdit()" color="accent">
         <mat-icon>edit</mat-icon>
       </button>

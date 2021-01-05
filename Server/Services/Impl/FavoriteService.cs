@@ -61,7 +61,7 @@ namespace Server.Services.Impl
 
         public async Task<List<FavoriteDto>> GetByUserId(int userId)
         {
-            var favorites = await _favoriteRepository.GetByUserId(userId);
+            var favorites = _favoriteRepository.GetByUserId(userId);
             return GetFavoriteDtoList(favorites);
         }
         

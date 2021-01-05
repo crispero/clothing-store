@@ -16,6 +16,7 @@ export interface IOrderDialogData {
 export class OrderDialogComponent implements OnInit {
   public title: string;
   public formGroup: FormGroup;
+  public isCustomAddress: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<OrderDialogComponent>,
@@ -41,5 +42,9 @@ export class OrderDialogComponent implements OnInit {
   onApply(): void {
     const value = this.formGroup.value;
     this.dialogRef.close(value);
+  }
+
+  onChangeCheckbox(value: boolean): void {
+    this.isCustomAddress = value;
   }
 }

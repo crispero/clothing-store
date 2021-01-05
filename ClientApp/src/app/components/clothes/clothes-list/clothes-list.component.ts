@@ -26,7 +26,7 @@ export class ClothesListComponent implements OnInit {
   public isAdmin: boolean = false;
   public clothesList: ClothesModel[] = [];
   public filterList: any[] = [];
-  public filterParams: Partial<IClothesFilterParams>;
+  public filterParams: Partial<IClothesFilterParams> = { name: "" };
   public brands: BrandModel[] = [];
 
   constructor(
@@ -68,7 +68,7 @@ export class ClothesListComponent implements OnInit {
       this.filterParams = params;
       this.clearEmptyFields();
       this.filterParams && this.initFilterList();
-      this.clothesList = await this.clothesRepository.getClothesWithParams(params);
+      this.clothesList = await this.clothesRepository.getClothesWithParams(params || {});
     });
   }
 
@@ -78,6 +78,8 @@ export class ClothesListComponent implements OnInit {
   }
 
   private clearEmptyFields() {
+    if (!this.filterParams) return;
+
     for (const [key, value] of Object.entries(this.filterParams)) {
       if (!value) {
         // @ts-ignore

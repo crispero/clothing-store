@@ -11,3 +11,4 @@ export interface IUserDto {
   pictureUrl: string;
   genderType: GenderType;
 }
+

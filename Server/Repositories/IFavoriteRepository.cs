@@ -6,6 +6,6 @@ namespace Server.Repositories
 {
     public interface IFavoriteRepository : IRepository<Favorite>
     {
-        Task<List<Favorite>> GetByUserId(int userId);
+        List<Favorite> GetByUserId(int userId);
     }
 }

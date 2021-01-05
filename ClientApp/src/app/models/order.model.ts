@@ -1,6 +1,6 @@
 ﻿import { Id } from "./id";
-import { OrderStatus } from "./order-status";
 import { Exclude, Expose } from "class-transformer";
+import { OrderStatus } from "../dto/order-status";
 
 @Exclude()
 export class OrderModel {
