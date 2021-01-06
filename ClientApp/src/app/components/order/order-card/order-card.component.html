@@ -6,12 +6,20 @@
         <p>Сумма заказа: {{order.price}} руб</p>
         <p>Дата заказа: {{order.createdDate}}</p>
       </mat-panel-title>
-      <mat-panel-description>
-        <button mat-icon-button color="warn" *ngIf="canDeleteOrder" (click)="deleteOrder()">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-panel-description>
     </mat-expansion-panel-header>
+    <div class="buttons">
+      <mat-form-field appearance="fill" *ngIf="isAdmin">
+        <mat-label>Cтатус</mat-label>
+        <mat-select>
+          <mat-option disabled="{{orderStatus.status === status.status}}" (change)="changeOrderStatus(status.status)" *ngFor="let status of orderStatusList" value="{{status.status}}">
+            {{status.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="button" mat-raised-button color="warn" *ngIf="canDeleteOrder" (click)="deleteOrder()">
+        Отменить заказ
+      </button>
+    </div>
     <mat-grid-list
       [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
       rowHeight="500px"

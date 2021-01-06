@@ -6,6 +6,6 @@ namespace Server.Services
 {
     public interface IOrderService : IService<OrderDto>
     {
-        Task<List<OrderDto>> GetByUserId(int userId);
+        List<OrderDto> GetByUserId(int userId);
     }
 }

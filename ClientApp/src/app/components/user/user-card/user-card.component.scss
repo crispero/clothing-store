@@ -1,4 +1,18 @@
-.header {
-  display: flex;
-  flex-direction: row;
+@import "src/app/const-styles";
+
+.container {
+  margin-bottom: $s-indent;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+
+    .title {
+      flex: 1;
+
+      .name {
+        margin-right: $s-indent;
+      }
+    }
+  }
 }

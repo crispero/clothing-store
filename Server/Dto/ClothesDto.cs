@@ -11,15 +11,20 @@ namespace Server.DTO
         
         public string Description { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
         
         public string PictureUrl { get; set; }
         
         public string Color { get; set; }
 
+        [Required]
         public ushort GenderType { get; set; }
         
+        [Required]
         public ushort Size { get; set; }
+        
+        public bool IsOrdered { get; set; }
         
         [Required]
         public int BrandId { get; set; }

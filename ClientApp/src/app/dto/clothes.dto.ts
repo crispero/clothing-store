@@ -12,4 +12,5 @@ export interface IClothesDto {
   genderType: GenderType;
   size: ClothesSize;
   brandId: Id;
+  isOrdered: boolean;
 }

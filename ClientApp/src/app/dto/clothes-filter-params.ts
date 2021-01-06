@@ -5,4 +5,5 @@ export interface IClothesFilterParams {
   name: string;
   genderType: GenderType;
   size: ClothesSize,
+  isOrdered: boolean;
 }

@@ -3,6 +3,8 @@
     <app-order-card
       [order]="order"
       [clothesList]="ordersMap.get(order.orderId)"
+      (onDeleteOrder)="deleteOrder($event)"
+      (onChangeOrderStatus)="changeOrderStatus($event)"
     >
     </app-order-card>
   </div>

@@ -48,7 +48,8 @@ namespace Server.Migrations
                     size = table.Column<byte>(type: "tinyint", nullable: false),
                     picture_url = table.Column<string>(maxLength: 255, nullable: true),
                     description = table.Column<string>(maxLength: 1024, nullable: true),
-                    color = table.Column<string>(maxLength: 255, nullable: true)
+                    color = table.Column<string>(maxLength: 255, nullable: true),
+                    is_ordered = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

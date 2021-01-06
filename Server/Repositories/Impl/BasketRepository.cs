@@ -76,6 +76,11 @@ namespace Server.Repositories.Impl
         {
             return _context.Basket.Where(basket => basket.UserId.Equals(userId)).ToList();
         }
+        
+        public List<Basket> GetByClothesId(int clothesId)
+        {
+            return _context.Basket.Where(basket => basket.ClothesId.Equals(clothesId)).ToList();
+        }
 
         private bool AlreadyCreated(Basket basket)
         {

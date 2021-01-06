@@ -3,7 +3,9 @@
   <button mat-button matPrefix mat-icon-button>
     <mat-icon>search</mat-icon>
   </button>
-  <input matInput type="text" [(ngModel)]="value" (change)="onSearchChange()">
+  <label>
+    <input matInput type="text" [(ngModel)]="value" (change)="onSearchChange()" placeholder="Поиск">
+  </label>
   <button mat-button *ngIf="value" matSuffix mat-icon-button (click)="onSearchClear()">
     <mat-icon>close</mat-icon>
   </button>

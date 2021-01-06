@@ -6,6 +6,6 @@ namespace Server.Repositories
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        Task<List<Order>> GetByUserId(int userId);
+        List<Order> GetByUserId(int userId);
     }
 }

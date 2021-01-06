@@ -1,4 +1,5 @@
 ﻿export enum OrderStatus {
+  InProcessing,
   InTransit,
   Delivered,
 }
@@ -9,6 +10,10 @@ export interface IOrderStatus {
 }
 
 export const ORDER_STATUS_TYPE_LIST: IOrderStatus[] = [
+  {
+    status: OrderStatus.InProcessing,
+    title: "В обработке",
+  },
   {
     status: OrderStatus.InTransit,
     title: "В пути",

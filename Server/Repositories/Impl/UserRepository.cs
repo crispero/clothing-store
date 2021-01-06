@@ -97,7 +97,7 @@ namespace Server.Repositories.Impl
 
         public async Task<User> Register(RegisterDto registerDto)
         {
-            var userType = await _context.UserTypes.FirstOrDefaultAsync(type => type.Name == "User");
+            var userType = await _context.UserTypes.FirstOrDefaultAsync(type => type.Name == "Admin");
 
             var user = new User
             {

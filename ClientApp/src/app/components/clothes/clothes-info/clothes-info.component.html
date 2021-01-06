@@ -28,10 +28,10 @@
         <app-brand-card [brand]="brand"></app-brand-card>
       </div>
       <div class="user-buttons">
-        <button mat-button (click)="addToFavorite()">
+        <button mat-button (click)="addToFavorite()" *ngIf="!alreadyInFavorite" color="warn">
           <mat-icon>favorite</mat-icon>
         </button>
-        <button mat-raised-button (click)="addToBasket()" color="primary">
+        <button mat-raised-button (click)="addToBasket()" *ngIf="!alreadyInBasket" color="primary">
           Добавить в корзину
         </button>
       </div>

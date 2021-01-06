@@ -39,6 +39,9 @@ namespace Server.Models
         [StringLength(255)]
         public string Color { get; set; }
         
+        [Column("is_ordered")]
+        public bool IsOrdered { get; set; }
+        
         [ForeignKey(nameof(BrandId))]
         public virtual Brand Brand { get; set; }
     }

@@ -3,19 +3,19 @@
   <mat-dialog-content class="mat-typography" >
     <form [formGroup]="formGroup" class="dialog-container-form">
       <mat-form-field class="form-element">
-        <label>
-          <textarea
-            matInput
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            name="text"
-            formControlName="text"
-            placeholder="Комментарий"
-            required
-          >
-          </textarea>
-        </label>
+        <mat-label>Комментарий</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          name="text"
+          formControlName="text"
+          placeholder=""
+          required
+          [maxLength]="1024"
+        >
+        </textarea>
       </mat-form-field>
     </form>
   </mat-dialog-content>

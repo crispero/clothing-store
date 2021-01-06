@@ -5,6 +5,8 @@ import { AuthUtils } from "../../utils/auth.utils";
 import { CurrentUser } from "../../utils/current-user";
 import { DialogConfirmComponent, IConfirmDialogData } from "../dialog-confirm/dialog-confirm.component";
 import { MatDialog } from "@angular/material/dialog";
+import { UserRepository } from "../../repositories/user.repository";
+import { UserType } from "../../dto/user-type";
 
 @Component({
   selector: 'app-header',
@@ -19,13 +21,14 @@ export class HeaderComponent implements OnInit {
     private readonly appRoutesService: AppRoutesService,
     private readonly authUtils: AuthUtils,
     private readonly currentUser: CurrentUser,
+    private readonly userRepository: UserRepository,
     private dialog: MatDialog,
   ) {
     this.authorized$ = authUtils.getAuthorized();
   }
 
-  ngOnInit(): void {
-    this.isAdmin = this.currentUser.isAdmin();
+  async ngOnInit(): Promise<void> {
+    this.isAdmin = await this.currentUser.isAdmin();
   }
 
   onClickHome(): void {

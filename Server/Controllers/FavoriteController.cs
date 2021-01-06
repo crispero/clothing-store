@@ -34,7 +34,7 @@ namespace Server.Controllers
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<List<FavoriteDto>>> GetFavoriteByUserId(int userId)
         {
-            return await _favoriteService.GetByUserId(userId);
+            return _favoriteService.GetByUserId(userId);
         }
 
         // PUT: api/Favorite/5

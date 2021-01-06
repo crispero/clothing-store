@@ -5,13 +5,14 @@ import { GenderType } from "../dto/gender-type";
 @Exclude()
 export class UserModel {
   private _userId: Id;
-  private _userTypeId: Id;
+  private _userTypeId: number;
   private _name: string;
   private _surname: string;
   private _login: string;
   private _address: string;
   private _pictureUrl: string;
   private _genderType: GenderType;
+  private _isOrdered: boolean;
 
   @Expose()
   get userId(): Id {
@@ -23,11 +24,11 @@ export class UserModel {
   }
 
   @Expose()
-  get userTypeId(): Id {
+  get userTypeId(): number {
     return this._userTypeId;
   }
 
-  set userTypeId(value: Id) {
+  set userTypeId(value: number) {
     this._userTypeId = value;
   }
 
@@ -83,5 +84,14 @@ export class UserModel {
 
   set genderType(genderType: GenderType) {
     this._genderType = genderType;
+  }
+
+  @Expose()
+  get isOrdered(): boolean {
+    return this._isOrdered;
+  }
+
+  set isOrdered(value: boolean) {
+    this._isOrdered = value;
   }
 }

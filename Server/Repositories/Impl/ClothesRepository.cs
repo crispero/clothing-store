@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
 using Server.Common.Exception;
@@ -71,6 +69,7 @@ namespace Server.Repositories.Impl
             clothes.Size = entity.Size;
             clothes.GenderType = entity.GenderType;
             clothes.Color = entity.Color;
+            clothes.IsOrdered = entity.IsOrdered;
 
             _context.Clothes.Update(clothes);
 
@@ -98,6 +97,7 @@ namespace Server.Repositories.Impl
             var name = options.Name;
             var genderType = options.GenderType;
             var size = options.Size;
+            var isOrdered = options.IsOrdered;
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -114,12 +114,7 @@ namespace Server.Repositories.Impl
                 clothesList = clothesList.Where(clothes => clothes.Size.Equals(size)).ToList();
             }
 
-            return clothesList;
-        }
-
-        private bool ClothesExists(int id)
-        {
-            return _context.Clothes.Any(e => e.ClothesId == id);
+            return clothesList.Where(clothes => clothes.IsOrdered.Equals(isOrdered)).ToList();
         }
     }
 }

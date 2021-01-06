@@ -7,5 +7,7 @@
         public ushort GenderType { get; set; }
         
         public ushort Size { get; set; }
+        
+        public bool IsOrdered { get; set; }
     }
 }

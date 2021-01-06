@@ -16,6 +16,10 @@ import { CLOTHES_SIZE_LIST } from "../../../dto/clothes-size";
 import { BrandRepository } from "../../../repositories/brand.repository";
 import { BrandModel } from "../../../models/brand.model";
 import { Id } from "../../../models/id";
+import { FavoriteRepository } from "../../../repositories/favorite.repository";
+import { BasketRepository } from "../../../repositories/basket.repository";
+import { BasketModel } from "../../../models/basket.model";
+import { FavoriteModel } from "../../../models/favorite.model";
 
 @Component({
   selector: 'app-clothes-list',
@@ -28,10 +32,14 @@ export class ClothesListComponent implements OnInit {
   public filterList: any[] = [];
   public filterParams: Partial<IClothesFilterParams> = { name: "" };
   public brands: BrandModel[] = [];
+  private basketList: BasketModel[] = [];
+  private favoriteList: FavoriteModel[] = [];
 
   constructor(
-    private brandRepository: BrandRepository,
-    private clothesRepository: ClothesRepository,
+    private readonly brandRepository: BrandRepository,
+    private readonly clothesRepository: ClothesRepository,
+    private readonly favoriteRepository: FavoriteRepository,
+    private readonly basketRepository: BasketRepository,
     private readonly applicationUtils: ApplicationUtils,
     private dialog: MatDialog,
     private readonly currentUser: CurrentUser
@@ -39,12 +47,34 @@ export class ClothesListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      this.isAdmin = this.currentUser.isAdmin();
-      this.clothesList = await this.clothesRepository.getAll();
+      const currentUserId = this.currentUser.currentUserId;
+
+      this.isAdmin = await this.currentUser.isAdmin();
+      this.clothesList = await this.clothesRepository.getClothesWithParams();
       this.brands = await this.brandRepository.getAll();
+      this.favoriteList = await this.favoriteRepository.getByUserId(currentUserId);
+      this.basketList = await this.basketRepository.getByUserId(currentUserId);
     } catch (e) {
       console.log(e);
     }
+  }
+
+  public alreadyInFavorite(clothesId: Id): boolean {
+    return this.favoriteList.some(favorite => favorite.clothesId === clothesId);
+  }
+
+  public alreadyInBasket(clothesId: Id): boolean {
+    return this.basketList.some(basket => basket.clothesId === clothesId);
+  }
+
+  async addToBasket(clothesId: Id): Promise<void> {
+    const basket = await this.basketRepository.create({ clothesId, userId: this.currentUser.currentUserId });
+    this.basketList.push(basket);
+  }
+
+  async addToFavorite(clothesId: Id): Promise<void> {
+    const favorite = await this.favoriteRepository.create({ clothesId, userId: this.currentUser.currentUserId });
+    this.favoriteList.push(favorite);
   }
 
   openClothesDialog(): void {

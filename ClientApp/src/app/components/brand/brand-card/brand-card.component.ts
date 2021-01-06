@@ -27,8 +27,8 @@ export class BrandCardComponent implements OnInit {
     private readonly currentUser: CurrentUser
   ) { }
 
-  ngOnInit(): void {
-    this.isAdmin = this.currentUser.isAdmin();
+  async ngOnInit(): Promise<void> {
+    this.isAdmin = await this.currentUser.isAdmin();
   }
 
   onClickEdit(): void {

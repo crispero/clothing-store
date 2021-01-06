@@ -5,10 +5,10 @@
   <span>Clothes store</span>
   <span class="example-spacer"></span>
   <div *ngIf="authorized$ | async">
-    <button mat-icon-button (click)="onClickUserList()">
+    <button mat-icon-button *ngIf="isAdmin" (click)="onClickUserList()">
       <mat-icon>supervisor_account</mat-icon>
     </button>
-    <button mat-icon-button (click)="onClickBrand()">
+    <button mat-icon-button *ngIf="isAdmin" (click)="onClickBrand()">
       <mat-icon>branding_watermark</mat-icon>
     </button>
     <button mat-icon-button (click)="onClickUserProfile()">

@@ -1,6 +1,6 @@
 ﻿export enum UserType {
-  Admin = 2,
-  User = 1,
+  Admin = 1,
+  User,
 }
 
 export interface IUserType {

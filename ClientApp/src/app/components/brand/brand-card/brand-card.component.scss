@@ -1,5 +1,7 @@
+@import "src/app/const-styles";
+
 .container {
-  height: 100%;
+  margin-bottom: $s-indent;
 
   .avatar {
     display: flex;
@@ -7,13 +9,17 @@
     justify-content: center;
   }
 
-  .description {
-    overflow: auto;
-  }
+  .title {
+    flex: 1;
 
-  .actions {
-    display: flex;
-    flex-direction: row;
+    .description {
+      overflow: auto;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
 

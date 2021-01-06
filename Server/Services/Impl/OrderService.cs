@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -14,30 +13,36 @@ namespace Server.Services.Impl
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderClothesService _orderClothesService;
         private readonly IBasketService _basketService;
+        private readonly IFavoriteService _favoriteService;
+        private readonly IClothesService _clothesService;
         private readonly IMapper _entityMapper;
 
         public OrderService(
             IOrderRepository orderRepository,
             IMapper entityMapper,
             IOrderClothesService orderClothesService,
-            IBasketService basketService)
+            IBasketService basketService,
+            IFavoriteService favoriteService,
+            IClothesService clothesService)
         {
             _orderRepository = orderRepository;
             _orderClothesService = orderClothesService;
             _entityMapper = entityMapper;
             _basketService = basketService;
+            _favoriteService = favoriteService;
+            _clothesService = clothesService;
         }
         
         public async Task<List<OrderDto>> GetAll()
         {
             var orders = await _orderRepository.GetAll();
-            return await GetOrderDtoList(orders);
+            return GetOrderDtoList(orders);
         }
 
         public async Task<OrderDto> GetById(int id)
         {
             var order = await _orderRepository.GetById(id);
-            return await GetOrderDto(order);
+            return GetOrderDto(order);
         }
 
         public Task<List<OrderDto>> GetByIds(List<int> ids)
@@ -50,12 +55,19 @@ namespace Server.Services.Impl
             var order = _entityMapper.Map<Order>(orderDto);
 
             var createdOrder = await _orderRepository.Create(order);
-            
-            await CreateOrderXClothes(createdOrder.OrderId, orderDto.ClothesIds);
 
-            await RemoveFromBasket(createdOrder);
+            foreach (var clothesId in orderDto.ClothesIds)
+            {
+                await CreateOrderXClothes(createdOrder.OrderId, clothesId);
+                
+                await RemoveFromBasket(clothesId);
 
-            return await GetOrderDto(createdOrder);
+                await RemoveFromFavorite(clothesId);
+                
+                await SetOrderedClothes(clothesId, true);
+            }
+
+            return GetOrderDto(createdOrder);
         }
 
         public async Task<OrderDto> Update(int id, OrderDto orderDto)
@@ -64,23 +76,32 @@ namespace Server.Services.Impl
 
             var updatedOrder = await _orderRepository.Update(id, order);
 
-            return await GetOrderDto(updatedOrder);
+            return GetOrderDto(updatedOrder);
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            return _orderRepository.Delete(id);
+            var order = await _orderRepository.GetById(id);
+
+            var orderXClothesList = _orderClothesService.GetByOrderId(order.OrderId);
+
+            foreach (var orderXClothesDto in orderXClothesList)
+            {
+                await SetOrderedClothes(orderXClothesDto.ClothesId, false);
+            }
+            
+            return await _orderRepository.Delete(id);
         }
 
-        public async Task<List<OrderDto>> GetByUserId(int userId)
+        public List<OrderDto> GetByUserId(int userId)
         {
-            var orders = await _orderRepository.GetByUserId(userId);
-            return await GetOrderDtoList(orders);
+            var orders = _orderRepository.GetByUserId(userId);
+            return GetOrderDtoList(orders);
         }
         
-        private async Task<OrderDto> GetOrderDto(Order order)
+        private OrderDto GetOrderDto(Order order)
         {
-            var orderXClotheses = await _orderClothesService.GetByOrderId(order.OrderId);
+            var orderXClotheses = _orderClothesService.GetByOrderId(order.OrderId);
 
             var clothesIds = new HashSet<int>();
             
@@ -96,41 +117,55 @@ namespace Server.Services.Impl
             return orderDto;
         }
 
-        private async Task<List<OrderDto>> GetOrderDtoList(List<Order> orders)
+        private List<OrderDto> GetOrderDtoList(List<Order> orders)
         {
             var orderDtos = new HashSet<OrderDto>();
             
             foreach (var order in orders)
             {
-                var orderDto = await GetOrderDto(order);
+                var orderDto = GetOrderDto(order);
                 orderDtos.Add(orderDto);
             }
             
             return orderDtos.ToList();
         }
 
-        private async Task CreateOrderXClothes(int orderId, List<int> clothesIds)
+        private async Task CreateOrderXClothes(int orderId, int clothesId)
         {
-            foreach (var clothesId in clothesIds)
+            var orderXClothes = new OrderXClothesDto
             {
-                var orderXClothes = new OrderXClothesDto
-                {
-                    OrderId = orderId,
-                    ClothesId = clothesId
-                };
+                OrderId = orderId,
+                ClothesId = clothesId
+            };
 
-                await _orderClothesService.Create(orderXClothes);
-            }
+            await _orderClothesService.Create(orderXClothes);
         }
 
-        private async Task RemoveFromBasket(Order order)
+        private async Task RemoveFromBasket(int clothesId)
         {
-            var baskets = _basketService.GetByUserId(order.UserId);
+            var basketsByClothesId = _basketService.GetByClothesId(clothesId);
 
-            foreach (var basket in baskets)
+            foreach (var basket in basketsByClothesId)
             {
                 await _basketService.Delete(basket.BasketId);
             }
+        }
+
+        private async Task RemoveFromFavorite(int clothesId)
+        {
+            var favoritesByClothesId = _favoriteService.GetByClothesId(clothesId);
+
+            foreach (var favorite in favoritesByClothesId)
+            {
+                await _favoriteService.Delete(favorite.FavoriteId);
+            }
+        }
+
+        private async Task SetOrderedClothes(int clothesId, bool isOrdered)
+        {
+            var clothes = await _clothesService.GetById(clothesId);
+            clothes.IsOrdered = isOrdered;
+            await _clothesService.Update(clothesId, clothes);
         }
     }
 }

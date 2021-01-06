@@ -50,7 +50,7 @@ namespace Server.Repositories.Impl
 
         public async Task<OrderXClothes> Create(OrderXClothes orderXClothes)
         {
-            _context.OrderXClothes.Add(orderXClothes);
+            await _context.OrderXClothes.AddAsync(orderXClothes);
             await _context.SaveChangesAsync();
 
             return orderXClothes;
@@ -63,18 +63,14 @@ namespace Server.Repositories.Impl
 
         public async Task<bool> Delete(int id)
         {
-            var orderXClothes = await _context.OrderXClothes.FindAsync(id);
-            if (orderXClothes == null)
-            {
-                
-            }
+            var orderXClothes = await GetById(id);
 
             _context.OrderXClothes.Remove(orderXClothes);
 
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<OrderXClothes>> GetByOrderId(int orderId)
+        public List<OrderXClothes> GetByOrderId(int orderId)
         {
             return _context.OrderXClothes.Where(orderXClothes => orderXClothes.OrderId.Equals(orderId)).ToList();
         }

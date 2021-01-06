@@ -1,6 +1,11 @@
-.button-container {
+.header {
+  .label {
+    font-size: 18px;
+  }
+
+  align-items: baseline;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .empty-container {

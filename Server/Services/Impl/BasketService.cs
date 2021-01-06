@@ -62,8 +62,14 @@ namespace Server.Services.Impl
 
         public List<BasketDto> GetByUserId(int userId)
         {
-            var favorites = _basketRepository.GetByUserId(userId);
-            return GetBasketDtoList(favorites);
+            var baskets = _basketRepository.GetByUserId(userId);
+            return GetBasketDtoList(baskets);
+        }
+        
+        public List<BasketDto> GetByClothesId(int clothesId)
+        {
+            var baskets = _basketRepository.GetByClothesId(clothesId);
+            return GetBasketDtoList(baskets);
         }
         
         private BasketDto GetBasketDto(Basket basket)

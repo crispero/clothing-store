@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
+using Server.Common.Exception;
 using Server.Models;
 
 namespace Server.Repositories.Impl
@@ -27,7 +28,7 @@ namespace Server.Repositories.Impl
 
             if (order == null)
             {
-                
+                throw new OrderNotFound();
             }
 
             return order;
@@ -40,54 +41,33 @@ namespace Server.Repositories.Impl
 
         public async Task<Order> Create(Order order)
         {
-            _context.Order.Add(order);
+            await _context.Order.AddAsync(order);
             await _context.SaveChangesAsync();
 
             return order;
         }
 
-        public async Task<Order> Update(int id, Order order)
+        public async Task<Order> Update(int id, Order entity)
         {
-            if (id != order.OrderId)
-            {
-                
-            }
+            var order = await GetById(id);
 
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            order.Status = entity.Status;
+            _context.Order.Update(order);
+            await _context.SaveChangesAsync();
 
             return order;
         }
 
         public async Task<bool> Delete(int id)
         {
-            var order = await _context.Order.FindAsync(id);
-            if (order == null)
-            {
-                
-            }
+            var order = await GetById(id);
 
             _context.Order.Remove(order);
 
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<Order>> GetByUserId(int userId)
+        public List<Order> GetByUserId(int userId)
         {
             return _context.Order.Where(order => order.UserId.Equals(userId)).ToList();
         }

@@ -35,9 +35,9 @@ namespace Server.Services.Impl
             return GetOrderXClothesDtos(orderXClotheses);
         }
 
-        public async Task<List<OrderXClothesDto>> GetByOrderId(int orderId)
+        public List<OrderXClothesDto> GetByOrderId(int orderId)
         {
-            var orderXClotheses = await _orderClothesRepository.GetByOrderId(orderId);
+            var orderXClotheses = _orderClothesRepository.GetByOrderId(orderId);
             return GetOrderXClothesDtos(orderXClotheses);
         }
 

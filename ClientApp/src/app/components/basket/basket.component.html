@@ -1,4 +1,5 @@
-<div class="button-container">
+<div class="header">
+  <p class="label">Корзина</p>
   <button mat-raised-button (click)="openOrderDialog()" color="primary" disabled="{{clothesList?.length === 0}}">Оформить заказ</button>
 </div>
 <mat-grid-list
@@ -13,7 +14,7 @@
       [showCloseButton]="true"
       [showBasketButton]="false"
       [showFavoriteButton]="false"
-      (onClickCloseButton)="deleteFromBasket()"
+      (onClickCloseButton)="deleteFromBasket($event)"
     >
     </app-clothes-card>
   </mat-grid-tile>

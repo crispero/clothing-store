@@ -15,7 +15,7 @@ export class ClothesRepository extends BaseRepository<ClothesModel, IClothesDto,
   }
 
   async getClothesWithParams(params?: Partial<IClothesFilterParams>): Promise<ClothesModel[]> {
-    const clothesDtos = await this.service.getClothesWithParams(params);
+    const clothesDtos = await this.service.getClothesWithParams({ ...params, isOrdered: false });
     return this.toEntities(clothesDtos);
   }
 

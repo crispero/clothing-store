@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header class="header">
     <mat-card-title>{{clothes?.name || ""}}</mat-card-title>
-    <button mat-icon-button *ngIf="showCloseButton" (close)="onClickClose()">
+    <button mat-icon-button *ngIf="showCloseButton" (click)="onClickClose()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-header>
@@ -25,7 +25,7 @@
       <button *ngIf="showFavoriteButton" mat-icon-button (click)="addToFavorite()" color="accent">
         <mat-icon>favorite</mat-icon>
       </button>
-      <button *ngIf="showBasketButton" mat-icon-button (click)="addToBasket()" color="primary">
+      <button *ngIf="showBasketButton" mat-icon-button (click)="addToBasket()" color="accent">
         <mat-icon>shopping_basket</mat-icon>
       </button>
       <button *ngIf="showInfoButton" mat-icon-button (click)="onSelectItem()" color="accent">

@@ -1,7 +1,7 @@
 <div class="header">
   <app-search (onChangeSearchValue)="onChangeSearchValue($event)"></app-search>
   <div>
-    <button mat-raised-button *ngIf="!isAdmin" (click)="openClothesDialog()" color="primary">Добавить одежду</button>
+    <button mat-raised-button *ngIf="isAdmin" (click)="openClothesDialog()" color="primary">Добавить одежду</button>
     <button class="filter-button" mat-raised-button (click)="openFilterDialog()" color="primary">Фильтры</button>
   </div>
 </div>
@@ -25,6 +25,10 @@
       [brands]="brands"
       (onDeleteClothes)="onDeleteClothes($event)"
       (onUpdateClothes)="onUpdateClothes($event)"
+      [showBasketButton]="!alreadyInBasket(clothes.clothesId)"
+      [showFavoriteButton]="!alreadyInFavorite(clothes.clothesId)"
+      (onClickBasket)="addToBasket($event)"
+      (onClickFavorite)="addToFavorite($event)"
     >
     </app-clothes-card>
   </mat-grid-tile>

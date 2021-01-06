@@ -34,7 +34,7 @@ namespace Server.Controllers
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<List<OrderDto>>> GetOrderByUserId(int userId)
         {
-            return await _orderService.GetByUserId(userId);
+            return _orderService.GetByUserId(userId);
         }
 
         // PUT: api/Order/5

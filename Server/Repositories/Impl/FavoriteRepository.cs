@@ -77,6 +77,11 @@ namespace Server.Repositories.Impl
             return _context.Favorite.Where(favorite => favorite.UserId.Equals(userId)).ToList();
         }
         
+        public List<Favorite> GetByClothesId(int clothesId)
+        {
+            return _context.Favorite.Where(favorite => favorite.ClothesId.Equals(clothesId)).ToList();
+        }
+        
         private bool AlreadyCreated(Favorite favorite)
         {
             var findedFavorite =

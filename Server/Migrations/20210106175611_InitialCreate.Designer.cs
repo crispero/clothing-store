@@ -10,7 +10,7 @@ using Server.Application;
 namespace Server.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210104142214_InitialCreate")]
+    [Migration("20210106175611_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,10 @@ namespace Server.Migrations
                     b.Property<byte>("GenderType")
                         .HasColumnName("gender_type")
                         .HasColumnType("tinyint");
+
+                    b.Property<bool>("IsOrdered")
+                        .HasColumnName("is_ordered")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnName("name")

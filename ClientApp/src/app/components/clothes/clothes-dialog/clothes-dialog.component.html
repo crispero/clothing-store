@@ -19,7 +19,18 @@
 
       <mat-form-field class="form-element">
         <label>
-          <input matInput name="description" formControlName="description" placeholder="Описание" required/>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            name="description"
+            formControlName="description"
+            placeholder="Описание"
+            required
+            [maxLength]="1024"
+          >
+          </textarea>
         </label>
       </mat-form-field>
 

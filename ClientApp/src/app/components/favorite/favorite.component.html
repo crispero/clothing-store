@@ -1,6 +1,7 @@
+<p class="label">Избранное</p>
 <mat-grid-list
   [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
-  rowHeight="500px"
+  rowHeight="600px"
   gutterSize="40px"
   class="mat-grid-list"
 >
@@ -8,6 +9,9 @@
     <app-clothes-card
       [clothes]="clothes"
       [showFavoriteButton]="false"
+      [showBasketButton]="!alreadyInBasket(clothes.clothesId)"
+      [showCloseButton]="true"
+      (onClickCloseButton)="deleteFromFavorite($event)"
     >
     </app-clothes-card>
   </mat-grid-tile>

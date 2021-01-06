@@ -59,12 +59,18 @@ namespace Server.Services.Impl
             return _favoriteRepository.Delete(id);
         }
 
-        public async Task<List<FavoriteDto>> GetByUserId(int userId)
+        public List<FavoriteDto> GetByUserId(int userId)
         {
             var favorites = _favoriteRepository.GetByUserId(userId);
             return GetFavoriteDtoList(favorites);
         }
-        
+
+        public List<FavoriteDto> GetByClothesId(int clothesId)
+        {
+            var favorites = _favoriteRepository.GetByClothesId(clothesId);
+            return GetFavoriteDtoList(favorites);
+        }
+
         private FavoriteDto GetFavoriteDto(Favorite favorite)
         {
             return _entityMapper.Map<FavoriteDto>(favorite);

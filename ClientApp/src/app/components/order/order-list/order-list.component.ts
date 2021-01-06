@@ -5,6 +5,7 @@ import { CurrentUser } from "../../../utils/current-user";
 import { Id } from "../../../models/id";
 import { ClothesModel } from "../../../models/clothes.model";
 import { ClothesRepository } from "../../../repositories/clothes.repository";
+import { IOrderDto } from "../../../dto/order.dto";
 
 @Component({
   selector: 'app-order-list',
@@ -32,6 +33,29 @@ export class OrderListComponent implements OnInit {
         const clothes = await this.clothesRepository.getByIds(clothesIds);
 
         this.ordersMap.set(order.orderId, clothes);
+    }
+  }
+
+  async deleteOrder(id: Id): Promise<void> {
+    const isDeleted = await this.orderRepository.delete(id);
+
+    if (!isDeleted) return;
+
+    const index = this.orders.findIndex(order => order.orderId === id);
+
+    if (index !== -1) {
+      this.orders.splice(index, 1);
+    }
+  }
+
+  async changeOrderStatus(orderDto: Partial<IOrderDto>): Promise<void> {
+    const orderId = orderDto.orderId!;
+    const updatedOrder = await this.orderRepository.update(orderId, orderDto);
+
+    const index = this.orders.findIndex(order => order.orderId === orderId);
+
+    if (index !== -1) {
+      this.orders.splice(index, 1, updatedOrder);
     }
   }
 }

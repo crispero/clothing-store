@@ -1,4 +1,7 @@
+@import "src/app/const-styles";
+
 .header {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: $s-indent;
 }

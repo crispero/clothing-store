@@ -98,6 +98,10 @@ namespace Server.Migrations
                         .HasColumnName("gender_type")
                         .HasColumnType("tinyint");
 
+                    b.Property<bool>("IsOrdered")
+                        .HasColumnName("is_ordered")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnName("name")
                         .HasColumnType("nvarchar(255)")

@@ -34,18 +34,18 @@ export class ClothesCardComponent implements OnInit {
 
   @Output() public onUpdateClothes = new EventEmitter<Partial<IClothesDto>>();
   @Output() public onDeleteClothes = new EventEmitter<Id>();
-  @Output() public onClickCloseButton = new EventEmitter();
+  @Output() public onClickCloseButton = new EventEmitter<Id>();
+  @Output() public onClickFavorite = new EventEmitter<Id>();
+  @Output() public onClickBasket = new EventEmitter<Id>();
 
   constructor(
-    private readonly favoriteRepository: FavoriteRepository,
-    private readonly basketRepository: BasketRepository,
     private readonly appRoutesService: AppRoutesService,
     private dialog: MatDialog,
     private readonly currentUser: CurrentUser
   ) { }
 
-  ngOnInit(): void {
-    this.isAdmin = this.currentUser.isAdmin();
+  async ngOnInit(): Promise<void> {
+    this.isAdmin = await this.currentUser.isAdmin();
     this.genderType = GENDER_TYPE_LIST.find(gender => gender.genderType === this.clothes.genderType);
     this.size = CLOTHES_SIZE_LIST.find(size => size.size === this.clothes.size);
   }
@@ -76,27 +76,14 @@ export class ClothesCardComponent implements OnInit {
   }
 
   addToFavorite(): void {
-    const sendData = this.getSendData();
-
-    this.favoriteRepository.create(sendData);
+    this.onClickFavorite.emit(this.clothes.clothesId);
   }
 
   addToBasket(): void {
-    const sendData = this.getSendData();
-
-    this.basketRepository.create(sendData);
+    this.onClickBasket.emit(this.clothes.clothesId);
   }
 
   onClickClose(): void {
-    this.onClickCloseButton.emit();
-  }
-
-  private getSendData() {
-    const userId = this.currentUser.currentUserId;
-
-    return {
-      userId,
-      clothesId: this.clothes.clothesId,
-    }
+    this.onClickCloseButton.emit(this.clothes.clothesId);
   }
 }

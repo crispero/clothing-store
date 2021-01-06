@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Server.Dto;
 
 namespace Server.Services
@@ -7,5 +6,7 @@ namespace Server.Services
     public interface IBasketService : IService<BasketDto>
     {
         List<BasketDto> GetByUserId(int userId);
+        
+        List<BasketDto> GetByClothesId(int clothesId);
     }
 }
