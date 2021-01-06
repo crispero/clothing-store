@@ -12,6 +12,7 @@ import { AuthGuardService } from "../guard/auth-guard.service";
 import { OrderListComponent } from "../components/order/order-list/order-list.component";
 import { BrandListComponent } from "../components/brand/brand-list/brand-list.component";
 import { UserListComponent } from "../components/user/user-list/user-list.component";
+import { AdminOrderListComponent } from "../components/order/admin-order-list/admin-order-list.component";
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
   {
     path: RoutingPath.Order,
     component: OrderListComponent,
+    // camActivate: [AuthGuardService],
+  },
+  {
+    path: RoutingPath.AdminOrder,
+    component: AdminOrderListComponent,
     // camActivate: [AuthGuardService],
   },
   {

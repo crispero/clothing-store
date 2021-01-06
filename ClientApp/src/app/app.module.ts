@@ -49,6 +49,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { UserCardComponent } from './components/user/user-card/user-card.component';
 import { MatChipsModule } from "@angular/material/chips";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { AdminOrderListComponent } from './components/order/admin-order-list/admin-order-list.component';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -81,7 +83,8 @@ export function tokenGetter(): string {
     BrandListComponent,
     BrandDialogComponent,
     UserListComponent,
-    UserCardComponent
+    UserCardComponent,
+    AdminOrderListComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +105,7 @@ export function tokenGetter(): string {
     MatOptionModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatSidenavModule,
 
     JwtModule.forRoot({
       config: {

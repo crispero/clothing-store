@@ -1,13 +1,27 @@
 @import "src/app/const-styles";
 
+.root {
+  height: 100%;
+
+  .icon {
+    margin-right: $s-indent;
+  }
+
+  .mat-sidenav-content {
+    overflow: hidden;
+  }
+
+  .main-container {
+    height: calc(100% - #{$sidebar-height} - 2 * #{$s-indent});
+    padding: $s-indent;
+   // background-color: white;
+  }
+}
+
 .example-spacer {
   flex: 1 1 auto;
 }
 
 .home-icon {
   margin-right: $s-indent;
-}
-
-.genderLabel {
-  margin-left: $s-indent;
 }

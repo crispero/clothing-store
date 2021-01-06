@@ -6,7 +6,13 @@ import { CurrentUser } from "../../utils/current-user";
 import { DialogConfirmComponent, IConfirmDialogData } from "../dialog-confirm/dialog-confirm.component";
 import { MatDialog } from "@angular/material/dialog";
 import { UserRepository } from "../../repositories/user.repository";
-import { UserType } from "../../dto/user-type";
+import { RoutingPath } from "../../routes/routes-path";
+
+interface IMenu {
+  title: string;
+  icon: string;
+  route: string;
+}
 
 @Component({
   selector: 'app-header',
@@ -16,6 +22,23 @@ import { UserType } from "../../dto/user-type";
 export class HeaderComponent implements OnInit {
   public authorized$: Observable<boolean>;
   public isAdmin: boolean;
+  public menuList: IMenu[] = [
+    {
+      title: "Пользователи",
+      route: RoutingPath.UserList,
+      icon: "supervisor_account",
+    },
+    {
+      title: "Бренды",
+      route: RoutingPath.Brand,
+      icon: "branding_watermark",
+    },
+    {
+      title: "Заказы",
+      route: RoutingPath.AdminOrder,
+      icon: "admin_panel_settings",
+    },
+  ]
 
   constructor(
     private readonly appRoutesService: AppRoutesService,

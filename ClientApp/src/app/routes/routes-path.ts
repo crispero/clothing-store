@@ -8,5 +8,6 @@
   ClothesInfo = "clothes-info",
   UserList = "user-list",
   Order = "order",
+  AdminOrder = "admin-order",
   Brand = "brand"
 }

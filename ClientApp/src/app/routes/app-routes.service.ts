@@ -35,6 +35,10 @@ export class AppRoutesService {
     this.router.navigateByUrl(RoutingPath.Order);
   }
 
+  goToAdminOrderPage(): void {
+    this.router.navigateByUrl(RoutingPath.AdminOrder);
+  }
+
   goToBrandPage(): void {
     this.router.navigateByUrl(RoutingPath.Brand);
   }
