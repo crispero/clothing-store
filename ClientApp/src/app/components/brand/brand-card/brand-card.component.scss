@@ -3,10 +3,14 @@
 .container {
   margin-bottom: $s-indent;
 
-  .avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-width: $small-image-size;
+    height: $small-image-size;
+    margin-right: $s-indent;
+    border-radius: 50%;
   }
 
   .title {

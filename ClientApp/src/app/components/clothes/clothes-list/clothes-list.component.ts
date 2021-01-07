@@ -81,7 +81,7 @@ export class ClothesListComponent implements OnInit {
     const data: IClothesDialogData = { title: "Добавление одежды", brands: this.brands };
     const dialogRef = this.dialog.open(ClothesDialogComponent, { data, autoFocus: false });
 
-    dialogRef.afterClosed().subscribe(async (clothesDto: Partial<IClothesDto>) => {
+      dialogRef.afterClosed().subscribe(async (clothesDto: Partial<IClothesDto>) => {
       if (!!clothesDto) {
         const newClothes = await this.clothesRepository.create(clothesDto);
         this.clothesList.push(newClothes);

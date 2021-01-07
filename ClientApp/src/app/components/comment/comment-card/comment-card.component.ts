@@ -6,8 +6,6 @@ import { ICommentDto } from "../../../dto/comment.dto";
 import { Id } from "../../../models/id";
 import { DialogConfirmComponent, IConfirmDialogData } from "../../dialog-confirm/dialog-confirm.component";
 import { MatDialog } from "@angular/material/dialog";
-import { ClothesDialogComponent, IClothesDialogData } from "../../clothes/clothes-dialog/clothes-dialog.component";
-import { IClothesDto } from "../../../dto/clothes.dto";
 import { CommentDialogComponent, ICommentDialogData } from "../comment-dialog/comment-dialog.component";
 import { CurrentUser } from "../../../utils/current-user";
 import { AttachmentRepository } from "../../../repositories/attachment.repository";

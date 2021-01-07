@@ -1,8 +1,6 @@
 <mat-card class="container">
   <mat-card-header>
-    <div mat-card-avatar class="avatar">
-      <mat-icon>polymer</mat-icon>
-    </div>
+    <div [style.backgroundImage]="'url('+ getFilePath(brand?.logoUrl) +')'" class="image"></div>
     <div class="title">
       <mat-card-title>{{brand?.name || ""}}</mat-card-title>
       <mat-card-subtitle class="description">

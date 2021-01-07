@@ -52,7 +52,7 @@ export class UserProfileComponent implements OnInit {
     this.previewUrl = value;
   }
 
-  getFilePath(fileName: string): string {
+  getFilePath(fileName?: string): string {
     return !!fileName ? this.attachmentRepository.getFilePath(fileName) : "";
   }
 

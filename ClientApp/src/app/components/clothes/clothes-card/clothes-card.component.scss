@@ -7,10 +7,17 @@
   align-items: baseline;
 }
 
-.image {
+.image-container {
   min-width: $image-size;
   height: $image-size;
   margin-bottom: $xs-indent;
+  border-radius: 50%;
+
+  .image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 
   .empty-image {
     height: inherit;
@@ -19,7 +26,6 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #fff;
-    border-radius: 10px;
   }
 }
 

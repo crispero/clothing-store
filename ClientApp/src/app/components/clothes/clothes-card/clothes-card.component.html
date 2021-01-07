@@ -5,8 +5,8 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-header>
-  <div class="image">
-    <div [style.backgroundImage]="'url('+ getFilePath(clothes?.pictureUrl) +')'" ></div>
+  <div class="image-container">
+    <div [style.backgroundImage]="'url('+ getFilePath(clothes?.pictureUrl) +')'" class="image"></div>
     <div *ngIf="!clothes?.pictureUrl" class="empty-image">
       Нет изображения
     </div>

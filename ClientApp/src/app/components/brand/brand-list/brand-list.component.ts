@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BrandModel } from "../../../models/brand.model";
 import { MatDialog } from "@angular/material/dialog";
 import { BrandRepository } from "../../../repositories/brand.repository";
-import { BrandDialogComponent, IBrandDialogData } from "../brand-dialog/brand-dialog.component";
+import { BrandDialogComponent, IBrandDialogData, IBrandDialogResponse } from "../brand-dialog/brand-dialog.component";
 import { IBrandDto } from "../../../dto/brand.dto";
 import { Id } from "../../../models/id";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
 
 @Component({
   selector: 'app-brand-list',
@@ -16,6 +17,7 @@ export class BrandListComponent implements OnInit {
 
   constructor(
     private readonly brandRepository: BrandRepository,
+    private readonly attachmentRepository: AttachmentRepository,
     private dialog: MatDialog,
   ) { }
 
@@ -27,16 +29,32 @@ export class BrandListComponent implements OnInit {
     const data: IBrandDialogData = { title: "Добавление бренда" };
     const dialogRef = this.dialog.open(BrandDialogComponent, { data, autoFocus: false });
 
-    dialogRef.afterClosed().subscribe(async (brandDto: Partial<IBrandDto>) => {
-      if (!!brandDto) {
-        const newBrand = await this.brandRepository.create(brandDto);
-        this.brands.push(newBrand);
-      }
+    dialogRef.afterClosed().subscribe((response: IBrandDialogResponse) => {
+
     });
   }
 
-  onEditBrand(changes: Partial<IBrandDto>): void {
-    this.brandRepository.update(<string>changes.brandId, changes);
+  async updateBrand(response: IBrandDialogResponse): Promise<void> {
+    const { brand, file, isDeletePicture } = response;
+
+    if (!!file) {
+      const createdFile = !!brand.logoUrl
+        ? await this.attachmentRepository.updateFile(brand.logoUrl, file)
+        : await this.attachmentRepository.uploadFile(file);
+      brand.logoUrl = createdFile.path;
+    } else if (!!isDeletePicture && !!brand.logoUrl) {
+      await this.attachmentRepository.deleteFile(brand.logoUrl);
+      brand.logoUrl = "";
+    }
+
+    if (!!brand) {
+      const newBrand = await this.brandRepository.create(brand);
+      this.brands.push(newBrand);
+    }
+  }
+
+  onEditBrand(response: IBrandDialogResponse): void {
+    this.updateBrand(response);
   }
 
   async onDeleteBrand(id: Id): Promise<void> {

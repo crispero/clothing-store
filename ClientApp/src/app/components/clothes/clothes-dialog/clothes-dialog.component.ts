@@ -6,11 +6,18 @@ import { GENDER_TYPE_LIST } from "../../../dto/gender-type";
 import { CLOTHES_SIZE_LIST } from "../../../dto/clothes-size";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AttachmentRepository } from "../../../repositories/attachment.repository";
+import { IClothesDto } from "../../../dto/clothes.dto";
 
 export interface IClothesDialogData {
   title: string;
   clothes?: ClothesModel,
   brands: BrandModel[]
+}
+
+export interface IClothesDialogResponse {
+  clothes: IClothesDto;
+  file?: File;
+  isDeletePicture?: boolean;
 }
 
 @Component({
@@ -62,7 +69,7 @@ export class ClothesDialogComponent implements OnInit {
     }
 
     this.title = title;
-    clothes?.pictureUrl && (this.previewUrl = this.getFilePath(clothes.pictureUrl));
+    this.previewUrl = this.getFilePath(clothes?.pictureUrl);
   }
 
   setImageFile(file?: File): void {
@@ -72,7 +79,8 @@ export class ClothesDialogComponent implements OnInit {
   setPreviewUrl(value: string): void {
     this.previewUrl = value;
   }
-  getFilePath(fileName: string): string {
+
+  getFilePath(fileName?: string): string {
     return !!fileName ? this.attachmentRepository.getFilePath(fileName) : "";
   }
 
@@ -82,6 +90,16 @@ export class ClothesDialogComponent implements OnInit {
 
   onApply(): void {
     const value = this.formGroup.value;
-    this.dialogRef.close(value);
+    const response: IClothesDialogResponse = {
+      clothes: value,
+      file: this.imageFile,
+      isDeletePicture: this.isDeletePicture(),
+    }
+    this.dialogRef.close(response);
+  }
+
+  isDeletePicture(): boolean {
+    const value = this.formGroup.value;
+    return !!value?.pictureUrl && !this.imageFile && !this.previewUrl;
   }
 }

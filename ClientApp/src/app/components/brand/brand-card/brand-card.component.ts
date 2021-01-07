@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { IBrandDto } from "../../../dto/brand.dto";
 import { Id } from "../../../models/id";
 import { CurrentUser } from "../../../utils/current-user";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
 
 @Component({
   selector: 'app-brand-card',
@@ -24,7 +25,8 @@ export class BrandCardComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private readonly currentUser: CurrentUser
+    private readonly currentUser: CurrentUser,
+    private readonly attachmentRepository: AttachmentRepository,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -49,5 +51,9 @@ export class BrandCardComponent implements OnInit {
         this.onDeleteBrand.emit(this.brand.brandId);
       }
     })
+  }
+
+  getFilePath(fileName: string): string {
+    return !!fileName ? this.attachmentRepository.getFilePath(fileName) : "";
   }
 }
