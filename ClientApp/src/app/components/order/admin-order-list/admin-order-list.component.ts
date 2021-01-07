@@ -32,8 +32,27 @@ export class AdminOrderListComponent implements OnInit {
     }
   }
 
-  deleteOrder(id: Id) {}
+  async deleteOrder(id: Id): Promise<void> {
+    const isDeleted = await this.orderRepository.delete(id);
 
-  changeOrderStatus(orderDto: Partial<IOrderDto>) {}
+    if (!isDeleted) return;
+
+    const index = this.orders.findIndex(order => order.orderId === id);
+
+    if (index !== -1) {
+      this.orders.splice(index, 1);
+    }
+  }
+
+  async changeOrderStatus(orderDto: Partial<IOrderDto>): Promise<void> {
+    const orderId = orderDto.orderId!;
+    const updatedOrder = await this.orderRepository.update(orderId, orderDto);
+
+    const index = this.orders.findIndex(order => order.orderId === orderId);
+
+    if (index !== -1) {
+      this.orders.splice(index, 1, updatedOrder);
+    }
+  }
 
 }

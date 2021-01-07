@@ -1,8 +1,6 @@
 <div class="container">
   <div class="main-info">
-    <div class="icon">
-      <mat-icon mat-list-icon>face</mat-icon>
-    </div>
+    <div [style.backgroundImage]="'url('+ getFilePath(owner?.pictureUrl) +')'" class="image"></div>
     <div class="info">
       <div class="info-header">
         <div mat-line>{{owner?.name}} {{owner?.surname}}</div>

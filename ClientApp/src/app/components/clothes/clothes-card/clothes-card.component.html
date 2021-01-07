@@ -5,7 +5,12 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-header>
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <div class="image">
+    <div [style.backgroundImage]="'url('+ getFilePath(clothes?.pictureUrl) +')'" ></div>
+    <div *ngIf="!clothes?.pictureUrl" class="empty-image">
+      Нет изображения
+    </div>
+  </div>
   <mat-card-content>
     <p>Цвет: {{clothes?.color || "-"}}</p>
     <p>Цена: {{clothes.price}} руб</p>

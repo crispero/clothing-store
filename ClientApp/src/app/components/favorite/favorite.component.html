@@ -1,5 +1,6 @@
-<p class="label">Избранное</p>
+<h2>Избранное</h2>
 <mat-grid-list
+  *ngIf="clothesList?.length !== 0"
   [appGridCols]="{xs: 1, sm: 2, md: 3, lg: 4, xl: 5}"
   rowHeight="600px"
   gutterSize="40px"
@@ -15,7 +16,7 @@
     >
     </app-clothes-card>
   </mat-grid-tile>
-  <div *ngIf="clothesList?.length === 0" class="empty-container">
-    <p>Список избранного пуст</p>
-  </div>
 </mat-grid-list>
+<div *ngIf="clothesList?.length === 0" class="empty-container">
+  <p>Список избранного пуст</p>
+</div>

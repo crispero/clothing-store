@@ -1,0 +1,40 @@
+@import "src/app/const-styles";
+
+.image-block {
+  display: flex;
+
+  .file {
+    min-width: $file-size;
+    height: $file-size;
+  }
+
+  .image {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 24px;
+  }
+
+  .input-file {
+    display: none;
+  }
+
+  .add-picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px dashed grey;
+    margin-top: $xs-indent;
+
+    .icon {
+      font-size: 30px;
+    }
+  }
+
+  .delete-picture {
+    .delete-icon {
+      color: white;
+    }
+  }
+}

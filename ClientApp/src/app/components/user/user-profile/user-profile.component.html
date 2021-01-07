@@ -4,6 +4,13 @@
       <mat-card-title>Профиль</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <app-upload-image
+        [previewUrl]="previewUrl"
+        (changeImageFile)="setImageFile($event)"
+        (changePreviewUrl)="setPreviewUrl($event)"
+      >
+      </app-upload-image>
+
       <form *ngIf="formGroup" [formGroup]="formGroup">
         <mat-form-field class="form-element">
           <label>

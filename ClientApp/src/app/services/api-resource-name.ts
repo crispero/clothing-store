@@ -8,4 +8,5 @@
   Brand = "api/brand",
   Login = "api/auth/login",
   Register = "api/auth/register",
+  Attachment = "api/attachment"
 }

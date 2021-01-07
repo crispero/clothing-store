@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClothesModel } from "../../../models/clothes.model";
-import { FavoriteRepository } from "../../../repositories/favorite.repository";
-import { BasketRepository } from "../../../repositories/basket.repository";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogConfirmComponent, IConfirmDialogData } from "../../dialog-confirm/dialog-confirm.component";
 import { ClothesDialogComponent, IClothesDialogData } from "../clothes-dialog/clothes-dialog.component";
@@ -12,6 +10,7 @@ import { BrandModel } from "../../../models/brand.model";
 import { GENDER_TYPE_LIST, IGenderType } from "../../../dto/gender-type";
 import { CLOTHES_SIZE_LIST, IClothesSize } from "../../../dto/clothes-size";
 import { Id } from "../../../models/id";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
 
 @Component({
   selector: 'app-clothes-card',
@@ -40,6 +39,7 @@ export class ClothesCardComponent implements OnInit {
 
   constructor(
     private readonly appRoutesService: AppRoutesService,
+    private readonly attachmentRepository: AttachmentRepository,
     private dialog: MatDialog,
     private readonly currentUser: CurrentUser
   ) { }
@@ -85,5 +85,9 @@ export class ClothesCardComponent implements OnInit {
 
   onClickClose(): void {
     this.onClickCloseButton.emit(this.clothes.clothesId);
+  }
+
+  getFilePath(fileName: string): string {
+    return !!fileName ? this.attachmentRepository.getFilePath(fileName) : "";
   }
 }

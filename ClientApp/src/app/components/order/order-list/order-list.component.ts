@@ -47,15 +47,4 @@ export class OrderListComponent implements OnInit {
       this.orders.splice(index, 1);
     }
   }
-
-  async changeOrderStatus(orderDto: Partial<IOrderDto>): Promise<void> {
-    const orderId = orderDto.orderId!;
-    const updatedOrder = await this.orderRepository.update(orderId, orderDto);
-
-    const index = this.orders.findIndex(order => order.orderId === orderId);
-
-    if (index !== -1) {
-      this.orders.splice(index, 1, updatedOrder);
-    }
-  }
 }

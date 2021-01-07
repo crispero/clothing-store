@@ -1,8 +1,26 @@
+@import "src/app/const-styles";
+
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
+}
+
+.image {
+  min-width: $image-size;
+  height: $image-size;
+  margin-bottom: $xs-indent;
+
+  .empty-image {
+    height: inherit;
+    width: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 10px;
+  }
 }
 
 .buttons {

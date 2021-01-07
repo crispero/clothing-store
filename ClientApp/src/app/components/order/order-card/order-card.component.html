@@ -8,10 +8,14 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="buttons">
-      <mat-form-field appearance="fill" *ngIf="isAdmin">
+      <mat-form-field appearance="fill" *ngIf="canChangeStatus">
         <mat-label>Cтатус</mat-label>
-        <mat-select>
-          <mat-option disabled="{{orderStatus.status === status.status}}" (change)="changeOrderStatus(status.status)" *ngFor="let status of orderStatusList" value="{{status.status}}">
+        <mat-select (selectionChange)="changeOrderStatus($event.value)">
+          <mat-option
+            *ngFor="let status of orderStatusList"
+            [value]=status.status
+            disabled="{{orderStatus?.status == status?.status}}"
+          >
             {{status.title}}
           </mat-option>
         </mat-select>

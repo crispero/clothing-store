@@ -5,6 +5,7 @@ import { BrandModel } from "../../../models/brand.model";
 import { GENDER_TYPE_LIST } from "../../../dto/gender-type";
 import { CLOTHES_SIZE_LIST } from "../../../dto/clothes-size";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
 
 export interface IClothesDialogData {
   title: string;
@@ -24,10 +25,13 @@ export class ClothesDialogComponent implements OnInit {
   public formGroup: FormGroup;
   public currentBrand: BrandModel | undefined | null;
   public brandList: BrandModel[] = [];
+  public imageFile: File | undefined;
+  public previewUrl: string;
 
   @Output() public changeEventData = new EventEmitter<ClothesModel>();
 
   constructor(
+    private readonly attachmentRepository: AttachmentRepository,
     private dialogRef: MatDialogRef<ClothesDialogComponent>,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private dialogData: IClothesDialogData,
@@ -50,13 +54,26 @@ export class ClothesDialogComponent implements OnInit {
         price: [clothes?.price || "", [Validators.required]],
         color: [clothes?.color || "", [Validators.required]],
         genderType: [clothes?.genderType || "", [Validators.required]],
-        size: [clothes?.size || "", [Validators.required]]
+        size: [clothes?.size || "", [Validators.required]],
+        pictureUrl: [clothes?.pictureUrl || ""]
       });
     } catch (e) {
       console.log(e);
     }
 
     this.title = title;
+    clothes?.pictureUrl && (this.previewUrl = this.getFilePath(clothes.pictureUrl));
+  }
+
+  setImageFile(file?: File): void {
+    this.imageFile = file;
+  }
+
+  setPreviewUrl(value: string): void {
+    this.previewUrl = value;
+  }
+  getFilePath(fileName: string): string {
+    return !!fileName ? this.attachmentRepository.getFilePath(fileName) : "";
   }
 
   onCancel(): void {

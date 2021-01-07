@@ -1,14 +1,14 @@
-<div>
-  <div *ngFor="let order of orders">
-    <app-order-card
-      [order]="order"
-      [clothesList]="ordersMap.get(order.orderId)"
-      (onDeleteOrder)="deleteOrder($event)"
-      (onChangeOrderStatus)="changeOrderStatus($event)"
-    >
-    </app-order-card>
-  </div>
-  <div *ngIf="orders?.length === 0" class="empty-container">
-    <p>Список заказов пуст</p>
-  </div>
+<h2>Список всех заказов</h2>
+<div *ngFor="let order of orders">
+  <app-order-card
+    [order]="order"
+    [clothesList]="ordersMap.get(order.orderId)"
+    [canChangeStatus]=true
+    (onDeleteOrder)="deleteOrder($event)"
+    (onChangeOrderStatus)="changeOrderStatus($event)"
+  >
+  </app-order-card>
+</div>
+<div *ngIf="orders?.length === 0" class="empty-container">
+  <p>Список заказов пуст</p>
 </div>

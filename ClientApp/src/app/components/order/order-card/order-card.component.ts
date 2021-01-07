@@ -16,6 +16,7 @@ import { IOrderDto } from "../../../dto/order.dto";
 export class OrderCardComponent implements OnInit {
   @Input() public order: OrderModel;
   @Input() public clothesList: ClothesModel[];
+  @Input() public canChangeStatus: boolean;
   public orderStatus: IOrderStatus | undefined;
   public canDeleteOrder: boolean;
   public isAdmin: boolean = false;
@@ -52,6 +53,8 @@ export class OrderCardComponent implements OnInit {
   getOrderDto(status: OrderStatus): Partial<IOrderDto> {
     return {
       orderId: this.order.orderId,
+      clothesIds: this.order.clothesIds,
+      deliveryAddress: this.order.deliveryAddress,
       status,
     }
   }

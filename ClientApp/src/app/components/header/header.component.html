@@ -1,5 +1,5 @@
 <mat-sidenav-container class="root" autosize>
-  <mat-sidenav #sidenav>
+  <mat-sidenav #sidenav [autoFocus]=false>
     <mat-nav-list>
       <a *ngFor="let menu of menuList" mat-list-item (click)="sidenav.close()"
          [routerLink]="[menu.route]"
@@ -12,7 +12,7 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button mat-icon-button *ngIf="!isAdmin" (click)="sidenav.open()">
+      <button mat-icon-button *ngIf="isAdmin" (click)="sidenav.open()">
         <mat-icon>menu</mat-icon>
       </button>
       <button mat-icon-button (click)="onClickHome()" class="home-icon">
@@ -21,12 +21,6 @@
       <span>Clothes store</span>
       <span class="example-spacer"></span>
       <div *ngIf="authorized$ | async">
-        <button mat-icon-button *ngIf="isAdmin" (click)="onClickUserList()">
-          <mat-icon>supervisor_account</mat-icon>
-        </button>
-        <button mat-icon-button *ngIf="isAdmin" (click)="onClickBrand()">
-          <mat-icon>branding_watermark</mat-icon>
-        </button>
         <button mat-icon-button (click)="onClickUserProfile()">
           <mat-icon>account_circle</mat-icon>
         </button>

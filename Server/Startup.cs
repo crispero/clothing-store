@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Server.Application;
 using Server.Common;
 using Server.Common.Auth;
+using Server.Common.FileManager;
 using Server.Common.MappingProfile;
 using Server.DTO;
 using Server.Models;
@@ -71,6 +72,7 @@ namespace Server
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderClothesService, OrderClothesService>();
+            services.AddTransient<IFileManager, FileManager>();
 
             services.AddTransient<IClothesRepository, ClothesRepository>();
             services.AddTransient<IUserRepository, UserRepository>();

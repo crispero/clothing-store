@@ -1,0 +1,34 @@
+<div class="image-block">
+  <div
+    *ngIf="!!previewUrl"
+    [style.backgroundImage]="'url('+ previewUrl +')'"
+    class="image file"
+  >
+  </div>
+  <input
+    type="file"
+    accept="image/*"
+    (change)="selectFile($event)"
+    class="input-file"
+    id="input"
+  >
+  <label
+    *ngIf="!previewUrl"
+    for="input"
+  >
+    Добавьте изображение
+    <div class="add-picture file">
+      <mat-icon class="icon">add</mat-icon>
+    </div>
+  </label>
+  <label *ngIf="!!previewUrl" class="delete-picture">
+    <button
+      mat-icon-button
+      (click)="onDeletePicture()"
+      matTooltip="Удалить изображение"
+      matTooltipPosition="right"
+    >
+      <mat-icon class="delete-icon">delete</mat-icon>
+    </button>
+  </label>
+</div>

@@ -1,6 +1,10 @@
+@import "src/app/const-styles";
+
 .dialog-container-form {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: $dialog-max-width;
+  min-width: $dialog-min-width;
   width: 100%;
+  margin-top: $s-indent;
 }

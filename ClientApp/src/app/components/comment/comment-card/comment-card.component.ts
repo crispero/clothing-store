@@ -10,6 +10,7 @@ import { ClothesDialogComponent, IClothesDialogData } from "../../clothes/clothe
 import { IClothesDto } from "../../../dto/clothes.dto";
 import { CommentDialogComponent, ICommentDialogData } from "../comment-dialog/comment-dialog.component";
 import { CurrentUser } from "../../../utils/current-user";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
 
 @Component({
   selector: 'app-comment-card',
@@ -27,6 +28,7 @@ export class CommentCardComponent implements OnInit {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly currentUser: CurrentUser,
+    private readonly attachmentRepository: AttachmentRepository,
     private dialog: MatDialog,
   ) { }
 
@@ -43,6 +45,10 @@ export class CommentCardComponent implements OnInit {
         this.onDeleteComment.emit(this.comment.commentId);
       }
     })
+  }
+
+  getFilePath(fileName: string): string {
+    return !!fileName ? this.attachmentRepository.getFilePath(fileName) : "";
   }
 
   onClickEdit(): void {

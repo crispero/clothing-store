@@ -51,6 +51,7 @@ import { MatChipsModule } from "@angular/material/chips";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { AdminOrderListComponent } from './components/order/admin-order-list/admin-order-list.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -84,7 +85,8 @@ export function tokenGetter(): string {
     BrandDialogComponent,
     UserListComponent,
     UserCardComponent,
-    AdminOrderListComponent
+    AdminOrderListComponent,
+    UploadImageComponent
   ],
   imports: [
     BrowserModule,
