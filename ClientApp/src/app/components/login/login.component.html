@@ -9,12 +9,14 @@
           <label>
             <input matInput name="login" formControlName="login" placeholder="Логин" required/>
           </label>
+          <mat-error *ngIf="login.invalid">{{ getLoginErrorMessage() }}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="form-element">
           <label>
             <input matInput name="password" formControlName="password" placeholder="Пароль" type="password" required/>
           </label>
+          <mat-error *ngIf="password.invalid">{{ getPasswordErrorMessage() }}</mat-error>
         </mat-form-field>
       </form>
 

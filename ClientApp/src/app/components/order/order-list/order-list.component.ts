@@ -5,7 +5,7 @@ import { CurrentUser } from "../../../utils/current-user";
 import { Id } from "../../../models/id";
 import { ClothesModel } from "../../../models/clothes.model";
 import { ClothesRepository } from "../../../repositories/clothes.repository";
-import { IOrderDto } from "../../../dto/order.dto";
+import { EntityUtils } from "../../../utils/entity.utils";
 
 @Component({
   selector: 'app-order-list',
@@ -20,6 +20,7 @@ export class OrderListComponent implements OnInit {
     private readonly orderRepository: OrderRepository,
     private readonly clothesRepository: ClothesRepository,
     private readonly currentUser: CurrentUser,
+    private readonly entityUtils: EntityUtils,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -39,12 +40,8 @@ export class OrderListComponent implements OnInit {
   async deleteOrder(id: Id): Promise<void> {
     const isDeleted = await this.orderRepository.delete(id);
 
-    if (!isDeleted) return;
-
-    const index = this.orders.findIndex(order => order.orderId === id);
-
-    if (index !== -1) {
-      this.orders.splice(index, 1);
+    if (isDeleted) {
+      this.entityUtils.deleteEntity(this.orders, id, "orderId");
     }
   }
 }

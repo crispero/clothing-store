@@ -13,52 +13,53 @@ import { OrderListComponent } from "../components/order/order-list/order-list.co
 import { BrandListComponent } from "../components/brand/brand-list/brand-list.component";
 import { UserListComponent } from "../components/user/user-list/user-list.component";
 import { AdminOrderListComponent } from "../components/order/admin-order-list/admin-order-list.component";
+import { AdminAuthGuardService } from "../guard/admin-auth-guard.service";
 
 const routes: Routes = [
   {
     path: RoutingPath.ClothesList,
     component: ClothesListComponent,
-  //  canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.UserProfile,
     component: UserProfileComponent,
-   // canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.Favorite,
     component: FavoriteComponent,
-  //  canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.Basket,
     component: BasketComponent,
-  //  canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: `${RoutingPath.ClothesInfo}/:id`,
     component: ClothesInfoComponent,
-   // canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.Order,
     component: OrderListComponent,
-    // camActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: RoutingPath.AdminOrder,
     component: AdminOrderListComponent,
-    // camActivate: [AuthGuardService],
+    canActivate: [AdminAuthGuardService],
   },
   {
     path: RoutingPath.Brand,
     component: BrandListComponent,
-    // camActivate: [AuthGuardService],
+    canActivate: [AdminAuthGuardService],
   },
   {
     path: RoutingPath.UserList,
     component: UserListComponent,
-    // canActivate: [AuthGuardService],
+    canActivate: [AdminAuthGuardService],
   },
   {
     path: RoutingPath.Register,
