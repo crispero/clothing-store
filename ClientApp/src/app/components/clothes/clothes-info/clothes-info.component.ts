@@ -12,6 +12,7 @@ import { CommentModel } from "../../../models/comment.model";
 import { GENDER_TYPE_LIST, IGenderType } from "../../../dto/gender-type";
 import { CLOTHES_SIZE_LIST, IClothesSize } from "../../../dto/clothes-size";
 import { AppRoutesService } from "../../../routes/app-routes.service";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
 
 @Component({
   selector: 'app-clothes-info',
@@ -27,12 +28,14 @@ export class ClothesInfoComponent implements OnInit {
   public alreadyInFavorite: boolean = false;
   public genderType: IGenderType | undefined;
   public size: IClothesSize | undefined;
+  public defaultAvatarName: string;
 
   constructor(
     private readonly favoriteRepository: FavoriteRepository,
     private readonly basketRepository: BasketRepository,
     private readonly clothesRepository: ClothesRepository,
     private readonly brandRepository: BrandRepository,
+    private readonly attachmentRepository: AttachmentRepository,
     private readonly activatedRoute: ActivatedRoute,
     private readonly currentUser: CurrentUser,
     private readonly appRoutesService: AppRoutesService
@@ -50,6 +53,13 @@ export class ClothesInfoComponent implements OnInit {
       this.alreadyInBasket = (await this.basketRepository.getByUserId(currentUserId)).some(basket => basket.clothesId.toString() === this.clothesId.toString());
       this.alreadyInFavorite = (await this.favoriteRepository.getByUserId(currentUserId)).some(favorite => favorite.clothesId.toString() === this.clothesId.toString());
     }
+
+    this.defaultAvatarName = this.attachmentRepository.defaultAvatarName;
+  }
+
+  getFilePath(fileName?: string): string {
+    const name = fileName || this.defaultAvatarName;
+    return !!name ? this.attachmentRepository.getFilePath(name) : "";
   }
 
   async addToFavorite(): Promise<void> {

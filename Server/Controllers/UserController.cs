@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Common.Exception;
 using Server.Dto;
-using Server.Models;
 using Server.Services;
 
 namespace Server.Controllers
@@ -22,14 +25,32 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
-            return await _userService.GetAll();
+            try
+            {
+                return await _userService.GetAll();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // GET: api/User/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUser(int id)
         {
-            return await _userService.GetById(id);
+            try
+            {
+                return await _userService.GetById(id);
+            }
+            catch (UserNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // PUT: api/User/5
@@ -38,7 +59,18 @@ namespace Server.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<UserDto>> PatchUser(int id, UserDto user)
         {
-            return await _userService.Update(id, user);
+            try
+            {
+                return await _userService.Update(id, user);
+            }
+            catch (UserNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // POST: api/User
@@ -47,14 +79,36 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> PostUser(UserDto user)
         {
-            return await _userService.Create(user);
+            try
+            {
+                return await _userService.Create(user);
+            }
+            catch (InvalidDataException e)
+            {
+                return BadRequest(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // DELETE: api/User/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> DeleteUser(int id)
         {
-            return await _userService.Delete(id);
+            try
+            {
+                return await _userService.Delete(id);
+            }
+            catch (UserNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
     }
 }

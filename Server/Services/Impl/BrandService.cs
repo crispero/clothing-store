@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Server.DTO;
 using Server.Models;
 using Server.Repositories;
 
@@ -8,41 +11,58 @@ namespace Server.Services.Impl
     public class BrandService : IBrandService
     {
         private readonly IBrandRepository _brandRepository;
-
-        public BrandService(IBrandRepository brandRepository)
+        private readonly IMapper _entityMapper;
+        
+        public BrandService(IBrandRepository brandRepository, IMapper entityMapper)
         {
             _brandRepository = brandRepository;
+            _entityMapper = entityMapper;
         }
         
-        public Task<List<Brand>> GetAll()
+        public async Task<List<BrandDto>> GetAll()
         {
-            return _brandRepository.GetAll();
+            var brands = await _brandRepository.GetAll();
+            return GetBrandDtoList(brands);
         }
 
-        public Task<Brand> GetById(int id)
+        public async Task<BrandDto> GetById(int id)
         {
-            return _brandRepository.GetById(id);
+            var brand = await _brandRepository.GetById(id);
+            return GetBrandDto(brand);
         }
 
-        public Task<List<Brand>> GetByIds(List<int> ids)
+        public Task<List<BrandDto>> GetByIds(List<int> ids)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Brand> Create(Brand entity)
+        public async Task<BrandDto> Create(BrandDto entity)
         {
-            return _brandRepository.Create(entity);
+            var brand = _entityMapper.Map<Brand>(entity);
+            var createdBrand = await _brandRepository.Create(brand);
+            return GetBrandDto(createdBrand);
         }
 
-        public Task<Brand> Update(int id, Brand entity)
+        public async Task<BrandDto> Update(int id, BrandDto entity)
         {
-            return _brandRepository.Update(id, entity);
+            var brand = _entityMapper.Map<Brand>(entity);
+            var updatedBrand = await _brandRepository.Update(id, brand);
+            return GetBrandDto(updatedBrand);
         }
 
         public Task<bool> Delete(int id)
         {
             return _brandRepository.Delete(id);
         }
+        
+        private BrandDto GetBrandDto(Brand brand)
+        {
+            return _entityMapper.Map<BrandDto>(brand);
+        }
+
+        private List<BrandDto> GetBrandDtoList(List<Brand> brandList)
+        {
+            return brandList.Select(GetBrandDto).ToList();
+        }
     }
-    
 }

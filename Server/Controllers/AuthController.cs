@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Common.Exception;
 using Server.DTO;
 using Server.Services;
 
@@ -21,16 +23,38 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<ActionResult<AuthDto>> Login(LoginDto loginDto)
         {
-            AuthDto authDto = await _authService.Login(loginDto);
-            return authDto;
+            try
+            {
+                AuthDto authDto = await _authService.Login(loginDto);
+                return authDto;
+            }
+            catch (UserNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
         
         [Route("register")]
         [HttpPost]
         public async Task<ActionResult<AuthDto>> Register(RegisterDto registerDto)
         {
-            AuthDto authDto = await _authService.Register(registerDto);
-            return authDto;
+            try
+            {
+                AuthDto authDto = await _authService.Register(registerDto);
+                return authDto;
+            }
+            catch (UserExists e)
+            {
+                return BadRequest(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
     }
 }

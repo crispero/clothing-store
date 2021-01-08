@@ -9,6 +9,8 @@
   <mat-grid-tile *ngFor="let clothes of clothesList">
     <app-clothes-card
       [clothes]="clothes"
+      [showDeleteButton]="false"
+      [showEditButton]="false"
       [showFavoriteButton]="false"
       [showBasketButton]="!alreadyInBasket(clothes.clothesId)"
       [showCloseButton]="true"

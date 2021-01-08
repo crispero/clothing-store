@@ -2,7 +2,10 @@
 
   <div class="main-info">
     <div class="left-content">
-      <img class="image" src="{{clothes?.pictureUrl || 'https://material.angular.io/assets/img/examples/shiba2.jpg'}}">
+      <div [style.backgroundImage]="'url('+ getFilePath(clothes?.pictureUrl) +')'" class="image" *ngIf="!!clothes?.pictureUrl"></div>
+      <div *ngIf="!clothes?.pictureUrl" class="empty-image">
+        Нет изображения
+      </div>
     </div>
 
     <div class="right-content">

@@ -1,8 +1,8 @@
-﻿using Server.Models;
+﻿using Server.DTO;
 
 namespace Server.Services
 {
-    public interface IBrandService : IService<Brand>
+    public interface IBrandService : IService<BrandDto>
     {
         
     }

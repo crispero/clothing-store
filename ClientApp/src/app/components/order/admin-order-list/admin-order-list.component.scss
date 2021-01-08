@@ -1,5 +1,7 @@
+@import "src/app/const-styles";
+
 .empty-container {
-  height: 100%;
+  height: calc(100% - 2 * #{$s-indent});
   display: flex;
   justify-content: center;
   align-items: center;

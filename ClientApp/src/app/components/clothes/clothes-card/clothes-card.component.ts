@@ -2,7 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClothesModel } from "../../../models/clothes.model";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogConfirmComponent, IConfirmDialogData } from "../../dialog-confirm/dialog-confirm.component";
-import { ClothesDialogComponent, IClothesDialogData } from "../clothes-dialog/clothes-dialog.component";
+import {
+  ClothesDialogComponent,
+  IClothesDialogData,
+  IClothesDialogResponse
+} from "../clothes-dialog/clothes-dialog.component";
 import { IClothesDto } from "../../../dto/clothes.dto";
 import { AppRoutesService } from "../../../routes/app-routes.service";
 import { CurrentUser } from "../../../utils/current-user";
@@ -31,7 +35,7 @@ export class ClothesCardComponent implements OnInit {
   public genderType: IGenderType | undefined;
   public size: IClothesSize | undefined;
 
-  @Output() public onUpdateClothes = new EventEmitter<Partial<IClothesDto>>();
+  @Output() public onUpdateClothes = new EventEmitter<IClothesDialogResponse>();
   @Output() public onDeleteClothes = new EventEmitter<Id>();
   @Output() public onClickCloseButton = new EventEmitter<Id>();
   @Output() public onClickFavorite = new EventEmitter<Id>();
@@ -57,11 +61,9 @@ export class ClothesCardComponent implements OnInit {
   onClickEdit() {
     const dialogData: IClothesDialogData = { title: "Редактирование одежды", clothes: this.clothes, brands: this.brands }
     const dialogRef = this.dialog.open(ClothesDialogComponent, { data: dialogData, autoFocus: false });
-    dialogRef.afterClosed().subscribe((clothes: Partial<IClothesDto>) => {
-      if (!!clothes) {
-        clothes.clothesId = this.clothes.clothesId;
-        this.onUpdateClothes.emit(clothes);
-      }
+    dialogRef.afterClosed().subscribe((response: IClothesDialogResponse) => {
+      if (!response) return;
+      this.onUpdateClothes.emit({ ...response, clothes: { ...response.clothes, clothesId: this.clothes.clothesId } });
     })
   }
 

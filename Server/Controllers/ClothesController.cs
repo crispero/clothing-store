@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Common.Exception;
 using Server.Dto;
 using Server.DTO;
-using Server.Models;
 using Server.Services;
 
 namespace Server.Controllers
@@ -23,22 +25,47 @@ namespace Server.Controllers
 
         // GET: api/Clothes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClothesDto>>> GetClothes()
+        public async Task<ActionResult<IEnumerable<ClothesDto>>> GetClothesList()
         {
-            return await _clothesService.GetAll();
+            try
+            {
+                return await _clothesService.GetAll();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
         
         [HttpGet("ids")]
         public async Task<ActionResult<IEnumerable<ClothesDto>>> GetClothesByIds([FromQuery]int[] ids)
         {
-            return await _clothesService.GetByIds(ids.ToList());
+            try
+            {
+                return await _clothesService.GetByIds(ids.ToList());
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // GET: api/Clothes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ClothesDto>> GetClothes(int id)
         {
-            return await _clothesService.GetById(id);
+            try
+            {
+                return await _clothesService.GetById(id);
+            }
+            catch (ClothesNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // PUT: api/Clothes/5
@@ -47,7 +74,18 @@ namespace Server.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<ClothesDto>> PatchClothes(int id, ClothesDto clothes)
         {
-            return await _clothesService.Update(id, clothes);
+            try
+            {
+                return await _clothesService.Update(id, clothes);
+            }
+            catch (ClothesNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // POST: api/Clothes
@@ -56,20 +94,49 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<ActionResult<ClothesDto>> PostClothes(ClothesDto clothes)
         {
-            return await _clothesService.Create(clothes);
+            try
+            {
+                return await _clothesService.Create(clothes);
+            }
+            catch (InvalidDataException e)
+            {
+                return BadRequest(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         [HttpPost("params")]
         public async Task<ActionResult<List<ClothesDto>>> GetClothesWithFilters(ClothesFilterDto options)
         {
-            return await _clothesService.GetClothesWithFilters(options);
+            try
+            {
+                return await _clothesService.GetClothesWithFilters(options);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // DELETE: api/Clothes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> DeleteClothes(int id)
         {
-            return await _clothesService.Delete(id);
+            try
+            {
+                return await _clothesService.Delete(id);
+            }
+            catch (ClothesNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
     }
 }

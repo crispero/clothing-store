@@ -14,6 +14,10 @@ export class AttachmentRepository extends BaseRepository<AttachmentModel, IAttac
     super(service);
   }
 
+  get defaultAvatarName(): string {
+    return "15ef8d1ccbb4514e0a758c61e1623b2f.jpg";
+  }
+
   getUrlUploadFile(file: File): string {
     return URL.createObjectURL(file);
   }

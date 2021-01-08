@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Common.Exception;
 using Server.Dto;
 using Server.Services;
 
@@ -21,21 +25,46 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BasketDto>>> GetBasket()
         {
-            return await _basketService.GetAll();
+            try
+            {
+                return await _basketService.GetAll();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // GET: api/Basket/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BasketDto>> GetBasket(int id)
         {
-            return await _basketService.GetById(id);
+            try
+            {
+                return await _basketService.GetById(id);
+            }
+            catch (BasketNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
         
         // GET: api/Basket/user/5
         [HttpGet("user/{userId}")]
         public ActionResult<List<BasketDto>> GetFavoriteByUserId(int userId)
         {
-            return _basketService.GetByUserId(userId);
+            try
+            {
+                return _basketService.GetByUserId(userId);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // PUT: api/Basket/5
@@ -44,7 +73,18 @@ namespace Server.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<BasketDto>> PatchBasket(int id, BasketDto basketDto)
         {
-            return await _basketService.Update(id, basketDto);
+            try
+            {
+                return await _basketService.Update(id, basketDto);
+            }
+            catch (BasketNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // POST: api/Basket
@@ -53,14 +93,36 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<ActionResult<BasketDto>> PostBasket(BasketDto basketDto)
         {
-            return await _basketService.Create(basketDto);
+            try
+            {
+                return await _basketService.Create(basketDto);
+            }
+            catch (InvalidDataException e)
+            {
+                return BadRequest(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
 
         // DELETE: api/Basket/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> DeleteBasket(int id)
         {
-            return await _basketService.Delete(id);
+            try
+            {
+                return await _basketService.Delete(id);
+            }
+            catch (BasketNotFound e)
+            {
+                return NotFound(new {message = e.Message});
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new {message = e.Message});
+            }
         }
     }
 }

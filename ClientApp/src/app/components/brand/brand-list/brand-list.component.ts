@@ -3,9 +3,9 @@ import { BrandModel } from "../../../models/brand.model";
 import { MatDialog } from "@angular/material/dialog";
 import { BrandRepository } from "../../../repositories/brand.repository";
 import { BrandDialogComponent, IBrandDialogData, IBrandDialogResponse } from "../brand-dialog/brand-dialog.component";
-import { IBrandDto } from "../../../dto/brand.dto";
 import { Id } from "../../../models/id";
 import { AttachmentRepository } from "../../../repositories/attachment.repository";
+import { EntityUtils } from "../../../utils/entity.utils";
 
 @Component({
   selector: 'app-brand-list',
@@ -19,6 +19,7 @@ export class BrandListComponent implements OnInit {
     private readonly brandRepository: BrandRepository,
     private readonly attachmentRepository: AttachmentRepository,
     private dialog: MatDialog,
+    private entityUtils: EntityUtils,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -29,12 +30,23 @@ export class BrandListComponent implements OnInit {
     const data: IBrandDialogData = { title: "Добавление бренда" };
     const dialogRef = this.dialog.open(BrandDialogComponent, { data, autoFocus: false });
 
-    dialogRef.afterClosed().subscribe((response: IBrandDialogResponse) => {
+    dialogRef.afterClosed().subscribe(async (response: IBrandDialogResponse) => {
+      if (!response) return;
 
+      await this.uploadFile(response);
+
+      const { brand } = response;
+
+      if (!!brand) {
+        const createdBrand = await this.brandRepository.create(brand);
+        this.entityUtils.replaceOrPushEntity(this.brands, createdBrand, "brandId");
+      }
     });
   }
 
-  async updateBrand(response: IBrandDialogResponse): Promise<void> {
+  async uploadFile(response: IBrandDialogResponse): Promise<void> {
+    if (!response) return;
+
     const { brand, file, isDeletePicture } = response;
 
     if (!!file) {
@@ -46,19 +58,23 @@ export class BrandListComponent implements OnInit {
       await this.attachmentRepository.deleteFile(brand.logoUrl);
       brand.logoUrl = "";
     }
-
-    if (!!brand) {
-      const newBrand = await this.brandRepository.create(brand);
-      this.brands.push(newBrand);
-    }
   }
 
-  onEditBrand(response: IBrandDialogResponse): void {
-    this.updateBrand(response);
+  async onEditBrand(response: IBrandDialogResponse): Promise<void> {
+    await this.uploadFile(response);
+
+    const { brand } = response;
+
+    if (!!brand) {
+      const updatedBrand = await this.brandRepository.update(brand.brandId!, brand);
+      this.entityUtils.replaceOrPushEntity(this.brands, updatedBrand, "brandId");
+    }
   }
 
   async onDeleteBrand(id: Id): Promise<void> {
     const isDeleted = await this.brandRepository.delete(id);
-    isDeleted && (this.brands = await this.brandRepository.getAll());
+    if (isDeleted) {
+      this.entityUtils.deleteEntity(this.brands, id, "brandId");
+    }
   }
 }

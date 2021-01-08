@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserModel } from "../../../models/user.model";
 import { IUserType, USER_TYPE_LIST, UserType } from "../../../dto/user-type";
 import { CurrentUser } from "../../../utils/current-user";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
 
 @Component({
   selector: 'app-user-card',
@@ -11,16 +12,19 @@ import { CurrentUser } from "../../../utils/current-user";
 export class UserCardComponent implements OnInit {
   @Input() user: UserModel;
   public userType: IUserType | undefined;
+  public defaultAvatarName: string;
 
   @Output() public onUpdateToAdmin = new EventEmitter<UserModel>();
   @Output() public onUpdateToUser = new EventEmitter<UserModel>();
 
   constructor(
     private readonly currentUser: CurrentUser,
+    private readonly attachmentRepository: AttachmentRepository,
   ) { }
 
   ngOnInit(): void {
     this.setUserType(this.user);
+    this.defaultAvatarName = this.attachmentRepository.defaultAvatarName;
   }
 
   isAdmin(): boolean {
@@ -29,6 +33,11 @@ export class UserCardComponent implements OnInit {
 
   showAdminButton(): boolean {
     return this.currentUser.currentUserId !== this.user.userId;
+  }
+
+  getFilePath(fileName?: string): string {
+    const name = fileName || this.defaultAvatarName;
+    return !!name ? this.attachmentRepository.getFilePath(name) : "";
   }
 
   async updateToAdmin(): Promise<void> {

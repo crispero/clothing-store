@@ -70,6 +70,7 @@ namespace Server.Repositories.Impl
             clothes.GenderType = entity.GenderType;
             clothes.Color = entity.Color;
             clothes.IsOrdered = entity.IsOrdered;
+            clothes.PictureUrl = entity.PictureUrl;
 
             _context.Clothes.Update(clothes);
 
@@ -80,11 +81,7 @@ namespace Server.Repositories.Impl
         
         public async Task<bool> Delete(int id)
         {
-            var clothes = await _context.Clothes.FindAsync(id);
-            if (clothes == null)
-            {
-                throw new ClothesNotFound();
-            }
+            var clothes = await GetById(id);
 
             _context.Clothes.Remove(clothes);
 

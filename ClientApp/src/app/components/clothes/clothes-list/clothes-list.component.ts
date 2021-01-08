@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClothesModel } from "../../../models/clothes.model";
 import { MatDialog } from "@angular/material/dialog";
-import { ClothesDialogComponent, IClothesDialogData } from "../clothes-dialog/clothes-dialog.component";
-import { IClothesDto } from "../../../dto/clothes.dto";
+import {
+  ClothesDialogComponent,
+  IClothesDialogData,
+  IClothesDialogResponse
+} from "../clothes-dialog/clothes-dialog.component";
 import { ClothesRepository } from "../../../repositories/clothes.repository";
 import { GENDER_TYPE_LIST } from "../../../dto/gender-type";
 import { ApplicationUtils } from "../../../utils/application.utils";
@@ -20,6 +23,8 @@ import { FavoriteRepository } from "../../../repositories/favorite.repository";
 import { BasketRepository } from "../../../repositories/basket.repository";
 import { BasketModel } from "../../../models/basket.model";
 import { FavoriteModel } from "../../../models/favorite.model";
+import { AttachmentRepository } from "../../../repositories/attachment.repository";
+import { EntityUtils } from "../../../utils/entity.utils";
 
 @Component({
   selector: 'app-clothes-list',
@@ -40,7 +45,9 @@ export class ClothesListComponent implements OnInit {
     private readonly clothesRepository: ClothesRepository,
     private readonly favoriteRepository: FavoriteRepository,
     private readonly basketRepository: BasketRepository,
+    private readonly attachmentRepository: AttachmentRepository,
     private readonly applicationUtils: ApplicationUtils,
+    private readonly entityUtils: EntityUtils,
     private dialog: MatDialog,
     private readonly currentUser: CurrentUser
   ) {}
@@ -80,13 +87,32 @@ export class ClothesListComponent implements OnInit {
   openClothesDialog(): void {
     const data: IClothesDialogData = { title: "Добавление одежды", brands: this.brands };
     const dialogRef = this.dialog.open(ClothesDialogComponent, { data, autoFocus: false });
+      dialogRef.afterClosed().subscribe(async (response: IClothesDialogResponse) => {
+        if (!response) return;
 
-      dialogRef.afterClosed().subscribe(async (clothesDto: Partial<IClothesDto>) => {
-      if (!!clothesDto) {
-        const newClothes = await this.clothesRepository.create(clothesDto);
-        this.clothesList.push(newClothes);
-      }
+        await this.uploadFile(response);
+
+        if (!!response?.clothes) {
+          const createdClothes = await this.clothesRepository.create(response.clothes);
+          this.entityUtils.replaceOrPushEntity(this.clothesList, createdClothes, "clothesId");
+        }
     });
+  }
+
+  async uploadFile(response: IClothesDialogResponse): Promise<void> {
+    if (!response) return;
+
+    const { clothes, file, isDeletePicture } = response;
+
+    if (!!file) {
+      const createdFile = !!clothes.pictureUrl
+        ? await this.attachmentRepository.updateFile(clothes.pictureUrl, file)
+        : await this.attachmentRepository.uploadFile(file);
+      clothes.pictureUrl = createdFile.path;
+    } else if (!!isDeletePicture && !!clothes.pictureUrl) {
+      await this.attachmentRepository.deleteFile(clothes.pictureUrl);
+      clothes.pictureUrl = "";
+    }
   }
 
   openFilterDialog(): void {
@@ -103,7 +129,10 @@ export class ClothesListComponent implements OnInit {
   }
 
   async onChangeSearchValue(value: string): Promise<void> {
-    this.filterParams.name = value;
+    this.filterParams = {
+      ...this.filterParams,
+      name: value,
+    };
     this.clothesList = await this.clothesRepository.getClothesWithParams(this.filterParams);
   }
 
@@ -154,20 +183,17 @@ export class ClothesListComponent implements OnInit {
 
   async onDeleteClothes(id: Id) {
     const isDeleted = await this.clothesRepository.delete(id);
-    isDeleted && this.deleteClothes(id);
+    if (isDeleted) {
+      this.entityUtils.deleteEntity(this.clothesList, id, "clothesId");
+    }
   }
 
-  private deleteClothes(id: Id) {
-    const index = this.clothesList.findIndex(clothes => clothes.clothesId === id);
-    if (index === -1) return;
-    this.clothesList.splice(index, 1);
-  }
+  async onUpdateClothes(response: IClothesDialogResponse) {
+    await this.uploadFile(response);
 
-  async onUpdateClothes(updateDto: Partial<IClothesDto>) {
-    const updatedClothes = await this.clothesRepository.update(updateDto.clothesId!, updateDto);
-    const index = this.clothesList.findIndex(clothes => clothes.clothesId === updateDto.clothesId!);
-    if (index === -1) return;
-
-    this.clothesList.splice(index, 1, updatedClothes)
+    if (!!response?.clothes) {
+      const updatedClothes = await this.clothesRepository.update(response.clothes.clothesId!, response.clothes);
+      this.entityUtils.replaceOrPushEntity(this.clothesList, updatedClothes, "clothesId");
+    }
   }
 }

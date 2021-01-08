@@ -75,6 +75,6 @@ export class BrandDialogComponent implements OnInit {
 
   isDeletePicture(): boolean {
     const value = this.formGroup.value;
-    return !!value?.pictureUrl && !this.imageFile && !this.previewUrl;
+    return !!value?.logoUrl && !this.imageFile && !this.previewUrl;
   }
 }

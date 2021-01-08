@@ -3,26 +3,31 @@
 .container {
   margin-bottom: $s-indent;
 
-  image {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-width: $small-image-size;
-    height: $small-image-size;
-    margin-right: $s-indent;
-    border-radius: 50%;
-  }
+  .header {
+    display: flex;
+    flex-direction: row;
 
-  .title {
-    flex: 1;
-
-    .description {
-      overflow: auto;
+    .image {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      min-width: $small-image-size;
+      height: $small-image-size;
+      margin-right: $s-indent;
+      border-radius: 50%;
     }
 
-    .actions {
-      display: flex;
-      flex-direction: row;
+    .title {
+      flex: 1;
+
+      .description {
+        overflow: auto;
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: row;
+      }
     }
   }
 }

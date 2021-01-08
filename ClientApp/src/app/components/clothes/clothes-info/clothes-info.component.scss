@@ -12,9 +12,24 @@
 
     .left-content {
       margin-right: $md-indent;
+      height: 400px;
+      min-width: 300px;
+
       .image {
-        height: 400px;
-        width: 300px;
+        height: inherit;
+        width: inherit;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .empty-image {
+        height: inherit;
+        width: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #fff;
       }
     }
 

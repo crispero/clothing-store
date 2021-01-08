@@ -6,7 +6,7 @@
     </button>
   </mat-card-header>
   <div class="image-container">
-    <div [style.backgroundImage]="'url('+ getFilePath(clothes?.pictureUrl) +')'" class="image"></div>
+    <div [style.backgroundImage]="'url('+ getFilePath(clothes?.pictureUrl) +')'" class="image" *ngIf="!!clothes?.pictureUrl"></div>
     <div *ngIf="!clothes?.pictureUrl" class="empty-image">
       Нет изображения
     </div>

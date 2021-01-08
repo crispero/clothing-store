@@ -65,9 +65,7 @@ namespace Server.Repositories.Impl
             var comment = await GetById(id);
 
             _context.Comment.Remove(comment);
-            await _context.SaveChangesAsync();
-
-            return true;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public List<Comment> GetByClothesId(int clothesId)

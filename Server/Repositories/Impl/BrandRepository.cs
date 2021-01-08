@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Application;
+using Server.Common.Exception;
 using Server.Models;
 
 namespace Server.Repositories.Impl
@@ -27,7 +28,7 @@ namespace Server.Repositories.Impl
 
             if (brand == null)
             {
-                
+                throw new BrandNotFound();
             }
 
             return brand;
@@ -40,55 +41,24 @@ namespace Server.Repositories.Impl
 
         public async Task<Brand> Update(int id, Brand brand)
         {
-            if (id != brand.BrandId)
-            {
-                
-            }
-
             _context.Entry(brand).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BrandExists(id))
-                {
-                    
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
             return brand;
         }
         
         public async Task<Brand> Create(Brand brand)
         {
-            _context.Brand.Add(brand);
+            await _context.Brand.AddAsync(brand);
             await _context.SaveChangesAsync();
 
             return brand;
         }
         public async Task<bool> Delete(int id)
         {
-            var brand = await _context.Brand.FindAsync(id);
-            if (brand == null)
-            {
-                
-            }
+            var brand = await GetById(id);
 
             _context.Brand.Remove(brand);
 
             return await _context.SaveChangesAsync() > 0;;
-        }
-
-        private bool BrandExists(int id)
-        {
-            return _context.Brand.Any(e => e.BrandId == id);
         }
     }
 }
