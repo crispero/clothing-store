@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Server.Common.Exception;
 using Server.Dto;
 using Server.DTO;
 using Server.Models;
@@ -62,11 +65,15 @@ namespace Server.Services.Impl
 
             if (user == null)
             {
-                
+                throw new UserNotFound();
             }
             
             var verifyHashedPassword = _userRepository.VerifyHashedPassword(user, loginDto.Password);
-
+            if (verifyHashedPassword == PasswordVerificationResult.Failed)
+            {
+                throw new InvalidCredentialException("Invalid password");
+            }
+            
             return GetUserDto(user);
         }
 

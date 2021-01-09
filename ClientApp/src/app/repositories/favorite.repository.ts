@@ -5,13 +5,14 @@ import { IFavoriteDto } from "../dto/favorite.dto";
 import { FavoriteService } from "../services/favorite.service";
 import { Id } from "../models/id";
 import { EntityMapper } from "../utils/entity-mapper";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
 })
 export class FavoriteRepository extends BaseRepository<FavoriteModel, IFavoriteDto, FavoriteService> {
-  constructor(service: FavoriteService) {
-    super(service);
+  constructor(service: FavoriteService, snackBar: MatSnackBar) {
+    super(service, snackBar);
   }
 
   async getByUserId(userId: Id): Promise<FavoriteModel[]> {

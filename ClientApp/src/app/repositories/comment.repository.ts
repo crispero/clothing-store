@@ -5,13 +5,14 @@ import { ICommentDto } from "../dto/comment.dto";
 import { CommentService } from "../services/comment.service";
 import { EntityMapper } from "../utils/entity-mapper";
 import { Id } from "../models/id";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
 })
 export class CommentRepository extends BaseRepository<CommentModel, ICommentDto, CommentService> {
-  constructor(service: CommentService) {
-    super(service);
+  constructor(service: CommentService, snackBar: MatSnackBar) {
+    super(service, snackBar);
   }
 
   async getByClothesId(clothesId: Id): Promise<CommentModel[]> {

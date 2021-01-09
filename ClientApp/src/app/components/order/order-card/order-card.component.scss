@@ -1,22 +1,25 @@
 @import "src/app/const-styles";
 
-.header {
-  height: 100%;
-  padding: $s-indent;
+.container {
+  margin-bottom: $s-indent;
 
-  .title {
+  .header {
+    height: 100%;
+    padding: $s-indent;
+
+    .title {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .buttons {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-end;
+    align-items: baseline;
+
+    .button {
+      margin-left: $s-indent;
+    }
   }
 }
-
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: baseline;
-
-  .button {
-    margin-left: $s-indent;
-  }
-}
-

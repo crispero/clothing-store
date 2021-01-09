@@ -3,13 +3,12 @@
   <mat-dialog-content class="mat-typography" >
     <form [formGroup]="formGroup" class="dialog-container-form">
       <mat-form-field class="form-element">
-        <label>
-          <input matInput name="price" formControlName="price" placeholder="Сумма" readonly/>
-          <span matSuffix>руб</span>
-        </label>
+        <mat-label>Сумма</mat-label>
+        <input matInput name="price" formControlName="price" placeholder="Сумма" readonly/>
+        <div matSuffix>руб</div>
       </mat-form-field>
 
-      <mat-checkbox class="example-margin" (change)="onChangeCheckbox($event.checked)">Указать другой адрес</mat-checkbox>
+      <mat-checkbox (change)="onChangeCheckbox($event.checked)">Указать другой адрес</mat-checkbox>
 
       <mat-form-field class="form-element">
         <textarea

@@ -46,9 +46,12 @@
         </mat-form-field>
 
         <mat-form-field class="form-element">
-          <label>
-            <input matInput name="password" formControlName="password" placeholder="Пароль" type="password"/>
-          </label>
+          <mat-label>Пароль</mat-label>
+          <input matInput name="password" formControlName="password" placeholder="Пароль" [type]="isVisible ? 'text' : 'password'"/>
+          <button mat-icon-button matSuffix (click)="isVisible = !isVisible" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="isVisible">
+            <mat-icon>{{isVisible ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="password.invalid">{{ getPasswordErrorMessage() }}</mat-error>
         </mat-form-field>
       </form>
 

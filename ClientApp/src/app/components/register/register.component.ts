@@ -11,6 +11,7 @@ import { ApplicationUtils } from "../../utils/application.utils";
 })
 export class RegisterComponent implements OnInit {
   public formGroup: FormGroup;
+  public isVisible: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,

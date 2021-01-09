@@ -4,13 +4,14 @@ import { UserModel } from "../models/user.model";
 import { IUserDto } from "../dto/user.dto";
 import { UserService } from "../services/user.service";
 import { EntityMapper } from "../utils/entity-mapper";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
 })
 export class UserRepository extends BaseRepository<UserModel, IUserDto, UserService> {
-  constructor(service: UserService) {
-    super(service);
+  constructor(service: UserService, snackBar: MatSnackBar) {
+    super(service, snackBar);
   }
 
   toEntities(data: IUserDto[]): UserModel[] {

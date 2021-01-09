@@ -12,7 +12,6 @@ export class UserModel {
   private _address: string;
   private _pictureUrl: string;
   private _genderType: GenderType;
-  private _isOrdered: boolean;
 
   @Expose()
   get userId(): Id {
@@ -84,14 +83,5 @@ export class UserModel {
 
   set genderType(genderType: GenderType) {
     this._genderType = genderType;
-  }
-
-  @Expose()
-  get isOrdered(): boolean {
-    return this._isOrdered;
-  }
-
-  set isOrdered(value: boolean) {
-    this._isOrdered = value;
   }
 }

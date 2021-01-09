@@ -1,6 +1,7 @@
 ﻿import { BaseService } from "../services/base.service";
 import { Id } from "../models/id";
 import { ClientException } from "../utils/client-exception";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export abstract class BaseRepository<
   TEntity,
@@ -9,7 +10,7 @@ export abstract class BaseRepository<
 
   protected service: TService;
 
-  protected constructor(service: TService) {
+  protected constructor(service: TService, private snackBar: MatSnackBar) {
     this.service = service;
   }
 
@@ -18,6 +19,7 @@ export abstract class BaseRepository<
       const items: TDto[] = await this.service.getAll();
       return this.toEntities(items);
     } catch (e) {
+      this.openSnackBar(e?.error?.message);
       throw new ClientException("can't get all items");
     }
   }
@@ -27,6 +29,7 @@ export abstract class BaseRepository<
       const item: TDto = await this.service.getById(id);
       return this.toEntity(item);
     } catch (e) {
+      this.openSnackBar(e?.error?.message);
       throw new ClientException("can't get item with id: " + id);
     }
   }
@@ -36,6 +39,7 @@ export abstract class BaseRepository<
       const items: TDto[] = await this.service.getByIds(ids);
       return this.toEntities(items);
     } catch (e) {
+      this.openSnackBar(e?.error?.message);
       throw new ClientException("can't get item with ids: " + ids);
     }
   }
@@ -45,6 +49,7 @@ export abstract class BaseRepository<
       const item: TDto = await this.service.create(data);
       return this.toEntity(item);
     } catch (e) {
+      this.openSnackBar(e?.error?.message);
       throw new ClientException("can't create item");
     }
   }
@@ -54,6 +59,7 @@ export abstract class BaseRepository<
       const item: TDto = await this.service.update(id, data);
       return this.toEntity(item);
     } catch (e) {
+      this.openSnackBar(e?.error?.message);
       throw new ClientException("can't update item with id: " + id);
     }
   }
@@ -62,6 +68,7 @@ export abstract class BaseRepository<
     try {
       return this.service.delete(id);
     } catch (e) {
+      this.openSnackBar(e?.error?.message);
       return false;
     }
   }
@@ -69,4 +76,10 @@ export abstract class BaseRepository<
   protected abstract toEntity(data: TDto): TEntity;
 
   protected abstract toEntities(data: TDto[]): TEntity[];
+
+  protected openSnackBar(message?: string) {
+    message && this.snackBar.open(message, "", {
+      duration: 5000,
+    });
+  }
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CurrentUser } from "../../../utils/current-user";
 import { UserRepository } from "../../../repositories/user.repository";
 import { GENDER_TYPE_LIST, IGenderType } from "../../../dto/gender-type";
 import { AttachmentRepository } from "../../../repositories/attachment.repository";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ApplicationUtils } from "../../../utils/application.utils";
 
 @Component({
   selector: 'app-user-profile',
@@ -15,12 +17,15 @@ export class UserProfileComponent implements OnInit {
   public genderTypeList: IGenderType[] = GENDER_TYPE_LIST;
   public imageFile: File | undefined;
   public previewUrl: string;
+  public isVisible: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private readonly currentUser: CurrentUser,
     private readonly userRepository: UserRepository,
     private readonly attachmentRepository: AttachmentRepository,
+    private _snackBar: MatSnackBar,
+    private applicationUtils: ApplicationUtils
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -37,11 +42,19 @@ export class UserProfileComponent implements OnInit {
       address: [currentUser?.address || ""],
       genderType: [currentUser?.genderType || 0],
       pictureUrl: [currentUser?.pictureUrl || ""],
-      password: [""],
+      password: ["", [Validators.pattern(this.applicationUtils.passwordPattern)]],
       userTypeId: [currentUser?.userTypeId || ""]
     });
 
     this.previewUrl = this.getFilePath(currentUser?.pictureUrl);
+  }
+
+  get password(): AbstractControl {
+    return <AbstractControl>this.formGroup.get("password");
+  }
+
+  getPasswordErrorMessage(): string {
+    return this.password.hasError("pattern") ? this.applicationUtils.passwordErrorText : "";
   }
 
   setImageFile(file?: File): void {
@@ -78,5 +91,13 @@ export class UserProfileComponent implements OnInit {
 
     const user = await this.userRepository.update(currentUserId, value);
     this.currentUser.setCurrentUser(user);
+
+    this.openSnackBar();
+  }
+
+  private openSnackBar() {
+    this._snackBar.open("Данные успешно обновлены", "", {
+      duration: 5000,
+    });
   }
 }

@@ -5,13 +5,14 @@ import { IOrderDto } from "../dto/order.dto";
 import { OrderService } from "../services/order.service";
 import { EntityMapper } from "../utils/entity-mapper";
 import { Id } from "../models/id";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
 })
 export class OrderRepository extends BaseRepository<OrderModel, IOrderDto, OrderService> {
-  constructor(service: OrderService) {
-    super(service);
+  constructor(service: OrderService, snackBar: MatSnackBar) {
+    super(service, snackBar);
   }
 
   async getByUserId(userId: Id): Promise<OrderModel[]> {

@@ -14,6 +14,7 @@ export class ClothesModel {
   private _color: string;
   private _genderType: GenderType;
   private _size: ClothesSize;
+  private _isOrdered: boolean;
 
   @Expose()
   get clothesId(): Id {
@@ -94,5 +95,14 @@ export class ClothesModel {
 
   set size(value: ClothesSize) {
     this._size = value;
+  }
+
+  @Expose()
+  get isOrdered(): boolean {
+    return this._isOrdered;
+  }
+
+  set isOrdered(value: boolean) {
+    this._isOrdered = value;
   }
 }

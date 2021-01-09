@@ -5,13 +5,14 @@ import { IBasketDto } from "../dto/basket.dto";
 import { BasketService } from "../services/basket.service";
 import { EntityMapper } from "../utils/entity-mapper";
 import { Id } from "../models/id";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
 })
 export class BasketRepository extends BaseRepository<BasketModel, IBasketDto, BasketService> {
-  constructor(service: BasketService) {
-    super(service);
+  constructor(service: BasketService,  snackBar: MatSnackBar) {
+    super(service, snackBar);
   }
 
   async getByUserId(userId: Id): Promise<BasketModel[]> {

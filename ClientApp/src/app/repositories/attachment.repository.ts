@@ -5,13 +5,14 @@ import { IAttachmentDto } from "../dto/attachment.dto";
 import { AttachmentService } from "../services/attachment.service";
 import { EntityMapper } from "../utils/entity-mapper";
 import { ClientException } from "../utils/client-exception";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
 })
 export class AttachmentRepository extends BaseRepository<AttachmentModel, IAttachmentDto, AttachmentService> {
-  constructor(service: AttachmentService) {
-    super(service);
+  constructor(service: AttachmentService,  snackBar: MatSnackBar) {
+    super(service, snackBar);
   }
 
   get defaultAvatarName(): string {

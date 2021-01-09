@@ -5,13 +5,14 @@ import { ClothesService } from "../services/clothes.service";
 import { Injectable } from "@angular/core";
 import { EntityMapper } from "../utils/entity-mapper";
 import { IClothesFilterParams } from "../dto/clothes-filter-params";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
 })
 export class ClothesRepository extends BaseRepository<ClothesModel, IClothesDto, ClothesService> {
-  constructor(service: ClothesService) {
-    super(service);
+  constructor(service: ClothesService, snackBar: MatSnackBar) {
+    super(service, snackBar);
   }
 
   async getClothesWithParams(params?: Partial<IClothesFilterParams>): Promise<ClothesModel[]> {

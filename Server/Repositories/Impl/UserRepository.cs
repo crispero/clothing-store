@@ -61,9 +61,9 @@ namespace Server.Repositories.Impl
             oldUser.UserTypeId = user.UserTypeId;
             oldUser.Login = user.Login;
 
-            if (user.Password != null)
+            if (!string.IsNullOrEmpty(user.Password))
             {
-                oldUser.Password = IsEquals(user.Password, user.Password)
+                oldUser.Password = IsEquals(user.Password, oldUser.Password)
                     ? user.Password
                     : HashPassword(user, user.Password);
             }
@@ -97,6 +97,11 @@ namespace Server.Repositories.Impl
 
         public async Task<User> Register(RegisterDto registerDto)
         {
+            if (IsUserExists(registerDto.Login))
+            {
+                throw new UserExists();
+            }
+            
             var userType = await _context.UserTypes.FirstOrDefaultAsync(type => type.Name == "Admin");
 
             var user = new User

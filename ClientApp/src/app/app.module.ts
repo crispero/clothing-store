@@ -52,6 +52,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { AdminOrderListComponent } from './components/order/admin-order-list/admin-order-list.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export function tokenGetter(): string {
   return <string>localStorage.getItem("token");
@@ -108,6 +109,7 @@ export function tokenGetter(): string {
     MatChipsModule,
     MatCheckboxModule,
     MatSidenavModule,
+    MatSnackBarModule,
 
     JwtModule.forRoot({
       config: {

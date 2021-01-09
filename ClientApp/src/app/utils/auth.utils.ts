@@ -9,6 +9,7 @@ import { UserRepository } from "../repositories/user.repository";
 import { LocalStorageUtils } from "./local-storage.utils";
 import { CurrentUser } from "./current-user";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
@@ -23,6 +24,7 @@ export class AuthUtils {
     private readonly userRepository: UserRepository,
     private readonly currentUser: CurrentUser,
     private jwtHelperService: JwtHelperService,
+    private snackBar: MatSnackBar,
   ) {
     if (this.isAuthenticated()) {
       this.setAuthorized(true);
@@ -40,13 +42,21 @@ export class AuthUtils {
   }
 
   async login(loginDto: ILoginDto): Promise<void> {
-    const authDto = await this.authService.loginUser(loginDto);
-    this.setAuthData(authDto);
+    try {
+      const authDto = await this.authService.loginUser(loginDto);
+      this.setAuthData(authDto);
+    } catch (e) {
+      this.openSnackBar(e?.error?.message);
+    }
   }
 
   async register(registerDto: IRegisterDto): Promise<void> {
-    const authDto = await this.authService.registerUser(registerDto);
-    this.setAuthData(authDto);
+    try {
+      const authDto = await this.authService.registerUser(registerDto);
+      this.setAuthData(authDto);
+    } catch (e) {
+      this.openSnackBar(e?.error?.message);
+    }
   }
 
   logout() {
@@ -66,5 +76,11 @@ export class AuthUtils {
 
   private setAuthorized(value: boolean): void {
     this.authorizedSubject$.next(value);
+  }
+
+  protected openSnackBar(message: string) {
+    this.snackBar.open(message, "", {
+      duration: 5000,
+    });
   }
 }

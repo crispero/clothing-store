@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { OrderModel } from "../../../models/order.model";
+import { CurrentUser } from "../../../utils/current-user";
 
 export interface IOrderDialogData {
   title: string;
@@ -21,14 +22,17 @@ export class OrderDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<OrderDialogComponent>,
     private formBuilder: FormBuilder,
+    private currentUser: CurrentUser,
     @Inject(MAT_DIALOG_DATA) private dialogData: IOrderDialogData,
   ) { }
 
   ngOnInit(): void {
     const { order, title} = this.dialogData;
 
+    const currentUser = this.currentUser.currentUser;
+
     this.formGroup = this.formBuilder.group({
-      deliveryAddress: [order?.deliveryAddress || "", [Validators.required]],
+      deliveryAddress: [order?.deliveryAddress || currentUser?.address || "", [Validators.required]],
       price: [order?.price || "", [Validators.required]],
     });
 

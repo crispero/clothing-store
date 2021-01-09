@@ -11,6 +11,7 @@ import { ApplicationUtils } from "../../utils/application.utils";
 })
 export class LoginComponent implements OnInit {
   public formGroup: FormGroup;
+  public isVisible: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
