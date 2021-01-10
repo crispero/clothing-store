@@ -76,7 +76,6 @@ export class UserProfileComponent implements OnInit {
 
   async onSubmit(): Promise<void> {
     const value = this.formGroup.value;
-    console.log(value);
     const currentUserId = this.currentUser.currentUserId;
 
     if (!!this.imageFile) {
