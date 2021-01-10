@@ -48,8 +48,8 @@ export class ClothesCardComponent implements OnInit {
     private readonly currentUser: CurrentUser
   ) { }
 
-  async ngOnInit(): Promise<void> {
-    this.isAdmin = await this.currentUser.isAdmin();
+  ngOnInit(): void {
+    this.isAdmin = this.currentUser.isAdmin();
     this.genderType = GENDER_TYPE_LIST.find(gender => gender.genderType === this.clothes.genderType);
     this.size = CLOTHES_SIZE_LIST.find(size => size.size === this.clothes.size);
   }

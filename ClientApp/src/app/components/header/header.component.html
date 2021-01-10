@@ -12,11 +12,9 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <div *ngIf="authorized$ | async">
-        <button mat-icon-button *ngIf="isAdmin" (click)="sidenav.open()">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </div>
+      <button mat-icon-button *ngIf="(authorized$ | async) && isAdmin()" (click)="sidenav.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <button mat-icon-button (click)="onClickHome()" class="home-icon">
         <mat-icon>home</mat-icon>
       </button>

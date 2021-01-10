@@ -30,8 +30,8 @@ export class BrandCardComponent implements OnInit {
     private readonly attachmentRepository: AttachmentRepository,
   ) { }
 
-  async ngOnInit(): Promise<void> {
-    this.isAdmin = await this.currentUser.isAdmin();
+  ngOnInit(): void {
+    this.isAdmin = this.currentUser.isAdmin();
     this.defaultAvatarName = this.attachmentRepository.defaultAvatarName;
   }
 

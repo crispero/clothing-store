@@ -39,9 +39,17 @@ namespace Server.Repositories.Impl
             throw new System.NotImplementedException();
         }
 
-        public async Task<Brand> Update(int id, Brand brand)
+        public async Task<Brand> Update(int id, Brand entity)
         {
-            _context.Entry(brand).State = EntityState.Modified;
+            var brand = await GetById(id);
+
+            brand.Name = entity.Name;
+            brand.Description = entity.Description;
+            brand.LogoUrl = entity.LogoUrl;
+
+            _context.Brand.Update(brand);
+
+            await _context.SaveChangesAsync();
             return brand;
         }
         

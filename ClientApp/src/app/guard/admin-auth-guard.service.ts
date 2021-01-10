@@ -19,17 +19,11 @@ export class AdminAuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return new Promise(((resolve) => {
-      this.currentUser.isAdmin()
-        .then((isAdmin: boolean) => {
-          if (isAdmin) {
-            resolve(true);
-          } else {
-            this.appRoutesService.goToLoginPage();
-            resolve(false);
-          }
-        })
-        .catch(() => resolve(false));
-    }))
+      if (this.currentUser.isAdmin()) {
+        return true;
+      }
+
+      this.appRoutesService.goToLoginPage();
+      return false;
   }
 }

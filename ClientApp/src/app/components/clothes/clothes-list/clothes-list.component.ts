@@ -56,7 +56,7 @@ export class ClothesListComponent implements OnInit {
     try {
       const currentUserId = this.currentUser.currentUserId;
 
-      this.isAdmin = await this.currentUser.isAdmin();
+      this.isAdmin = this.currentUser.isAdmin();
       this.clothesList = await this.clothesRepository.getClothesWithParams();
       this.brands = await this.brandRepository.getAll();
       this.favoriteList = await this.favoriteRepository.getByUserId(currentUserId);

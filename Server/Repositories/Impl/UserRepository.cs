@@ -102,7 +102,7 @@ namespace Server.Repositories.Impl
                 throw new UserExists();
             }
             
-            var userType = await _context.UserTypes.FirstOrDefaultAsync(type => type.Name == "Admin");
+            var userType = await _context.UserTypes.FirstOrDefaultAsync(type => type.Name == "User");
 
             var user = new User
             {

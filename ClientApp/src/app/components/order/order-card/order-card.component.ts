@@ -30,8 +30,8 @@ export class OrderCardComponent implements OnInit {
     private currentUser: CurrentUser,
   ) { }
 
-  async ngOnInit(): Promise<void> {
-    this.isAdmin = await this.currentUser.isAdmin();
+  ngOnInit(): void {
+    this.isAdmin = this.currentUser.isAdmin();
     this.orderStatus = ORDER_STATUS_TYPE_LIST.find(order => order.status.toString() === this.order.status.toString());
     this.canDeleteOrder = this.orderStatus?.status === OrderStatus.InProcessing;
   }

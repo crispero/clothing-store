@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       login: ["", [Validators.required, Validators.minLength(this.applicationUtils.loginMinLength)]],
-      password: ["", [Validators.required, Validators.pattern(this.applicationUtils.passwordPattern)]],
+      password: ["", [Validators.required]],
     });
   }
 
@@ -41,14 +41,6 @@ export class LoginComponent implements OnInit {
     }
 
     return this.login.hasError("minlength") ? this.applicationUtils.loginErrorText : "";
-  }
-
-  getPasswordErrorMessage(): string {
-    if (this.password.hasError("required")) {
-      return "Поле пароля обязательно к заполнению";
-    }
-
-    return this.password.hasError("pattern") ? this.applicationUtils.passwordErrorText : "";
   }
 
   async onSubmit(): Promise<void> {

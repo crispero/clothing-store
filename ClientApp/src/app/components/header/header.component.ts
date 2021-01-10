@@ -21,7 +21,6 @@ interface IMenu {
 })
 export class HeaderComponent implements OnInit {
   public authorized$: Observable<boolean>;
-  public isAdmin: boolean;
   public menuList: IMenu[] = [
     {
       title: "Пользователи",
@@ -50,12 +49,15 @@ export class HeaderComponent implements OnInit {
     this.authorized$ = authUtils.getAuthorized();
   }
 
-  async ngOnInit(): Promise<void> {
-    this.isAdmin = await this.currentUser.isAdmin();
+  ngOnInit() {
   }
 
   onClickHome(): void {
     this.appRoutesService.goToClothesPage();
+  }
+
+  isAdmin(): boolean {
+    return this.currentUser.isAdmin();
   }
 
   onClickUserProfile(): void {
@@ -72,14 +74,6 @@ export class HeaderComponent implements OnInit {
 
   onClickOrder(): void {
     this.appRoutesService.goToOrderPage();
-  }
-
-  onClickBrand(): void {
-    this.appRoutesService.goToBrandPage();
-  }
-
-  onClickUserList(): void {
-    this.appRoutesService.goToUserListPage();
   }
 
   onClickLogout(): void {
