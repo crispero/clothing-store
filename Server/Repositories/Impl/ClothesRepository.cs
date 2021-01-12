@@ -71,6 +71,7 @@ namespace Server.Repositories.Impl
             clothes.Color = entity.Color;
             clothes.IsOrdered = entity.IsOrdered;
             clothes.PictureUrl = entity.PictureUrl;
+            clothes.Price = entity.Price;
 
             _context.Clothes.Update(clothes);
 
