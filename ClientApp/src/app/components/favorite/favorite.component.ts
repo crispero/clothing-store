@@ -47,7 +47,7 @@ export class FavoriteComponent implements OnInit {
     return this.basketList.some(basket => basket.clothesId === clothesId);
   }
 
-  deleteFromFavorite(clothesId: Id) {
+  deleteFromFavorite(clothesId: Id): void {
     const dialogData: IConfirmDialogData = { title: "Вы действительно хотите убрать одежду из избранного?" };
     const dialogRef = this.dialog.open(DialogConfirmComponent, { data: dialogData, autoFocus: false });
     dialogRef.afterClosed().subscribe(async (isApply: boolean) => {
@@ -67,5 +67,10 @@ export class FavoriteComponent implements OnInit {
         }
       }
     })
+  }
+
+  async addToBasket(clothesId: Id): Promise<void> {
+    const basket = await this.basketRepository.create({ clothesId, userId: this.currentUser.currentUserId });
+    this.basketList.push(basket);
   }
 }

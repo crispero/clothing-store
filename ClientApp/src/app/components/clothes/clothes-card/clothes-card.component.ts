@@ -7,7 +7,6 @@ import {
   IClothesDialogData,
   IClothesDialogResponse
 } from "../clothes-dialog/clothes-dialog.component";
-import { IClothesDto } from "../../../dto/clothes.dto";
 import { AppRoutesService } from "../../../routes/app-routes.service";
 import { CurrentUser } from "../../../utils/current-user";
 import { BrandModel } from "../../../models/brand.model";

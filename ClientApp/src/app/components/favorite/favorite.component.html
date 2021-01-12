@@ -15,6 +15,7 @@
       [showBasketButton]="!alreadyInBasket(clothes.clothesId)"
       [showCloseButton]="true"
       (onClickCloseButton)="deleteFromFavorite($event)"
+      (onClickBasket)="addToBasket($event)"
     >
     </app-clothes-card>
   </mat-grid-tile>
